@@ -8,15 +8,6 @@ export default {
   hserror: "错误页面",
   hsfourZeroFour: "404",
   hsfourZeroOne: "401",
-  hscomponents: "组件",
-  hsvideo: "视频组件",
-  hsmap: "地图组件",
-  hsdraggable: "拖拽组件",
-  hssplitPane: "切割面板",
-  hsbutton: "按钮组件",
-  hscropping: "图片裁剪",
-  hscountTo: "数字动画",
-  hsselector: "选择器组件",
   hsflowChart: "流程图",
   hsseamless: "无缝滚动",
   hscontextmenu: "右键菜单",
@@ -30,9 +21,5 @@ export default {
   hsmenu2: "菜单2",
   permission: "权限管理",
   permissionPage: "页面权限",
-  permissionButton: "按钮权限",
-  hstabs: "标签页操作",
-  hsMenuTree: "菜单树结构",
-  hsguide: "引导页",
-  externalLink: "外链"
+  permissionButton: "按钮权限"
 };

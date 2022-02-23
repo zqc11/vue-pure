@@ -1,14 +1,10 @@
 // 静态路由
 import homeRouter from "./home";
 import errorRouter from "./error";
-import guideRouter from "./guide";
 import editorRouter from "./editor";
 import nestedRouter from "./nested";
-import menuTreeRouter from "./menuTree";
-import externalLink from "./externalLink";
-import flowChartRouter from "./flowchart";
 import remainingRouter from "./remaining";
-import componentsRouter from "./components";
+import flowTaskRouter from "./flowtask";
 import { RouteRecordRaw, RouteComponent } from "vue-router";
 
 import {
@@ -21,13 +17,9 @@ import {
 const routes = [
   homeRouter,
   errorRouter,
-  guideRouter,
   nestedRouter,
-  externalLink,
   editorRouter,
-  menuTreeRouter,
-  flowChartRouter,
-  componentsRouter
+  flowTaskRouter
 ];
 
 // 导出处理后的静态路由（三级及以上的路由全部拍成二级）

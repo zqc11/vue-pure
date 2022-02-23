@@ -18,6 +18,7 @@ import "./assets/iconfont/iconfont.js";
 import "./assets/iconfont/iconfont.css";
 import "v-contextmenu/dist/themes/default.css";
 
+// 创建vus实例
 const app = createApp(App);
 
 // 自定义指令
@@ -36,8 +37,10 @@ app.component("IconifyIconOffline", IconifyIconOffline);
 app.component("IconifyIconOnline", IconifyIconOnline);
 app.component("FontIcon", FontIcon);
 
+// 对vus实例的初始化配置操作
 getServerConfig(app).then(async config => {
   injectResponsiveStorage(app, config);
+  //注册Pinia，用于Vue的状态管理库，类似于Vuex
   setupStore(app);
   app
     .use(router)
@@ -45,6 +48,7 @@ getServerConfig(app).then(async config => {
     .use(useElementPlus)
     .use(useTable)
     .use(usI18n);
+  // 注册路由
   await router.isReady();
   app.mount("#app");
 });

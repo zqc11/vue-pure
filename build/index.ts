@@ -2,6 +2,7 @@
 const warpperEnv = (envConf: Recordable): ViteEnv => {
   // 此处为默认值，无需修改
   const ret: ViteEnv = {
+    // 启动端口
     VITE_PORT: 8848,
     VITE_PUBLIC_PATH: "",
     VITE_PROXY_DOMAIN: "",

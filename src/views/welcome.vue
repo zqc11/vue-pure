@@ -25,17 +25,13 @@ let greetings = computed(() => {
     return "折一根天使羽毛，愿拂去您的疲惫烦恼忧伤🌛！";
   }
 });
-
-const openDepot = (): void => {
-  window.open("https://github.com/xiaoxian521/vue-pure-admin");
-};
 </script>
 
 <template>
   <div class="welcome">
     <el-card class="top-content">
       <div class="left-mark">
-        <img :src="avatars" title="直达仓库地址" @click="openDepot" />
+        <img :src="avatars" />
         <span>{{ greetings }}</span>
       </div>
     </el-card>
@@ -63,7 +59,7 @@ const openDepot = (): void => {
       >
         <el-card>
           <template #header>
-            <span style="font-size: 16px; font-weight: 500">GitHub信息</span>
+            <span style="font-size: 16px; font-weight: 500">用户信息</span>
           </template>
           <el-skeleton animated :rows="7" :loading="loading">
             <template #default>
@@ -95,9 +91,7 @@ const openDepot = (): void => {
       >
         <el-card>
           <template #header>
-            <span style="font-size: 16px; font-weight: 500"
-              >GitHub滚动信息</span
-            >
+            <span style="font-size: 16px; font-weight: 500">图纸进度信息</span>
           </template>
           <el-skeleton animated :rows="7" :loading="loading">
             <template #default>
@@ -129,9 +123,7 @@ const openDepot = (): void => {
       >
         <el-card>
           <template #header>
-            <span style="font-size: 16px; font-weight: 500"
-              >GitHub饼图信息</span
-            >
+            <span style="font-size: 16px; font-weight: 500">图纸状态信息</span>
           </template>
           <el-skeleton animated :rows="7" :loading="loading">
             <template #default>
@@ -164,7 +156,7 @@ const openDepot = (): void => {
         <el-card>
           <template #header>
             <span style="font-size: 16px; font-weight: 500"
-              >GitHub折线图信息</span
+              >图纸状态折线图信息</span
             >
           </template>
           <el-skeleton animated :rows="7" :loading="loading">
@@ -198,7 +190,7 @@ const openDepot = (): void => {
         <el-card>
           <template #header>
             <span style="font-size: 16px; font-weight: 500"
-              >GitHub柱状图信息</span
+              >图纸状态柱状图信息</span
             >
           </template>
           <el-skeleton animated :rows="7" :loading="loading">

@@ -14,6 +14,7 @@ import illustration4 from "/@/assets/login/illustration4.svg?component";
 import illustration5 from "/@/assets/login/illustration5.svg?component";
 import illustration6 from "/@/assets/login/illustration6.svg?component";
 
+// vue.$router
 const router = useRouter();
 
 // eslint-disable-next-line vue/return-in-computed-property
@@ -46,6 +47,7 @@ const onLogin = (): void => {
     username: "admin",
     accessToken: "eyJhbGciOiJIUzUxMiJ9.test"
   });
+  // 初始化路由
   initRouter("admin").then(() => {});
   router.push("/");
 };
@@ -70,106 +72,108 @@ function onPwdBlur() {
 </script>
 
 <template>
-  <img :src="bg" class="wave" />
-  <div class="login-container">
-    <div class="img">
-      <component :is="currentWeek"></component>
-    </div>
-    <div class="login-box">
-      <div class="login-form">
-        <avatar class="avatar" />
-        <h2
-          v-motion
-          :initial="{
-            opacity: 0,
-            y: 100
-          }"
-          :enter="{
-            opacity: 1,
-            y: 0,
-            transition: {
-              delay: 100
-            }
-          }"
-        >
-          Pure Admin
-        </h2>
-        <div
-          class="input-group user focus"
-          v-motion
-          :initial="{
-            opacity: 0,
-            y: 100
-          }"
-          :enter="{
-            opacity: 1,
-            y: 0,
-            transition: {
-              delay: 200
-            }
-          }"
-        >
-          <div class="icon">
-            <IconifyIconOffline icon="fa-user" width="14" height="14" />
+  <div>
+    <img :src="bg" class="wave" />
+    <div class="login-container">
+      <div class="img">
+        <component :is="currentWeek"></component>
+      </div>
+      <div class="login-box">
+        <div class="login-form">
+          <avatar class="avatar" />
+          <h2
+            v-motion
+            :initial="{
+              opacity: 0,
+              y: 100
+            }"
+            :enter="{
+              opacity: 1,
+              y: 0,
+              transition: {
+                delay: 100
+              }
+            }"
+          >
+            机械图纸管理系统
+          </h2>
+          <div
+            class="input-group user focus"
+            v-motion
+            :initial="{
+              opacity: 0,
+              y: 100
+            }"
+            :enter="{
+              opacity: 1,
+              y: 0,
+              transition: {
+                delay: 200
+              }
+            }"
+          >
+            <div class="icon">
+              <IconifyIconOffline icon="fa-user" width="14" height="14" />
+            </div>
+            <div>
+              <h5>用户名</h5>
+              <input
+                type="text"
+                class="input"
+                v-model="user"
+                @focus="onUserFocus"
+                @blur="onUserBlur"
+              />
+            </div>
           </div>
-          <div>
-            <h5>用户名</h5>
-            <input
-              type="text"
-              class="input"
-              v-model="user"
-              @focus="onUserFocus"
-              @blur="onUserBlur"
-            />
+          <div
+            class="input-group pwd focus"
+            v-motion
+            :initial="{
+              opacity: 0,
+              y: 100
+            }"
+            :enter="{
+              opacity: 1,
+              y: 0,
+              transition: {
+                delay: 300
+              }
+            }"
+          >
+            <div class="icon">
+              <IconifyIconOffline icon="fa-lock" width="14" height="14" />
+            </div>
+            <div>
+              <h5>密码</h5>
+              <input
+                type="password"
+                class="input"
+                v-model="pwd"
+                @focus="onPwdFocus"
+                @blur="onPwdBlur"
+              />
+            </div>
           </div>
+          <button
+            class="btn"
+            v-motion
+            :initial="{
+              opacity: 0,
+              y: 10
+            }"
+            :enter="{
+              opacity: 1,
+              y: 0,
+              transition: {
+                delay: 400
+              }
+            }"
+            @click="onLogin"
+          >
+            登录
+          </button>
         </div>
-        <div
-          class="input-group pwd focus"
-          v-motion
-          :initial="{
-            opacity: 0,
-            y: 100
-          }"
-          :enter="{
-            opacity: 1,
-            y: 0,
-            transition: {
-              delay: 300
-            }
-          }"
-        >
-          <div class="icon">
-            <IconifyIconOffline icon="fa-lock" width="14" height="14" />
-          </div>
-          <div>
-            <h5>密码</h5>
-            <input
-              type="password"
-              class="input"
-              v-model="pwd"
-              @focus="onPwdFocus"
-              @blur="onPwdBlur"
-            />
-          </div>
-        </div>
-        <button
-          class="btn"
-          v-motion
-          :initial="{
-            opacity: 0,
-            y: 10
-          }"
-          :enter="{
-            opacity: 1,
-            y: 0,
-            transition: {
-              delay: 400
-            }
-          }"
-          @click="onLogin"
-        >
-          登录
-        </button>
       </div>
     </div>
   </div>

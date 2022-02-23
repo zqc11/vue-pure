@@ -8,9 +8,9 @@ import {
 } from "./types.d";
 import qs from "qs";
 import NProgress from "../progress";
-// import { loadEnv } from "@build/index";
 import { getToken } from "/@/utils/auth";
 import { useUserStoreHook } from "/@/store/modules/user";
+// import { loadEnv } from "@build/index";
 
 // 加载环境变量 VITE_PROXY_DOMAIN（开发环境）  VITE_PROXY_DOMAIN_REAL（打包后的线上环境）
 // const { VITE_PROXY_DOMAIN, VITE_PROXY_DOMAIN_REAL } = loadEnv();
@@ -44,14 +44,14 @@ class PureHttp {
   // 保存当前Axios实例对象
   private static axiosInstance: AxiosInstance = Axios.create(defaultConfig);
 
-  // 请求拦截
+  // 请求拦截: 执行回调，判断token
   private httpInterceptorsRequest(): void {
     PureHttp.axiosInstance.interceptors.request.use(
       (config: PureHttpRequestConfig) => {
         const $config = config;
         // 开启进度条动画
         NProgress.start();
-        // 优先判断post/get等方法是否传入回掉，否则执行初始化设置等回掉
+        // 优先判断post/get等方法是否传入回调，否则执行初始化设置等回调
         if (typeof config.beforeRequestCallback === "function") {
           config.beforeRequestCallback($config);
           return $config;

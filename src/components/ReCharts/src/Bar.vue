@@ -49,7 +49,7 @@ function initechartInstance() {
           // width: "70",
           // overflow: "truncate"
         },
-        data: ["open_issues", "forks", "watchers", "star"]
+        data: ["线型检查", "强度校核", "工艺校核", "完成"]
       }
     ],
     yAxis: [
@@ -59,9 +59,9 @@ function initechartInstance() {
     ],
     series: [
       {
-        name: "GitHub信息",
+        name: "图纸柱状信息",
         type: "bar",
-        data: [3, 204, 1079, 1079]
+        data: [77, 15, 50, 100]
       }
     ]
   });

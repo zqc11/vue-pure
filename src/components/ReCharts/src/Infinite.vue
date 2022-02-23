@@ -8,53 +8,53 @@ const scroll = templateRef<ElRef | null>("scroll", null);
 let listData = ref([
   {
     date: "2021-09-01",
-    name: "vue-pure-admin",
-    star: "1000"
+    name: "1号图纸",
+    star: "完成"
   },
   {
     date: "2021-09-02",
-    name: "vue-pure-admin",
-    star: "1100"
+    name: "2号图纸",
+    star: "线型检查"
   },
   {
     date: "2021-09-03",
-    name: "vue-pure-admin",
-    star: "1200"
+    name: "2号图纸",
+    star: "强度校核"
   },
   {
     date: "2021-09-04",
-    name: "vue-pure-admin",
-    star: "1300"
+    name: "2号图纸",
+    star: "工艺校核"
   },
   {
     date: "2021-09-05",
-    name: "vue-pure-admin",
-    star: "1400"
+    name: "3号图纸",
+    star: "绘制中"
   },
   {
     date: "2021-09-06",
-    name: "vue-pure-admin",
-    star: "1500"
+    name: "2号图纸",
+    star: "完成"
   },
   {
     date: "2021-09-07",
-    name: "vue-pure-admin",
-    star: "1600"
+    name: "3号图纸",
+    star: "线型检查"
   },
   {
     date: "2021-09-08",
-    name: "vue-pure-admin",
-    star: "1700"
+    name: "3号图纸",
+    star: "不合格，退回"
   },
   {
     date: "2021-09-09",
-    name: "vue-pure-admin",
-    star: "1800"
+    name: "3号图纸",
+    star: "修订中"
   },
   {
     date: "2021-09-10",
-    name: "vue-pure-admin",
-    star: "1900"
+    name: "3号图纸",
+    star: "完成"
   }
 ]);
 
@@ -68,7 +68,7 @@ let classOption = reactive({
     <ul class="top">
       <li>更新日期</li>
       <li>项目名称</li>
-      <li>Star数量</li>
+      <li>当前进度</li>
     </ul>
     <SeamlessScroll
       ref="scroll"

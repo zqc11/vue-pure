@@ -7,6 +7,12 @@ const lists = ref([
   { type: "danger", label: "旅游" },
   { type: "warning", label: "追剧" }
 ]);
+const userInfo = {
+  name: "周启春",
+  tel: "12345678910",
+  location: "武汉",
+  communication: "HUST"
+};
 </script>
 
 <template>
@@ -18,7 +24,7 @@ const lists = ref([
         </el-icon>
         用户名
       </template>
-      xiaoxian
+      {{ userInfo.name }}
     </el-descriptions-item>
     <el-descriptions-item>
       <template #label>
@@ -27,7 +33,7 @@ const lists = ref([
         </el-icon>
         手机号
       </template>
-      123456789
+      {{ userInfo.tel }}
     </el-descriptions-item>
     <el-descriptions-item>
       <template #label>
@@ -36,10 +42,10 @@ const lists = ref([
         </el-icon>
         居住地
       </template>
-      上海
+      {{ userInfo.location }}
     </el-descriptions-item>
   </el-descriptions>
-  <el-descriptions class="margin-top" direction="vertical" :column="2" border>
+  <el-descriptions class="margin-top" direction="vertical" :column="1" border>
     <el-descriptions-item>
       <template #label>
         <el-icon>
@@ -64,18 +70,7 @@ const lists = ref([
         </el-icon>
         联系地址
       </template>
-      上海市徐汇区
-    </el-descriptions-item>
-  </el-descriptions>
-  <el-descriptions class="margin-top" direction="vertical" :column="1" border>
-    <el-descriptions-item>
-      <template #label>
-        <el-icon>
-          <IconifyIconOffline icon="notebook" />
-        </el-icon>
-        留言
-      </template>
-      好好学习，天天向上
+      {{ userInfo.communication }}
     </el-descriptions-item>
   </el-descriptions>
 </template>

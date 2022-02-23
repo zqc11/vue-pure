@@ -36,15 +36,15 @@ function initechartInstance() {
     },
     series: [
       {
-        name: "Github信息",
+        name: "所有图纸状态信息",
         type: "pie",
-        radius: "60%",
+        radius: "80%",
         center: ["40%", "50%"],
         data: [
-          { value: 1079, name: "watchers" },
-          { value: 1079, name: "star" },
-          { value: 204, name: "forks" },
-          { value: 3, name: "open_issues" }
+          { value: 100, name: "完成" },
+          { value: 50, name: "工艺校核" },
+          { value: 77, name: "线型检查" },
+          { value: 15, name: "强度校核" }
         ],
         emphasis: {
           itemStyle: {

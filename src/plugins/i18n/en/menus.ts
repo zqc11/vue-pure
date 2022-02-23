@@ -8,15 +8,6 @@ export default {
   hserror: "Error Page",
   hsfourZeroFour: "404",
   hsfourZeroOne: "401",
-  hscomponents: "Components",
-  hsvideo: "Video Components",
-  hsmap: "Map Components",
-  hsdraggable: "Draggable Components",
-  hssplitPane: "Split Pane",
-  hsbutton: "Button Components",
-  hscropping: "Picture Cropping",
-  hscountTo: "Digital Animation",
-  hsselector: "Selector Components",
   hsflowChart: "Flow Chart",
   hsseamless: "Seamless Scroll",
   hscontextmenu: "Context Menu",
@@ -30,9 +21,5 @@ export default {
   hsmenu2: "Menu2",
   permission: "Permission Manage",
   permissionPage: "Page Permission",
-  permissionButton: "Button Permission",
-  hstabs: "Tabs Operate",
-  hsMenuTree: "Menu Tree",
-  hsguide: "Guide",
-  externalLink: "External Link"
+  permissionButton: "Button Permission"
 };

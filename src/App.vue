@@ -15,6 +15,7 @@ export default defineComponent({
     [ElConfigProvider.name]: ElConfigProvider
   },
   computed: {
+    // 返回网站的语言
     currentLocale() {
       return this.$storage.locale?.locale === "zh" ? zhCn : en;
     }

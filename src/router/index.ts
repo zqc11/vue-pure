@@ -16,12 +16,16 @@ import {
   findRouteByPath,
   handleAliveRoute
 } from "./utils";
+import otherRouter from "./modules/other";
 
 // 创建路由实例
 export const router: Router = createRouter({
+  // 用于路由实现历史记录
   history: getHistoryMode(),
-  routes: constantRoutes.concat(...remainingRouter),
+  // 添加到router实例的初始路由列表
+  routes: constantRoutes.concat(...remainingRouter, ...otherRouter),
   strict: true,
+  // 在页面之间切换时控制滚动的位置
   scrollBehavior(to, from, savedPosition) {
     return new Promise(resolve => {
       if (savedPosition) {
@@ -40,6 +44,7 @@ export const router: Router = createRouter({
 // 路由白名单
 const whiteList = ["/login"];
 
+// 路由跳转之前执行的动作
 router.beforeEach((to: toRouteType, _from, next) => {
   if (to.meta?.keepAlive) {
     const newMatched = to.matched;
@@ -50,6 +55,7 @@ router.beforeEach((to: toRouteType, _from, next) => {
     }
   }
   const name = storageSession.getItem("info");
+  // 进度条动画开始
   NProgress.start();
   const externalLink = to?.redirectedFrom?.fullPath;
   if (!externalLink)
@@ -62,10 +68,13 @@ router.beforeEach((to: toRouteType, _from, next) => {
         : "";
     });
   if (name) {
+    // from路由的名称不为空
     if (_from?.name) {
       // 如果路由包含http 则是超链接 反之是普通路由
       if (externalLink && externalLink.includes("http")) {
+        // 打开外链
         openLink(`http${split(externalLink, "http")[1]}`);
+        // 进度条动画结束
         NProgress.done();
       } else {
         next();
@@ -146,6 +155,8 @@ router.beforeEach((to: toRouteType, _from, next) => {
     }
   } else {
     if (to.path !== "/login") {
+      // 如果访问的路由存在于白名单中，则继续跳转到目标，否则返回login页面
+      // 用于判断权限
       if (whiteList.indexOf(to.path) !== -1) {
         next();
       } else {
@@ -158,6 +169,7 @@ router.beforeEach((to: toRouteType, _from, next) => {
 });
 
 router.afterEach(() => {
+  // 进度条动画结束
   NProgress.done();
 });
 

@@ -27,8 +27,11 @@ import setting from "./components/setting/index.vue";
 import Vertical from "./components/sidebar/vertical.vue";
 import Horizontal from "./components/sidebar/horizontal.vue";
 
+// 判断设备是否是移动设备
 const isMobile = deviceDetection();
+// 加载store配置
 const pureSetting = useSettingStoreHook();
+// 全局变量
 const instance = getCurrentInstance().appContext.app.config.globalProperties;
 
 // 清空缓存后从serverConfig.json读取默认配置并赋值到storage中
@@ -47,7 +50,7 @@ const layout = computed(() => {
     instance.$storage.locale = { locale: instance.$config?.Locale ?? "zh" };
     useI18n().locale.value = instance.$config?.Locale ?? "zh";
   }
-  // 导航
+  // 导航配置
   if (!instance.$storage.layout) {
     // eslint-disable-next-line vue/no-side-effects-in-computed-properties
     instance.$storage.layout = {

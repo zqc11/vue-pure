@@ -40,14 +40,14 @@ function initechartInstance() {
       axisLabel: {
         interval: 0
       },
-      data: ["open_issues", "forks", "watchers", "star"]
+      data: ["线型检查", "强度校核", "工艺校核", "完成"]
     },
     yAxis: {
       type: "value"
     },
     series: [
       {
-        data: [3, 204, 1079, 1079],
+        data: [77, 15, 50, 100],
         type: "line",
         areaStyle: {}
       }

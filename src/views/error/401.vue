@@ -9,7 +9,7 @@ const img = ref(`${imgs}?${new Date()}`);
   <div class="errPage-container">
     <el-row>
       <el-col :span="12">
-        <h1 class="text-jumbo text-ginormous">Pure Admin</h1>
+        <h1 class="text-jumbo text-ginormous">机械图纸管理系统</h1>
         <h2>你没有权限去该页面</h2>
       </el-col>
       <el-col :span="12">

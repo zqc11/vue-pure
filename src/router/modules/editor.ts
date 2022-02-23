@@ -20,11 +20,12 @@ const editorRouter = {
       meta: {
         title: $t("menus.hseditor"),
         i18n: true,
-        keepAlive: true,
-        extraIcon: {
-          svg: true,
-          name: "team-iconxinpin"
-        }
+        keepAlive: true
+        // 新内容icon
+        // extraIcon: {
+        //   svg: true,
+        //   name: "team-iconxinpin"
+        // }
       }
     }
   ]

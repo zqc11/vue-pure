@@ -18,7 +18,7 @@ const message = computed(() => {
         <img class="pic-404__child right" :src="four_cloud" alt="404" />
       </div>
       <div class="bullshit">
-        <div class="bullshit__oops">Pure Admin</div>
+        <div class="bullshit__oops">CAD Management System</div>
         <div class="bullshit__headline">{{ message }}</div>
         <div class="bullshit__info">
           Please check that the URL you entered is correct, or click the button
