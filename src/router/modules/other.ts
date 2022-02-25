@@ -29,12 +29,11 @@ const otherRouter = [
   {
     path: "/taskInfo",
     name: "taskInfo",
-    redirect: "/taskInfo/index",
     component: Layout,
     children: [
       {
+        path: "",
         name: "taskInfo",
-        path: "/taskInfo/index",
         component: () => import("/@/views/task-info/index.vue")
       }
     ]
@@ -43,13 +42,29 @@ const otherRouter = [
   {
     path: "/newTask",
     name: "newTask",
-    redirect: "/newTask/index",
     component: Layout,
     children: [
       {
+        // /newTask
+        path: "",
         name: "newTask",
-        path: "/newTask/index",
-        component: () => import("/@/views/new-task/index.vue")
+        component: () => import("/@/views/new-task/index.vue"),
+        redirect: "/newTask/baseInfo",
+        children: [
+          {
+            // /newTask/baseInfo
+            path: "baseInfo",
+            name: "baseInfo",
+            component: () => import("/@/views/new-task/base-info/index.vue")
+          },
+
+          {
+            // /newTask/upload
+            name: "upload",
+            path: "upload",
+            component: () => import("/@/views/new-task/upload/index.vue")
+          }
+        ]
       }
     ]
   }

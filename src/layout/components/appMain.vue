@@ -97,14 +97,14 @@ const transitionMain = defineComponent({
             >
               <component
                 :is="Component"
-                :key="route.fullPath"
+                :key="route.activeMenuName"
                 class="main-content"
               />
             </keep-alive>
             <component
               v-else
               :is="Component"
-              :key="route.fullPath"
+              :key="route.activeMenuName"
               class="main-content"
             />
           </transitionMain>
@@ -117,14 +117,14 @@ const transitionMain = defineComponent({
             >
               <component
                 :is="Component"
-                :key="route.fullPath"
+                :key="route.activeMenuName"
                 class="main-content"
               />
             </keep-alive>
             <component
               v-else
               :is="Component"
-              :key="route.fullPath"
+              :key="route.activeMenuName"
               class="main-content"
             />
           </transitionMain>

@@ -25,6 +25,8 @@ import {
   ElInput,
   ElForm,
   ElFormItem,
+  ElSelect,
+  ElOption,
   ElPopover,
   ElPopper,
   ElTooltip,
@@ -46,6 +48,7 @@ import {
   ElCollapse,
   ElCollapseItem,
   ElTreeV2,
+  ElUpload,
   // 指令
   ElLoading,
   ElInfiniteScroll
@@ -80,6 +83,8 @@ const components = [
   ElInput,
   ElForm,
   ElFormItem,
+  ElSelect,
+  ElOption,
   ElPopover,
   ElPopper,
   ElTooltip,
@@ -100,7 +105,8 @@ const components = [
   ElEmpty,
   ElCollapse,
   ElCollapseItem,
-  ElTreeV2
+  ElTreeV2,
+  ElUpload
 ];
 
 export function useElementPlus(app: App) {

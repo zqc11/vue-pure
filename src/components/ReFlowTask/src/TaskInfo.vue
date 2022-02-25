@@ -1,16 +1,16 @@
 <template>
   <div>
+    <el-divider direction="horizontal"></el-divider>
     <Splitpanes class="default-theme">
-      <Pane v-show="showForm()" :min-size="showWidth()">
+      <Pane v-show="showForm()" :size="showWidth()" :min-size="20">
         <!-- 显示表单信息 -->
         <div>hello</div>
       </Pane>
-      <Pane v-show="showBlueprint()" :min-size="showWidth()">
+      <Pane v-show="showBlueprint()" :size="showWidth()" :min-size="20">
         <!-- 显示机械图纸 -->
         <Blueprint></Blueprint>
       </Pane>
     </Splitpanes>
-    <el-divider direction="vertical"></el-divider>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ function showWidth() {
   if (show.value == 1 || show.value == 2) {
     return 100;
   }
-  return 20;
+  return 50;
 }
 function showForm() {
   return show.value != 2;
