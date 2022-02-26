@@ -63,6 +63,12 @@ const otherRouter = [
             name: "upload",
             path: "upload",
             component: () => import("/@/views/new-task/upload/index.vue")
+          },
+          {
+            // /newTask/formDesign
+            path: "formDesign",
+            name: "formDesign",
+            component: () => import("/@/views/new-task/form-design/index.vue")
           }
         ]
       }

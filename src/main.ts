@@ -8,11 +8,16 @@ import { MotionPlugin } from "@vueuse/motion";
 import { useTable } from "../src/plugins/vxe-table";
 import { useElementPlus } from "../src/plugins/element-plus";
 import { injectResponsiveStorage } from "/@/utils/storage/responsive";
+// import ElementPlus from "element-plus"; //引入element-plus库
 
 import "animate.css";
 import "virtual:windi.css";
 // 导入公共样式
 import "./style/index.scss";
+import "element-plus/dist/index.css"; //引入element-plus样式
+import VForm3 from "vform3-builds-plus"; //引入VForm 3库
+import "vform3-builds-plus/dist/style.css"; //引入VForm3样式
+
 // 导入字体图标
 import "./assets/iconfont/iconfont.js";
 import "./assets/iconfont/iconfont.css";
@@ -46,6 +51,7 @@ getServerConfig(app).then(async config => {
     .use(router)
     .use(MotionPlugin)
     .use(useElementPlus)
+    .use(VForm3)
     .use(useTable)
     .use(usI18n);
   // 注册路由

@@ -9,7 +9,7 @@
       <el-step title="权限设置" :icon="UserFilled"></el-step>
     </el-steps>
     <!-- 不同状态下的router-view -->
-    <router-view @next="next"></router-view>
+    <router-view @next="next" id="router-view"></router-view>
   </div>
 </template>
 
@@ -23,7 +23,6 @@ import { Platform } from "@element-plus/icons-vue";
 
 const active = ref(0);
 function next(step) {
-  console.log("next");
   active.value = step;
 }
 </script>
@@ -34,5 +33,9 @@ function next(step) {
 
 .el-step__head.is-process {
   border-color: #409eff !important;
+}
+
+#router-view {
+  width: 100%;
 }
 </style>

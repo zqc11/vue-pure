@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row :gutter="0" justify="end">
+    <el-row :gutter="0" justify="end" id="toolbar">
       <el-col
         :xs="6"
         :sm="4"
@@ -67,5 +67,9 @@ provide("show", show);
 <style scoped>
 .top-menu-button {
   width: 100%;
+}
+
+#toolbar {
+  margin-bottom: 10px;
 }
 </style>

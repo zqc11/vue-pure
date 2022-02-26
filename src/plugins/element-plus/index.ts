@@ -51,7 +51,19 @@ import {
   ElUpload,
   // 指令
   ElLoading,
-  ElInfiniteScroll
+  ElInfiniteScroll,
+  ElCheckboxButton,
+  ElCheckbox,
+  ElCheckboxGroup,
+  ElTimePicker,
+  ElSlider,
+  ElHeader,
+  ElAside,
+  ElMain,
+  ElContainer,
+  ElButtonGroup,
+  ElTree,
+  ElInputNumber
 } from "element-plus";
 
 // Directives
@@ -106,7 +118,19 @@ const components = [
   ElCollapse,
   ElCollapseItem,
   ElTreeV2,
-  ElUpload
+  ElUpload,
+  ElCheckboxButton,
+  ElCheckbox,
+  ElCheckboxGroup,
+  ElTimePicker,
+  ElSlider,
+  ElHeader,
+  ElAside,
+  ElMain,
+  ElContainer,
+  ElButtonGroup,
+  ElTree,
+  ElInputNumber
 ];
 
 export function useElementPlus(app: App) {
