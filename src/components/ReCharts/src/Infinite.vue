@@ -8,53 +8,63 @@ const scroll = templateRef<ElRef | null>("scroll", null);
 let listData = ref([
   {
     date: "2021-09-01",
-    name: "1号图纸",
-    star: "完成"
+    title: "1号图纸",
+    checker: "王小明",
+    status: "完成"
   },
   {
     date: "2021-09-02",
-    name: "2号图纸",
-    star: "线型检查"
+    title: "2号图纸",
+    checker: "张晓文",
+    status: "线型检查"
   },
   {
     date: "2021-09-03",
-    name: "2号图纸",
-    star: "强度校核"
+    title: "2号图纸",
+    checker: "王小明",
+    status: "强度校核"
   },
   {
     date: "2021-09-04",
-    name: "2号图纸",
-    star: "工艺校核"
+    title: "2号图纸",
+    checker: "李明明",
+    status: "工艺校核"
   },
   {
     date: "2021-09-05",
-    name: "3号图纸",
-    star: "绘制中"
+    title: "3号图纸",
+    checker: "方世玉",
+    status: "绘制中"
   },
   {
     date: "2021-09-06",
-    name: "2号图纸",
-    star: "完成"
+    title: "2号图纸",
+    checker: "王小明",
+    status: "完成"
   },
   {
     date: "2021-09-07",
-    name: "3号图纸",
-    star: "线型检查"
+    title: "3号图纸",
+    checker: "张晓文",
+    status: "线型检查"
   },
   {
     date: "2021-09-08",
-    name: "3号图纸",
-    star: "不合格，退回"
+    title: "3号图纸",
+    checker: "李明明",
+    status: "不合格，退回"
   },
   {
     date: "2021-09-09",
-    name: "3号图纸",
-    star: "修订中"
+    title: "3号图纸",
+    checker: "王小明",
+    status: "修订中"
   },
   {
     date: "2021-09-10",
-    name: "3号图纸",
-    star: "完成"
+    title: "3号图纸",
+    checker: "李明明",
+    status: "完成"
   }
 ]);
 
@@ -68,6 +78,7 @@ let classOption = reactive({
     <ul class="top">
       <li>更新日期</li>
       <li>项目名称</li>
+      <li>审批人</li>
       <li>当前进度</li>
     </ul>
     <SeamlessScroll
@@ -79,8 +90,9 @@ let classOption = reactive({
       <ul class="item">
         <li v-for="(item, index) in listData" :key="index">
           <span v-text="item.date"></span>
-          <span v-text="item.name"></span>
-          <span v-text="item.star"></span>
+          <span v-text="item.title"></span>
+          <span v-text="item.checker"></span>
+          <span v-text="item.status"></span>
         </li>
       </ul>
     </SeamlessScroll>

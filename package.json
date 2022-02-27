@@ -31,6 +31,7 @@
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@ctrl/tinycolor": "^3.4.0",
+    "@element-plus/icons-vue": "^1.0.0",
     "@logicflow/core": "0.7.1",
     "@logicflow/extension": "0.7.1",
     "@vueuse/core": "^7.5.5",
@@ -60,7 +61,7 @@
     "rgb-hex": "^4.0.0",
     "splitpanes": "^3.1.1",
     "v-contextmenu": "3.0.0",
-    "vform3-builds-plus": "^3.0.7",
+    "vform3-plus": "^3.0.12",
     "vjmap": "^1.0.27",
     "vue": "^3.2.29",
     "vue-i18n": "^9.2.0-beta.30",

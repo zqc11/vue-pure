@@ -1,6 +1,6 @@
 import { App } from "vue";
 import reBar from "./src/Bar.vue";
-import reGithub from "./src/Github.vue";
+import reUserInfo from "./src/UserInfo.vue";
 import reInfinite from "./src/Infinite.vue";
 import reLine from "./src/Line.vue";
 import rePie from "./src/Pie.vue";
@@ -11,9 +11,9 @@ export const ReBar = Object.assign(reBar, {
   }
 });
 
-export const ReGithub = Object.assign(reGithub, {
+export const ReUserInfo = Object.assign(reUserInfo, {
   install(app: App) {
-    app.component(reGithub.name, reGithub);
+    app.component(reUserInfo.name, reUserInfo);
   }
 });
 

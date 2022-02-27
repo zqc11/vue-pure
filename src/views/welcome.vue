@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  ReGithub,
+  ReUserInfo,
   ReInfinite,
   RePie,
   ReLine,
@@ -37,6 +37,7 @@ let greetings = computed(() => {
     </el-card>
 
     <el-row :gutter="24" style="margin: 20px">
+      <!-- 用户信息 -->
       <el-col
         :xs="24"
         :sm="24"
@@ -63,12 +64,13 @@ let greetings = computed(() => {
           </template>
           <el-skeleton animated :rows="7" :loading="loading">
             <template #default>
-              <ReGithub />
+              <ReUserInfo />
             </template>
           </el-skeleton>
         </el-card>
       </el-col>
 
+      <!-- 滚动消息 -->
       <el-col
         :xs="24"
         :sm="24"

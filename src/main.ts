@@ -15,8 +15,8 @@ import "virtual:windi.css";
 // 导入公共样式
 import "./style/index.scss";
 import "element-plus/dist/index.css"; //引入element-plus样式
-import VForm3 from "vform3-builds-plus"; //引入VForm 3库
-import "vform3-builds-plus/dist/style.css"; //引入VForm3样式
+import VForm3 from "vform3-plus"; //引入VForm 3库
+import "vform3-plus/dist/style.css"; //引入VForm3样式
 
 // 导入字体图标
 import "./assets/iconfont/iconfont.js";

@@ -322,43 +322,6 @@ const formJson = reactive({
       id: "input113152"
     },
     {
-      type: "checkbox",
-      icon: "checkbox-field",
-      formItemFlag: true,
-      options: {
-        name: "checkbox63174",
-        label: "接收时间段",
-        labelAlign: "",
-        defaultValue: [],
-        columnWidth: "200px",
-        size: "",
-        displayStyle: "inline",
-        buttonStyle: false,
-        border: false,
-        labelWidth: null,
-        labelHidden: false,
-        disabled: false,
-        hidden: false,
-        optionItems: [
-          { label: "上午9:00 - 11:30", value: 1 },
-          { label: "下午12:30 - 18:00", value: 2 },
-          { label: "晚上18:00 - 21:00", value: 3 }
-        ],
-        required: true,
-        validation: "",
-        validationHint: "",
-        customClass: "",
-        labelIconClass: null,
-        labelIconPosition: "rear",
-        labelTooltip: null,
-        onCreated: "",
-        onMounted: "",
-        onChange: "",
-        onValidate: ""
-      },
-      id: "checkbox63174"
-    },
-    {
       type: "input",
       icon: "text-field",
       formItemFlag: true,
@@ -464,43 +427,6 @@ const formJson = reactive({
         onMounted: ""
       },
       id: "divider75887"
-    },
-    {
-      type: "time-range",
-      icon: "time-range-field",
-      formItemFlag: true,
-      options: {
-        name: "timerange47503",
-        label: "送货时间",
-        labelAlign: "",
-        defaultValue: null,
-        startPlaceholder: "",
-        endPlaceholder: "",
-        columnWidth: "200px",
-        size: "",
-        labelWidth: null,
-        labelHidden: false,
-        readonly: false,
-        disabled: false,
-        hidden: false,
-        clearable: true,
-        editable: false,
-        format: "HH:mm:ss",
-        required: true,
-        validation: "",
-        validationHint: "",
-        customClass: "",
-        labelIconClass: null,
-        labelIconPosition: "rear",
-        labelTooltip: null,
-        onCreated: "",
-        onMounted: "",
-        onChange: "",
-        onFocus: "",
-        onBlur: "",
-        onValidate: ""
-      },
-      id: "timerange47503"
     },
     {
       type: "slider",
