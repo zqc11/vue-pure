@@ -41,12 +41,6 @@ const formSize = ref("");
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive({
   name: "",
-  region: "",
-  date1: "",
-  date2: "",
-  delivery: false,
-  type: [],
-  resource: "",
   desc: ""
 });
 
@@ -62,13 +56,6 @@ const rules = reactive({
       max: 5,
       message: "Length should be 3 to 5",
       trigger: "blur"
-    }
-  ],
-  region: [
-    {
-      required: true,
-      message: "Please select Activity zone",
-      trigger: "change"
     }
   ],
   desc: [

@@ -20,8 +20,11 @@
         :size="width"
         :min-size="minSizeOfBlueprint"
       >
-        <!-- 显示机械图纸 -->
-        <Blueprint></Blueprint>
+        <el-scrollbar height="80vh">
+          <!-- 显示机械图纸 -->
+          <Blueprint></Blueprint>
+          <PdfView></PdfView>
+        </el-scrollbar>
       </Pane>
     </Splitpanes>
   </div>
@@ -29,7 +32,7 @@
 
 <script setup lang="ts">
 import { computed, inject, Ref, ref, reactive } from "vue";
-import { Blueprint } from "/@/components/ReFlowTask";
+import { Blueprint, PdfView } from "/@/components/ReFlowTask";
 import { Splitpanes, Pane } from "splitpanes";
 import "splitpanes/dist/splitpanes.css";
 import { ElMessage } from "element-plus";

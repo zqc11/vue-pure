@@ -2,7 +2,9 @@
 import { ref, unref, onMounted } from "vue";
 import { templateRef } from "@vueuse/core";
 import { LogicFlow } from "@logicflow/core";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 interface Props {
   lf: LogicFlow;
   catTurboData?: boolean;
@@ -12,14 +14,11 @@ const props = withDefaults(defineProps<Props>(), {
   lf: null
 });
 
-const emit = defineEmits<{
-  (e: "catData"): void;
-}>();
+const emit = defineEmits(["catData", "next"]);
 
 const controlButton3 = templateRef<HTMLElement | any>("controlButton3", null);
 const controlButton4 = templateRef<HTMLElement | any>("controlButton4", null);
 
-let focusIndex = ref<Number>(-1);
 let titleLists = ref([
   {
     icon: "icon-zoom-out-hs",
@@ -75,8 +74,9 @@ const onControl = (item, key) => {
   );
 };
 
-const onEnter = key => {
-  focusIndex.value = key;
+const nextStep = () => {
+  router.push("/newTask/permission");
+  emit("next", 4);
 };
 
 onMounted(() => {
@@ -91,25 +91,23 @@ onMounted(() => {
   <div class="control-container">
     <!-- 功能按钮 -->
     <ul>
-      <li
-        v-for="(item, key) in titleLists"
-        :key="key"
-        :title="item.text"
-        :style="{ background: focusIndex === key ? '#ccc' : '' }"
-        @mouseenter.prevent="onEnter(key)"
-        @mouseleave.prevent="focusIndex = -1"
-      >
-        <button
+      <li v-for="(item, key) in titleLists" :key="key" :title="item.text">
+        <el-button
           :ref="'controlButton' + key"
           :disabled="item.disabled"
           :style="{
             cursor: item.disabled === false ? 'pointer' : 'not-allowed'
           }"
+          size="small"
           @click="onControl(item, key)"
         >
           <span :class="'iconfont ' + item.icon"></span>
-          <p>{{ item.text }}</p>
-        </button>
+        </el-button>
+      </li>
+      <li>
+        <el-button type="primary" size="small" @click="nextStep">
+          下一步
+        </el-button>
       </li>
     </ul>
   </div>
@@ -123,10 +121,6 @@ onMounted(() => {
   right: 20px;
   background: hsla(0, 0%, 100%, 0.8);
   box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
-}
-
-.iconfont {
-  font-size: 25px;
 }
 
 .control-container p {
@@ -148,7 +142,6 @@ onMounted(() => {
 
 .control-container ul li button {
   border: none;
-  background-color: transparent;
   outline: none;
 }
 </style>

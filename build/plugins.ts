@@ -10,6 +10,7 @@ import ElementPlus from "unplugin-element-plus/vite";
 import { visualizer } from "rollup-plugin-visualizer";
 import removeConsole from "vite-plugin-remove-console";
 import themePreprocessorPlugin from "@zougt/vite-plugin-theme-preprocessor";
+// import viteCompression from "vite-plugin-compression";
 
 export function getPluginsList(command, VITE_LEGACY) {
   const prodMock = true;
@@ -117,5 +118,7 @@ export function getPluginsList(command, VITE_LEGACY) {
     lifecycle === "report"
       ? visualizer({ open: true, brotliSize: true, filename: "report.html" })
       : null
+    // 打包压缩
+    // viteCompression()
   ];
 }

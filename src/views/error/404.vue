@@ -4,7 +4,7 @@ import four from "/@/assets/404.png";
 import four_cloud from "/@/assets/404_cloud.png";
 
 const message = computed(() => {
-  return "The webmaster said that you can not enter this page...";
+  return "无法加载当前页面...";
 });
 </script>
 
@@ -18,13 +18,12 @@ const message = computed(() => {
         <img class="pic-404__child right" :src="four_cloud" alt="404" />
       </div>
       <div class="bullshit">
-        <div class="bullshit__oops">CAD Management System</div>
+        <div class="bullshit__oops">机械图纸管理系统</div>
         <div class="bullshit__headline">{{ message }}</div>
         <div class="bullshit__info">
-          Please check that the URL you entered is correct, or click the button
-          below to return to the homepage.
+          请检查您输入的URL是否正确，或者点击下方按钮返回主页
         </div>
-        <a href="" class="bullshit__return-home">Back to home</a>
+        <a href="" class="bullshit__return-home">返回主页</a>
       </div>
     </div>
   </div>

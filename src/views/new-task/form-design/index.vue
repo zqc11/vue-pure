@@ -1,19 +1,23 @@
 <template>
   <div>
-    <el-row :gutter="20" type="flex" justify="end">
-      <el-col>
-        <el-button>下一步</el-button>
-      </el-col>
-    </el-row>
     <v-form-designer ref="vfdRef">
-      <!--       <el-button v-slot="button">TEST</el-button> -->
+      <el-button :v-slot="button" type="primary" size="small" @click="next"
+        >下一步</el-button
+      >
     </v-form-designer>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 const vfdRef = ref(null);
+const router = useRouter();
+const emit = defineEmits(["next"]);
+const next = () => {
+  router.push("/newTask/flowChart");
+  emit("next", 3);
+};
 </script>
 
 <style scoped>

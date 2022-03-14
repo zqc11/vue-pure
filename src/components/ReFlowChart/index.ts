@@ -2,6 +2,8 @@ import { App } from "vue";
 import control from "./src/Control.vue";
 import nodePanel from "./src/NodePanel.vue";
 import dataDialog from "./src/DataDialog.vue";
+import nodeDrawer from "./src/NodeDrawer.vue";
+import edgeDrawer from "./src/EdgeDrawer.vue";
 
 export const Control = Object.assign(control, {
   install(app: App) {
@@ -18,5 +20,17 @@ export const NodePanel = Object.assign(nodePanel, {
 export const DataDialog = Object.assign(dataDialog, {
   install(app: App) {
     app.component(dataDialog.name, dataDialog);
+  }
+});
+
+export const NodeDrawer = Object.assign(nodeDrawer, {
+  install(app: App) {
+    app.component(nodeDrawer.name, nodeDrawer);
+  }
+});
+
+export const EdgeDrawer = Object.assign(edgeDrawer, {
+  install(app: App) {
+    app.component(edgeDrawer.name, edgeDrawer);
   }
 });

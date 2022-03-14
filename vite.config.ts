@@ -89,7 +89,17 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       sourcemap: false,
       brotliSize: false,
       // 消除打包大小超过500kb警告
-      chunkSizeWarningLimit: 2000
+      chunkSizeWarningLimit: 2000,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            "element-plus": ["element-plus"],
+            "vform3-plus": ["vform3-plus"],
+            echarts: ["echarts"]
+          }
+        }
+      },
+      cssCodeSplit: true // 如果设置为false，整个项目中的所有 CSS 将被提取到一个 CSS 文件中
     },
     define: {
       __INTLIFY_PROD_DEVTOOLS__: false

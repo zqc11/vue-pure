@@ -63,7 +63,8 @@ import {
   ElContainer,
   ElButtonGroup,
   ElTree,
-  ElInputNumber
+  ElInputNumber,
+  ElMessageBox
 } from "element-plus";
 
 // Directives
@@ -130,7 +131,8 @@ const components = [
   ElContainer,
   ElButtonGroup,
   ElTree,
-  ElInputNumber
+  ElInputNumber,
+  ElMessageBox
 ];
 
 export function useElementPlus(app: App) {

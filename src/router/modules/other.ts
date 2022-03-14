@@ -2,30 +2,7 @@ import { $t } from "/@/plugins/i18n";
 import Layout from "/@/layout/index.vue";
 
 const otherRouter = [
-  {
-    path: "/flowChart",
-    name: "flowChart",
-    component: Layout,
-    redirect: "/flowChart/index",
-    meta: {
-      icon: "set-up",
-      title: $t("menus.hsflowChart"),
-      i18n: true,
-      rank: 1
-    },
-    children: [
-      {
-        path: "/flowChart/index",
-        name: "flowChart",
-        component: () => import("/@/views/flow-chart/index.vue"),
-        meta: {
-          title: $t("menus.hsflowChart"),
-          i18n: true
-        }
-      }
-    ]
-  },
-
+  // 查看流程信息
   {
     path: "/taskInfo",
     name: "taskInfo",
@@ -69,6 +46,19 @@ const otherRouter = [
             path: "formDesign",
             name: "formDesign",
             component: () => import("/@/views/new-task/form-design/index.vue")
+          },
+
+          {
+            // /newTask/flowChart
+            path: "flowChart",
+            name: "flowChart",
+            component: () => import("/@/views/new-task/flow-chart/index.vue"),
+            meta: {
+              icon: "set-up",
+              title: $t("menus.hsflowChart"),
+              i18n: true,
+              rank: 1
+            }
           }
         ]
       }

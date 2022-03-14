@@ -1,6 +1,7 @@
 import { App } from "vue";
 import axios from "axios";
 import { loadEnv } from "@build/index";
+import { ElMessageBox } from "element-plus";
 
 let config: object = {};
 const { VITE_PUBLIC_PATH } = loadEnv();
@@ -30,6 +31,7 @@ const getConfig = (key?: string): ServerConfigs => {
 // 获取项目动态全局配置
 export const getServerConfig = async (app: App): Promise<undefined> => {
   // 注册全局配置
+  app.config.globalProperties.$confirm = ElMessageBox.confirm;
   app.config.globalProperties.$config = getConfig();
   return axios({
     baseURL: "",
