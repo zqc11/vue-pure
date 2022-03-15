@@ -3,7 +3,6 @@ import { computed, nextTick, onMounted, getCurrentInstance } from "vue";
 import { emitter } from "/@/utils/mitt";
 import Notice from "../notice/index.vue";
 import { templateRef } from "@vueuse/core";
-import SidebarItem from "./sidebarItem.vue";
 import avatars from "/@/assets/avatars.jpg";
 import screenfull from "../screenfull/index.vue";
 import { useRoute, useRouter } from "vue-router";
