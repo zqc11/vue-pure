@@ -8,7 +8,6 @@ import {
   getCurrentInstance
 } from "vue";
 import { setType } from "./types";
-import { useI18n } from "vue-i18n";
 import { routerArrays } from "./types";
 import { emitter } from "/@/utils/mitt";
 import { useAppStoreHook } from "/@/store/modules/app";
@@ -44,12 +43,7 @@ const layout = computed(() => {
     // eslint-disable-next-line vue/no-side-effects-in-computed-properties
     instance.$storage.tags = routerArrays;
   }
-  // 国际化
-  if (!instance.$storage.locale) {
-    // eslint-disable-next-line
-    instance.$storage.locale = { locale: instance.$config?.Locale ?? "zh" };
-    useI18n().locale.value = instance.$config?.Locale ?? "zh";
-  }
+
   // 导航配置
   if (!instance.$storage.layout) {
     // eslint-disable-next-line vue/no-side-effects-in-computed-properties

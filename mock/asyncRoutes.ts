@@ -8,8 +8,7 @@ const systemRouter = {
   redirect: "/system/user/index",
   meta: {
     icon: "setting",
-    title: "menus.hssysManagement",
-    i18n: true,
+    title: "系统设置",
     rank: 6
   },
   children: [
@@ -17,16 +16,14 @@ const systemRouter = {
       path: "/system/user/index",
       name: "user",
       meta: {
-        title: "menus.hsBaseinfo",
-        i18n: true
+        title: "基础信息"
       }
     },
     {
       path: "/system/dict/index",
       name: "dict",
       meta: {
-        title: "menus.hsDict",
-        i18n: true,
+        title: "字典管理",
         keepAlive: true
       }
     }
@@ -38,9 +35,8 @@ const permissionRouter = {
   name: "permission",
   redirect: "/permission/page/index",
   meta: {
-    title: "menus.permission",
+    title: "权限设置",
     icon: "lollipop",
-    i18n: true,
     rank: 3
   },
   children: [
@@ -48,16 +44,14 @@ const permissionRouter = {
       path: "/permission/page/index",
       name: "permissionPage",
       meta: {
-        title: "menus.permissionPage",
-        i18n: true
+        title: "权限页面"
       }
     },
     {
       path: "/permission/button/index",
       name: "permissionButton",
       meta: {
-        title: "menus.permissionButton",
-        i18n: true,
+        title: "权限按钮",
         authority: []
       }
     }

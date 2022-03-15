@@ -1,4 +1,3 @@
-import { $t } from "/@/plugins/i18n";
 import Layout from "/@/layout/index.vue";
 
 const otherRouter = [
@@ -55,8 +54,7 @@ const otherRouter = [
             component: () => import("/@/views/new-task/flow-chart/index.vue"),
             meta: {
               icon: "set-up",
-              title: $t("menus.hsflowChart"),
-              i18n: true,
+              title: "流程图",
               rank: 1
             }
           }

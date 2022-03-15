@@ -14,9 +14,7 @@ const pathResolve = (dir: string): string => {
 // 设置别名
 const alias: Record<string, string> = {
   "/@": pathResolve("src"),
-  "@build": pathResolve("build"),
-  //解决开发环境下的警告
-  "vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js"
+  "@build": pathResolve("build")
 };
 
 export default ({ command, mode }: ConfigEnv): UserConfigExport => {
@@ -72,17 +70,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
     },
     plugins: getPluginsList(command, VITE_LEGACY),
     optimizeDeps: {
-      include: [
-        "pinia",
-        "vue-i18n",
-        "lodash-es",
-        "@vueuse/core",
-        "@iconify/vue",
-        "element-plus/lib/locale/lang/en",
-        "element-plus/lib/locale/lang/zh-cn",
-        "vxe-table/lib/locale/lang/zh-CN",
-        "vxe-table/lib/locale/lang/en-US"
-      ],
+      include: ["pinia", "lodash-es", "@vueuse/core", "@iconify/vue"],
       exclude: ["@zougt/vite-plugin-theme-preprocessor/dist/browser-utils"]
     },
     build: {

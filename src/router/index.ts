@@ -3,7 +3,6 @@ import { openLink } from "/@/utils/link";
 import NProgress from "/@/utils/progress";
 import { constantRoutes } from "./modules";
 import { split, findIndex } from "lodash-es";
-import { transformI18n } from "/@/plugins/i18n";
 import remainingRouter from "./modules/remaining";
 import { storageSession } from "/@/utils/storage";
 import { useMultiTagsStoreHook } from "/@/store/modules/multiTags";
@@ -60,12 +59,7 @@ router.beforeEach((to: toRouteType, _from, next) => {
   const externalLink = to?.redirectedFrom?.fullPath;
   if (!externalLink)
     to.matched.some(item => {
-      item.meta.title
-        ? (document.title = transformI18n(
-            item.meta.title as string,
-            item.meta?.i18n as boolean
-          ))
-        : "";
+      document.title = item.meta.title ? (item.meta.title as string) : "";
     });
   if (name) {
     // from路由的名称不为空

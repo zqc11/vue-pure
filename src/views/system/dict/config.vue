@@ -140,7 +140,7 @@ const checkboxChangeEvent: VxeTableEvents.CheckboxChange = ({ records }) => {
               <span class="select-count"
                 >已选中{{ configData.selectRecords.length }}条</span
               >
-              <vxe-button size="small">{{ $t("buttons.hsdelete") }}</vxe-button>
+              <vxe-button size="small">删除</vxe-button>
             </span>
           </template>
         </vxe-pager>

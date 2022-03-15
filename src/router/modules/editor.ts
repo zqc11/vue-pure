@@ -1,4 +1,3 @@
-import { $t } from "/@/plugins/i18n";
 import Layout from "/@/layout/index.vue";
 
 const editorRouter = {
@@ -8,8 +7,7 @@ const editorRouter = {
   redirect: "/editor/index",
   meta: {
     icon: "edit",
-    title: $t("menus.hseditor"),
-    i18n: true,
+    title: "编辑器",
     rank: 2
   },
   children: [
@@ -18,8 +16,7 @@ const editorRouter = {
       name: "reEditor",
       component: () => import("/@/views/editor/index.vue"),
       meta: {
-        title: $t("menus.hseditor"),
-        i18n: true,
+        title: "编辑器",
         keepAlive: true
         // 新内容icon
         // extraIcon: {

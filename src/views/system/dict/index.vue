@@ -209,28 +209,25 @@ function handleClose() {
       <template #buttons>
         <vxe-input
           v-model="dictData.filterName"
-          :placeholder="$t('buttons.hssearch')"
+          placeholder="搜索"
           @keyup="searchEvent"
         ></vxe-input>
       </template>
       <template #tools>
-        <vxe-button
-          icon="fa fa-plus-square-o"
-          status="primary"
-          @click="onAdd"
-          >{{ $t("buttons.hsadd") }}</vxe-button
+        <vxe-button icon="fa fa-plus-square-o" status="primary" @click="onAdd"
+          >新增</vxe-button
         >
         <vxe-button
           icon="fa fa-folder-open-o"
           status="primary"
           @click="$refs.xTree.setAllTreeExpand(true)"
-          >{{ $t("buttons.hsexpendAll") }}</vxe-button
+          >全部展开</vxe-button
         >
         <vxe-button
           icon="fa fa-folder-o"
           status="primary"
           @click="$refs.xTree.clearTreeExpand()"
-          >{{ $t("buttons.hscollapseAll") }}</vxe-button
+          >全部折叠</vxe-button
         >
       </template>
     </vxe-toolbar>

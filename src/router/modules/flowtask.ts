@@ -8,7 +8,6 @@ const flowTaskRouter = {
   meta: {
     icon: "set-up",
     title: "审批流程",
-    i18n: false,
     rank: 1
   },
   children: [
@@ -17,8 +16,7 @@ const flowTaskRouter = {
       name: "flowTask",
       component: () => import("/@/views/flow-task/index.vue"),
       meta: {
-        title: "审批流程",
-        i18n: false
+        title: "审批流程"
       }
     }
   ]

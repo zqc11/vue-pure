@@ -6,11 +6,7 @@ const { isFullscreen, toggle } = useFullscreen();
 <template>
   <div class="screen-full" @click="toggle">
     <FontIcon
-      :title="
-        isFullscreen
-          ? $t('buttons.hsexitfullscreen')
-          : $t('buttons.hsfullscreen')
-      "
+      :title="isFullscreen ? '退出全屏' : '全屏'"
       :icon="isFullscreen ? 'team-iconexit-fullscreen' : 'team-iconfullscreen'"
     />
   </div>

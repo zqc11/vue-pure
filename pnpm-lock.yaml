@@ -91,8 +91,7 @@ specifiers:
   vjmap: ^1.0.27
   vue: ^3.2.29
   vue-eslint-parser: ^8.2.0
-  vue-i18n: ^9.2.0-beta.30
-  vue-json-pretty: ^2.0.2
+  vue-json-pretty: ^2.0.6
   vue-router: ^4.0.12
   vue-types: ^4.1.1
   vuedraggable: 4.1.0
@@ -139,7 +138,6 @@ dependencies:
   vform3-plus: 3.0.12
   vjmap: registry.npmmirror.com/vjmap/1.0.27
   vue: 3.2.30
-  vue-i18n: 9.2.0-beta.30_vue@3.2.30
   vue-json-pretty: 2.0.6_vue@3.2.30
   vue-router: 4.0.12_vue@3.2.30
   vue-types: 4.1.1_vue@3.2.30
@@ -1000,59 +998,6 @@ packages:
     transitivePeerDependencies:
       - encoding
     dev: true
-
-  /@intlify/core-base/9.2.0-beta.30:
-    resolution:
-      {
-        integrity: sha512-tnOuI8gs4S7vv4WjG8oFL7vbZ4PM7Is/Ld3lRHQlBO7UjpnCVcQ94AgP/4F0cUPFn9JSPMQRN0aOOahW1BXvSA==
-      }
-    engines: { node: ">= 12" }
-    dependencies:
-      "@intlify/devtools-if": 9.2.0-beta.30
-      "@intlify/message-compiler": 9.2.0-beta.30
-      "@intlify/shared": 9.2.0-beta.30
-      "@intlify/vue-devtools": 9.2.0-beta.30
-    dev: false
-
-  /@intlify/devtools-if/9.2.0-beta.30:
-    resolution:
-      {
-        integrity: sha512-3OxGFi6ooya9DFqX/JsxFjrj9nGYcDoo4CRGYSDqnC+xv4bnsyB5ekmaYBiVZtagCdZdSUMxbTFphl1WbtgNLQ==
-      }
-    engines: { node: ">= 12" }
-    dependencies:
-      "@intlify/shared": 9.2.0-beta.30
-    dev: false
-
-  /@intlify/message-compiler/9.2.0-beta.30:
-    resolution:
-      {
-        integrity: sha512-2kj/0nLIFrgiO86f9VifcUUcV8LdzXt4YYPIujx/LkTEQOuSFUo/bNiMaG1hyfiU/8mfq6tsaWKjoOZjeao1eQ==
-      }
-    engines: { node: ">= 12" }
-    dependencies:
-      "@intlify/shared": 9.2.0-beta.30
-      source-map: 0.6.1
-    dev: false
-
-  /@intlify/shared/9.2.0-beta.30:
-    resolution:
-      {
-        integrity: sha512-E1WHRTIlUEse3d/6t1pAagSXRxmeVeNIhx5kT80dfpYxw8lOnCWV9wLve2bq9Fkv+3TD2I5j+CdN7jvSl3LdsA==
-      }
-    engines: { node: ">= 12" }
-    dev: false
-
-  /@intlify/vue-devtools/9.2.0-beta.30:
-    resolution:
-      {
-        integrity: sha512-hcqDfwP/oXVmVCaJ0RA+uv1WSCcd42/Y13S0bySmWZv2KamLcxiD7wYxp/MaECG/D4KZcSLkq/wDHTG7lhYf5Q==
-      }
-    engines: { node: ">= 12" }
-    dependencies:
-      "@intlify/core-base": 9.2.0-beta.30
-      "@intlify/shared": 9.2.0-beta.30
-    dev: false
 
   /@jridgewell/resolve-uri/3.0.4:
     resolution:
@@ -7874,22 +7819,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /vue-i18n/9.2.0-beta.30_vue@3.2.30:
-    resolution:
-      {
-        integrity: sha512-5DqrgG9ffgC7j3RRAfViC0WUcdz0C3Ix1qq1AyQItpF7UkSB6iSJGEjBG6KdspbRQq/8t1YzDx4JRXbL05l6ow==
-      }
-    engines: { node: ">= 12" }
-    peerDependencies:
-      vue: ^3.0.0
-    dependencies:
-      "@intlify/core-base": 9.2.0-beta.30
-      "@intlify/shared": 9.2.0-beta.30
-      "@intlify/vue-devtools": 9.2.0-beta.30
-      "@vue/devtools-api": 6.0.0-beta.21.1
-      vue: 3.2.30
-    dev: false
 
   /vue-json-pretty/2.0.6_vue@3.2.30:
     resolution:

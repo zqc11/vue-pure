@@ -3,7 +3,6 @@ import router from "./router";
 import { setupStore } from "/@/store";
 import { getServerConfig } from "./config";
 import { createApp, Directive } from "vue";
-import { usI18n } from "../src/plugins/i18n";
 import { MotionPlugin } from "@vueuse/motion";
 import { useTable } from "../src/plugins/vxe-table";
 import { useElementPlus } from "../src/plugins/element-plus";
@@ -52,8 +51,7 @@ getServerConfig(app).then(async config => {
     .use(MotionPlugin)
     .use(useElementPlus)
     .use(VForm3)
-    .use(useTable)
-    .use(usI18n);
+    .use(useTable);
   // 注册路由
   await router.isReady();
   app.mount("#app");
