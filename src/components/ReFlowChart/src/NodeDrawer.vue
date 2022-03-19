@@ -15,6 +15,18 @@
         }}</el-input>
       </el-form-item>
       <el-form-item label="审批人">
+        <div v-for="(n, k) in 4" :key="k" class="check-container">
+          <el-tag>
+            hello
+            <el-button
+              :icon="CircleClose"
+              size="small"
+              type="danger"
+              class="close-button"
+              plain
+            ></el-button>
+          </el-tag>
+        </div>
         <el-button
           type="primary"
           size="small"
@@ -28,8 +40,8 @@
 
 <script setup lang="ts">
 import { inject, Ref } from "vue";
-import { CirclePlus } from "@element-plus/icons-vue";
-let openDrawer = inject<Ref>("openDrawer");
+import { CirclePlus, CircleClose } from "@element-plus/icons-vue";
+let openDrawer = inject<Ref>("openNodeDrawer");
 const node = inject<Ref>("selectedNode");
 // do not use same name with ref
 
@@ -38,4 +50,19 @@ const handleClose = () => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.close-button {
+  background: transparent;
+  border: 0px;
+  padding: 0px;
+}
+
+.close-button:hover {
+  background: transparent;
+  color: gray;
+}
+
+.check-container {
+  margin-right: 10px;
+}
+</style>

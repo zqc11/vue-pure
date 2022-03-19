@@ -6,8 +6,6 @@
       "dockers": [],
       "type": 2,
       "properties": {
-        "a": "efrwe",
-        "b": "wewe",
         "name": "开始",
         "x": 280,
         "y": 200,
@@ -26,8 +24,6 @@
       "dockers": [],
       "type": 3,
       "properties": {
-        "a": "efrwe",
-        "b": "wewe",
         "name": "结束",
         "x": 920,
         "y": 200,
@@ -46,8 +42,6 @@
       "dockers": [],
       "type": 6,
       "properties": {
-        "a": "efrwe",
-        "b": "wewe",
         "name": "网关",
         "x": 580,
         "y": 200,
@@ -66,8 +60,6 @@
       "dockers": [],
       "type": 4,
       "properties": {
-        "a": "efrwe",
-        "b": "wewe",
         "name": "用户",
         "x": 420,
         "y": 200,
@@ -86,8 +78,6 @@
       "dockers": [],
       "type": 5,
       "properties": {
-        "a": "efrwe",
-        "b": "wewe",
         "name": "服务",
         "x": 760,
         "y": 200,

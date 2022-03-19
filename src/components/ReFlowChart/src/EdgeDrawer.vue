@@ -1,55 +1,59 @@
 <template>
-  <el-form :model="form" label-width="120px">
-    <el-form-item label="Activity name">
-      <el-input v-model="form.name"></el-input>
-    </el-form-item>
-    <el-form-item label="Activity zone">
-      <el-select v-model="form.region" placeholder="please select your zone">
-        <el-option label="Zone one" value="shanghai"></el-option>
-        <el-option label="Zone two" value="beijing"></el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="Instant delivery">
-      <el-switch v-model="form.delivery"></el-switch>
-    </el-form-item>
-    <el-form-item label="Activity type">
-      <el-checkbox-group v-model="form.type">
-        <el-checkbox label="Online activities" name="type"></el-checkbox>
-        <el-checkbox label="Promotion activities" name="type"></el-checkbox>
-        <el-checkbox label="Offline activities" name="type"></el-checkbox>
-        <el-checkbox label="Simple brand exposure" name="type"></el-checkbox>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="Resources">
-      <el-radio-group v-model="form.resource">
-        <el-radio label="Sponsor"></el-radio>
-        <el-radio label="Venue"></el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="Activity form">
-      <el-input v-model="form.desc" type="textarea"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="onSubmit">Create</el-button>
-      <el-button>Cancel</el-button>
-    </el-form-item>
-  </el-form>
+  <el-drawer
+    :model-value="openDrawer"
+    title="节点信息"
+    direction="rtl"
+    :before-close="handleClose"
+  >
+    <el-form :model="node" label-width="120px">
+      <el-form-item label="出口名称">
+        <el-input v-model="node.text.value">{{ node.text.value }}</el-input>
+      </el-form-item>
+      <el-form-item label="出口描述">
+        <el-input v-model="node.properties.desc">{{
+          node.properties.desc
+        }}</el-input>
+      </el-form-item>
+      <el-form-item label="出口逻辑">
+        <el-select
+          v-model="node.properties.condition"
+          placeholder="选择出口逻辑"
+        >
+          <el-option label="全部通过" value="and" />
+          <el-option label="其一通过" value="or" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="默认出口">
+        <el-switch v-model="node.properties.isDefaultOut" />
+      </el-form-item>
+    </el-form>
+  </el-drawer>
 </template>
 
-<script lang="ts" setup>
-import { reactive } from "vue";
-
+<script setup lang="ts">
+import { inject, Ref } from "vue";
+let openDrawer = inject<Ref>("openEdgeDrawer");
+const node = inject<Ref>("selectedEdge");
 // do not use same name with ref
-const form = reactive({
-  name: "",
-  region: "",
-  delivery: false,
-  type: [],
-  resource: "",
-  desc: ""
-});
 
-const onSubmit = () => {
-  console.log("submit!");
+const handleClose = () => {
+  openDrawer.value = false;
 };
 </script>
+
+<style scoped>
+.close-button {
+  background: transparent;
+  border: 0px;
+  padding: 0px;
+}
+
+.close-button:hover {
+  background: transparent;
+  color: gray;
+}
+
+.check-container {
+  margin-right: 10px;
+}
+</style>

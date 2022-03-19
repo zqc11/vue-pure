@@ -39,3 +39,27 @@ export type userType = {
   token: string;
   name?: string;
 };
+
+export type flowTaskType = {
+  baseInfo: baseInfo;
+  uploadFiles?: uploadFile[];
+  formData?: formData;
+  flowChart: flowChart;
+};
+
+type baseInfo = {
+  title: string;
+  desc?: string;
+  type: string;
+};
+type uploadFile = {
+  type: string;
+  fileName: string;
+  url: string;
+};
+type formData = {
+  formJson: object;
+};
+type flowChart = {
+  flowchartJson: object;
+};

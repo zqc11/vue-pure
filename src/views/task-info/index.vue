@@ -1,18 +1,6 @@
 <template>
   <div>
     <el-row :gutter="0" justify="end" id="toolbar">
-      <el-col
-        :xs="6"
-        :sm="4"
-        :md="2"
-        :lg="2"
-        :xl="2"
-        class="hidden-sm-and-down"
-      >
-        <el-button class="top-menu-button" @click="showMarkMenu"
-          >图纸标注</el-button
-        >
-      </el-col>
       <el-col :xs="6" :sm="4" :md="2" :lg="2" :xl="2">
         <el-button class="top-menu-button" @click="showForm"
           >仅显示表单</el-button
@@ -43,10 +31,6 @@ import { provide, ref } from "vue";
 import { TaskInfo } from "/@/components/ReFlowTask";
 import "element-plus/theme-chalk/display.css";
 let show = ref(2);
-// 显示图纸标注工具栏
-function showMarkMenu() {
-  console.log();
-}
 // 显示表单信息
 function showForm() {
   show.value = 1;

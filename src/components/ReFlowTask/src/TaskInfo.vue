@@ -22,8 +22,8 @@
       >
         <el-scrollbar height="80vh">
           <!-- 显示机械图纸 -->
-          <Blueprint></Blueprint>
-          <PdfView></PdfView>
+          <Blueprint v-if="type === 'dwg'"></Blueprint>
+          <PdfView v-else></PdfView>
         </el-scrollbar>
       </Pane>
     </Splitpanes>
@@ -36,6 +36,7 @@ import { Blueprint, PdfView } from "/@/components/ReFlowTask";
 import { Splitpanes, Pane } from "splitpanes";
 import "splitpanes/dist/splitpanes.css";
 import { ElMessage } from "element-plus";
+let type = ref("dwg");
 let show = inject<Ref>("show");
 let width = computed(() => {
   if (show.value == 1 || show.value == 2) {

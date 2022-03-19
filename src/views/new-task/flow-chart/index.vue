@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, unref, onMounted, provide } from "vue";
-import { LogicFlow, BaseNodeModel } from "@logicflow/core";
+import { LogicFlow, BaseNodeModel, BaseEdgeModel } from "@logicflow/core";
 import { Snapshot, BpmnElement, Menu } from "@logicflow/extension";
 import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
@@ -8,25 +8,21 @@ import {
   Control,
   NodePanel,
   DataDialog,
-  NodeDrawer
-  // EdgeDrawer
+  NodeDrawer,
+  EdgeDrawer
 } from "/@/components/ReFlowChart";
 import { toLogicflowData } from "/@/components/ReFlowChart/src/adpterForTurbo";
 import { BpmnNode } from "/@/components/ReFlowChart/src/config";
 import demoData from "./dataTurbo.json";
 
-// "@logicflow/core": "0.7.1",
-// "@logicflow/extension": "0.7.1",
-
 // logicflow实例
 let lf = ref<LogicFlow>(null);
 let graphData = ref(null);
 let dataVisible = ref<boolean>(false);
-let openDrawer = ref(false);
+let openNodeDrawer = ref(false);
+let openEdgeDrawer = ref(false);
 let selectedNode = ref<BaseNodeModel>(null);
-// const props = withDefaults(defineProps<Props>(), {
-//   formData: null
-// });
+let selectedEdge = ref<BaseEdgeModel>(null);
 let config = ref({
   // 打开网格
   grid: true,
@@ -56,7 +52,7 @@ let config = ref({
     ]
   }
 });
-
+const emit = defineEmits(["next"]);
 let nodeList = BpmnNode;
 
 function initLf() {
@@ -90,11 +86,19 @@ function catData() {
 function onBindEvent() {
   unref(lf).on("node:dbclick, edge:dbclick", data => {
     console.log(data);
-    selectedNode.value = lf.value.getNodeModelById(data.data.id);
-    openDrawer.value = true;
+    let type = data.data.type;
+    if (type != "bpmn:sequenceFlow") {
+      selectedNode.value = lf.value.getNodeModelById(data.data.id);
+      openNodeDrawer.value = true;
+    } else {
+      selectedEdge.value = lf.value.getEdgeModelById(data.data.id);
+      openEdgeDrawer.value = true;
+    }
   });
   window.addEventListener("mousewheel", zoom, false);
 }
+
+// 缩放事件
 function zoom(event) {
   if (event.deltaY > 0) {
     unref(lf).zoom();
@@ -108,8 +112,13 @@ onMounted(() => {
   initLf();
   onBindEvent();
 });
-provide("openDrawer", openDrawer);
+function next() {
+  emit("next", 4);
+}
+provide("openNodeDrawer", openNodeDrawer);
+provide("openEdgeDrawer", openEdgeDrawer);
 provide("selectedNode", selectedNode);
+provide("selectedEdge", selectedEdge);
 </script>
 
 <template>
@@ -121,6 +130,7 @@ provide("selectedNode", selectedNode);
       :lf="lf"
       :catTurboData="false"
       @catData="catData"
+      @next="next"
     ></Control>
     <!-- 节点面板 -->
     <NodePanel :lf="lf" :nodeList="nodeList"></NodePanel>
@@ -128,6 +138,7 @@ provide("selectedNode", selectedNode);
     <div id="LF-Turbo"></div>
     <!-- 节点/边缘抽屉信息 -->
     <node-drawer />
+    <edge-drawer />
     <!-- 数据查看面板 -->
     <el-dialog
       customClass="flow-dialog"

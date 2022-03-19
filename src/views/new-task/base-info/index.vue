@@ -8,13 +8,13 @@
       class="ruleForm"
       :size="formSize"
     >
-      <el-form-item label="流程名称" prop="name">
-        <el-input v-model="ruleForm.name"></el-input>
+      <el-form-item label="流程名称" prop="title">
+        <el-input v-model="ruleForm.title"></el-input>
       </el-form-item>
-      <el-form-item label="流程类型" prop="region">
-        <el-select v-model="ruleForm.region" placeholder="选择类型">
-          <el-option label="图纸" value="shanghai"></el-option>
-          <el-option label="普通" value="beijing"></el-option>
+      <el-form-item label="流程类型" prop="type">
+        <el-select v-model="ruleForm.type" placeholder="选择类型">
+          <el-option label="图纸" value="blueprint"></el-option>
+          <el-option label="普通" value="ordinary"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="流程描述" prop="desc">
@@ -34,34 +34,43 @@
 import { reactive, ref } from "vue";
 import type { ElForm } from "element-plus";
 import { useRouter } from "vue-router";
+import { useFlowTaskStoreHook } from "/@/store/modules/flowTask";
 const router = useRouter();
 type FormInstance = InstanceType<typeof ElForm>;
 const emit = defineEmits(["next"]);
 const formSize = ref("");
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive({
-  name: "",
-  desc: ""
+  title: "",
+  desc: "",
+  type: ""
 });
 
 const rules = reactive({
-  name: [
+  title: [
     {
       required: true,
-      message: "Please input Activity name",
+      message: "请输入流程名称",
       trigger: "blur"
     },
     {
-      min: 3,
-      max: 5,
-      message: "Length should be 3 to 5",
+      min: 1,
+      max: 10,
+      message: "长度限制在1到10个字符",
+      trigger: "blur"
+    }
+  ],
+  type: [
+    {
+      required: true,
+      message: "请选择流程类型",
       trigger: "blur"
     }
   ],
   desc: [
     {
       required: false,
-      message: "Please input activity form",
+      message: "",
       trigger: "blur"
     }
   ]
@@ -71,7 +80,11 @@ const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.validate(valid => {
     if (valid) {
-      console.log("submit!");
+      useFlowTaskStoreHook().setBaseInfo(ruleForm);
+      console.log(
+        useFlowTaskStoreHook().baseInfo.title +
+          useFlowTaskStoreHook().baseInfo.desc
+      );
       router.push("/newTask/upload");
       emit("next", 1);
     } else {

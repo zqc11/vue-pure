@@ -9,12 +9,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, unref } from "vue";
 import { useRouter } from "vue-router";
+import { useFlowTaskStoreHook } from "/@/store/modules/flowTask";
 const vfdRef = ref(null);
 const router = useRouter();
 const emit = defineEmits(["next"]);
 const next = () => {
+  useFlowTaskStoreHook().setformData(unref(vfdRef).getFormJson());
+  console.log(useFlowTaskStoreHook().formData.formJson);
   router.push("/newTask/flowChart");
   emit("next", 3);
 };

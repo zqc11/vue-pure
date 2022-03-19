@@ -53,8 +53,17 @@ const otherRouter = [
             name: "flowChart",
             component: () => import("/@/views/new-task/flow-chart/index.vue"),
             meta: {
-              icon: "set-up",
               title: "流程图",
+              rank: 1
+            }
+          },
+          {
+            // /newTask/permission
+            path: "permission",
+            name: "permission",
+            component: () => import("/@/views/new-task/permission/index.vue"),
+            meta: {
+              title: "权限设置",
               rank: 1
             }
           }

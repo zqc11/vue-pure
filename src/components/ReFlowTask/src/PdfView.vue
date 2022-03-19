@@ -5,6 +5,7 @@
       v-for="pageIndex in pdfPages"
       :id="`pdf-canvas-` + pageIndex"
       :key="pageIndex"
+      class="pdf-canvas"
     ></canvas>
   </div>
 </template>
@@ -68,4 +69,9 @@ function renderPage(num: any) {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.pdf-canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+</style>
