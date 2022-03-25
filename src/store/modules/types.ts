@@ -37,7 +37,7 @@ export type setType = {
 
 export type userType = {
   token: string;
-  name?: string;
+  account?: string;
 };
 
 export type flowTaskType = {
@@ -62,4 +62,11 @@ type formData = {
 };
 type flowChart = {
   flowchartJson: object;
+};
+
+export type ResultType = {
+  success: boolean;
+  code: number;
+  msg: string;
+  data: object;
 };

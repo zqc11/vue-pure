@@ -4,7 +4,6 @@ import NProgress from "/@/utils/progress";
 import { constantRoutes } from "./modules";
 import { split, findIndex } from "lodash-es";
 import remainingRouter from "./modules/remaining";
-import { storageSession } from "/@/utils/storage";
 import { useMultiTagsStoreHook } from "/@/store/modules/multiTags";
 import { usePermissionStoreHook } from "/@/store/modules/permission";
 import { Router, RouteMeta, createRouter, RouteRecordName } from "vue-router";
@@ -16,6 +15,7 @@ import {
   handleAliveRoute
 } from "./utils";
 import otherRouter from "./modules/other";
+import { getToken } from "../utils/auth";
 
 // 创建路由实例
 export const router: Router = createRouter({
@@ -53,15 +53,23 @@ router.beforeEach((to: toRouteType, _from, next) => {
       handleAliveRoute(newMatched);
     }
   }
-  const name = storageSession.getItem("info");
+  const cookie = getToken();
+  let cookieJson;
+  let expired = true;
+  if (cookie) {
+    cookieJson = JSON.parse(cookie);
+    const now = new Date().getTime();
+    expired = parseInt(cookieJson.expires) - now <= 0;
+  }
   // 进度条动画开始
   NProgress.start();
   const externalLink = to?.redirectedFrom?.fullPath;
-  if (!externalLink)
+  if (!externalLink) {
     to.matched.some(item => {
       document.title = item.meta.title ? (item.meta.title as string) : "";
     });
-  if (name) {
+  }
+  if (!expired) {
     // from路由的名称不为空
     if (_from?.name) {
       // 如果路由包含http 则是超链接 反之是普通路由
@@ -76,7 +84,7 @@ router.beforeEach((to: toRouteType, _from, next) => {
     } else {
       // 刷新
       if (usePermissionStoreHook().wholeMenus.length === 0)
-        initRouter(name.username).then((router: Router) => {
+        initRouter(cookieJson.account).then((router: Router) => {
           if (!useMultiTagsStoreHook().getMultiTagsCache) {
             const handTag = (
               path: string,

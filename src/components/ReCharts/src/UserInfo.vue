@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { storageLocal } from "/@/utils/storage";
 const lists = ref([
   { type: "", label: "善良" },
   { type: "success", label: "好学" },
@@ -7,11 +8,12 @@ const lists = ref([
   { type: "danger", label: "旅游" },
   { type: "warning", label: "追剧" }
 ]);
+const info = storageLocal.getItem("info").user_info;
+console.log(info);
 const userInfo = {
-  name: "周启春",
-  tel: "12345678910",
-  location: "武汉",
-  communication: "HUST"
+  name: info.name,
+  tel: info.mobile,
+  department: info.department
 };
 </script>
 
@@ -40,9 +42,9 @@ const userInfo = {
         <el-icon>
           <IconifyIconOffline icon="location" />
         </el-icon>
-        居住地
+        所在部门
       </template>
-      {{ userInfo.location }}
+      {{ userInfo.department }}
     </el-descriptions-item>
   </el-descriptions>
   <el-descriptions class="margin-top" direction="vertical" :column="1" border>
@@ -62,15 +64,6 @@ const userInfo = {
       >
         {{ item.label }}
       </el-tag>
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template #label>
-        <el-icon>
-          <IconifyIconOffline icon="office-building" />
-        </el-icon>
-        联系地址
-      </template>
-      {{ userInfo.communication }}
     </el-descriptions-item>
   </el-descriptions>
 </template>

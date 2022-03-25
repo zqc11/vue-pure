@@ -69,17 +69,10 @@ export default [
     url: "/getAsyncRoutes",
     method: "get",
     response: ({ query }) => {
-      if (query.name === "admin") {
-        return {
-          code: 0,
-          info: [systemRouter, setDifAuthority("v-admin", permissionRouter)]
-        };
-      } else {
-        return {
-          code: 0,
-          info: [null, setDifAuthority("v-test", permissionRouter)]
-        };
-      }
+      return {
+        code: 0,
+        data: [systemRouter, setDifAuthority("v-admin", permissionRouter)]
+      };
     }
   }
 ] as MockMethod[];

@@ -39,11 +39,6 @@ let greetings = computed(() => {
     <el-row :gutter="24" style="margin: 20px">
       <!-- 用户信息 -->
       <el-col
-        :xs="24"
-        :sm="24"
-        :md="12"
-        :lg="12"
-        :xl="12"
         style="margin-bottom: 20px"
         v-motion
         :initial="{
@@ -72,11 +67,6 @@ let greetings = computed(() => {
 
       <!-- 滚动消息 -->
       <el-col
-        :xs="24"
-        :sm="24"
-        :md="12"
-        :lg="12"
-        :xl="12"
         style="margin-bottom: 20px"
         v-motion
         :initial="{

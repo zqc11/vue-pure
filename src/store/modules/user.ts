@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { store } from "/@/store";
-import { userType } from "./types";
-import { useRouter } from "vue-router";
+import { ResultType, userType } from "./types";
 import { getLogin, refreshToken } from "/@/api/user";
 import { storageLocal, storageSession } from "/@/utils/storage";
 import { getToken, setToken, removeToken } from "/@/utils/auth";
@@ -9,12 +8,12 @@ import { useMultiTagsStoreHook } from "/@/store/modules/multiTags";
 
 const data = getToken();
 let token = "";
-let name = "";
+let account = "";
 if (data) {
   const dataJson = JSON.parse(data);
   if (dataJson) {
     token = dataJson?.accessToken;
-    name = dataJson?.name ?? "admin";
+    account = dataJson?.account ?? "admin";
   }
 }
 
@@ -22,24 +21,24 @@ export const useUserStore = defineStore({
   id: "pure-user",
   state: (): userType => ({
     token,
-    name
+    account
   }),
   actions: {
     SET_TOKEN(token) {
       this.token = token;
     },
-    SET_NAME(name) {
-      this.name = name;
+    SET_NAME(account) {
+      this.account = account;
     },
     // 登入
-    async loginByUsername(data) {
-      return new Promise<void>((resolve, reject) => {
+    loginByUsername(data): Promise<ResultType> {
+      return new Promise((resolve, reject) => {
         getLogin(data)
-          .then(data => {
-            if (data) {
-              setToken(data);
-              resolve();
+          .then((response: ResultType) => {
+            if (response.success && response.data != null) {
+              setToken(response.data);
             }
+            resolve(response);
           })
           .catch(error => {
             reject(error);
@@ -49,7 +48,7 @@ export const useUserStore = defineStore({
     // 登出 清空缓存
     logOut() {
       this.token = "";
-      this.name = "";
+      this.account = "";
       removeToken();
       storageLocal.clear();
       storageSession.clear();
@@ -63,7 +62,6 @@ export const useUserStore = defineStore({
           }
         }
       ]);
-      useRouter().push("/login");
     },
     // 刷新token
     async refreshToken(data) {

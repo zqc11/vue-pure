@@ -6,9 +6,10 @@ import { templateRef } from "@vueuse/core";
 import avatars from "/@/assets/avatars.jpg";
 import screenfull from "../screenfull/index.vue";
 import { useRoute, useRouter } from "vue-router";
-import { storageSession } from "/@/utils/storage";
+import { storageLocal } from "/@/utils/storage";
 import { deviceDetection } from "/@/utils/deviceDetection";
 import { usePermissionStoreHook } from "/@/store/modules/permission";
+import { useUserStoreHook } from "/@/store/modules/user";
 
 const title =
   getCurrentInstance().appContext.config.globalProperties.$config?.Title;
@@ -17,11 +18,11 @@ const menuRef = templateRef<ElRef | null>("menu", null);
 const route = useRoute();
 const router = useRouter();
 const routers = useRouter().options.routes;
-let usename = storageSession.getItem("info")?.username;
+let account = storageLocal.getItem("info")?.username;
 
 // 退出登录
 const logout = (): void => {
-  storageSession.removeItem("info");
+  useUserStoreHook().logOut();
   router.push("/login");
 };
 
@@ -112,7 +113,7 @@ onMounted(() => {
       <el-dropdown trigger="click">
         <span class="el-dropdown-link">
           <img :src="avatars" />
-          <p>{{ usename }}</p>
+          <p>{{ account }}</p>
         </span>
         <template #dropdown>
           <el-dropdown-menu class="logout">

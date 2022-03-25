@@ -4,19 +4,20 @@ import Notice from "./notice/index.vue";
 import avatars from "/@/assets/avatars.jpg";
 import Hamburger from "./sidebar/hamBurger.vue";
 import { useRouter } from "vue-router";
-import { storageSession } from "/@/utils/storage";
+import { storageLocal } from "/@/utils/storage";
 import Breadcrumb from "./sidebar/breadCrumb.vue";
 import { useAppStoreHook } from "/@/store/modules/app";
 import { deviceDetection } from "/@/utils/deviceDetection";
 import screenfull from "../components/screenfull/index.vue";
+import { useUserStoreHook } from "/@/store/modules/user";
 
 const pureApp = useAppStoreHook();
 const router = useRouter();
-let usename = storageSession.getItem("info")?.username;
+let account = storageLocal.getItem("info")?.user_info.account;
 
 // 退出登录
 const logout = (): void => {
-  storageSession.removeItem("info");
+  useUserStoreHook().logOut();
   router.push("/login");
 };
 
@@ -49,7 +50,7 @@ function toggleSideBar() {
       <el-dropdown trigger="click">
         <span class="el-dropdown-link">
           <img :src="avatars" />
-          <p>{{ usename }}</p>
+          <p>{{ account }}</p>
         </span>
         <template #dropdown>
           <el-dropdown-menu class="logout">

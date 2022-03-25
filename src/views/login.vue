@@ -2,7 +2,7 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { initRouter } from "/@/router/utils";
-import { storageSession } from "/@/utils/storage";
+import { storageLocal, storageSession } from "/@/utils/storage";
 import { addClass, removeClass } from "/@/utils/operate";
 import bg from "/@/assets/login/bg.png";
 import avatar from "/@/assets/login/avatar.svg?component";
@@ -13,6 +13,8 @@ import illustration3 from "/@/assets/login/illustration3.svg?component";
 import illustration4 from "/@/assets/login/illustration4.svg?component";
 import illustration5 from "/@/assets/login/illustration5.svg?component";
 import illustration6 from "/@/assets/login/illustration6.svg?component";
+import { useUserStoreHook } from "../store/modules/user";
+import { ElMessage } from "element-plus";
 
 // vue.$router
 const router = useRouter();
@@ -39,17 +41,37 @@ const currentWeek = computed(() => {
   }
 });
 
-let user = ref("admin");
-let pwd = ref("123456");
+let account = ref("");
+let password = ref("");
 
 const onLogin = (): void => {
-  storageSession.setItem("info", {
-    username: "admin",
-    accessToken: "eyJhbGciOiJIUzUxMiJ9.test"
-  });
-  // 初始化路由
-  initRouter("admin").then(() => {});
-  router.push("/");
+  useUserStoreHook()
+    .loginByUsername({
+      account: account.value,
+      password: password.value
+    })
+    .then(response => {
+      const data = response.data;
+      if (response.success) {
+        // 本地存储
+        storageLocal.setItem("info", {
+          user_info: data,
+          accessToken: data.accessToken
+        });
+        // 会话存储: 关闭浏览器会清空
+        storageSession.setItem("info", {
+          user_info: data,
+          accessToken: data.accessToken
+        });
+        initRouter(data.account).then(() => {});
+        router.push("/");
+      } else {
+        ElMessage.error(response.msg);
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
 };
 
 function onUserFocus() {
@@ -57,7 +79,7 @@ function onUserFocus() {
 }
 
 function onUserBlur() {
-  if (user.value.length === 0)
+  if (account.value.length === 0)
     removeClass(document.querySelector(".user"), "focus");
 }
 
@@ -66,7 +88,7 @@ function onPwdFocus() {
 }
 
 function onPwdBlur() {
-  if (pwd.value.length === 0)
+  if (password.value.length === 0)
     removeClass(document.querySelector(".pwd"), "focus");
 }
 </script>
@@ -120,7 +142,7 @@ function onPwdBlur() {
               <input
                 type="text"
                 class="input"
-                v-model="user"
+                v-model="account"
                 @focus="onUserFocus"
                 @blur="onUserBlur"
               />
@@ -149,7 +171,7 @@ function onPwdBlur() {
               <input
                 type="password"
                 class="input"
-                v-model="pwd"
+                v-model="password"
                 @focus="onPwdFocus"
                 @blur="onPwdBlur"
               />

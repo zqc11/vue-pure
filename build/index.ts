@@ -31,7 +31,10 @@ const warpperEnv = (envConf: Recordable): ViteEnv => {
 
 // 跨域代理重写
 const regExps = (value: string, reg: string): string => {
-  return value.replace(new RegExp(reg, "g"), "");
+  // 全局替换 reg 为 ""
+  // https://localhost:8080/api/login -- https://localhost:8080/login
+  const newUrl = value.replace(new RegExp(reg, "g"), "");
+  return newUrl;
 };
 
 // 环境变量

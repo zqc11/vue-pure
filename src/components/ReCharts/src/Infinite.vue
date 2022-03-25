@@ -74,7 +74,7 @@ let classOption = reactive({
 </script>
 
 <template>
-  <div class="infinite">
+  <div class="infinite" v-if="listData.length > 0">
     <ul class="top">
       <li>更新日期</li>
       <li>项目名称</li>
@@ -97,6 +97,7 @@ let classOption = reactive({
       </ul>
     </SeamlessScroll>
   </div>
+  <div v-else>暂无数据或无权限</div>
 </template>
 
 <style lang="scss" scoped>

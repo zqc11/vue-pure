@@ -13,6 +13,7 @@ export const getVerify = (): userType => {
 
 // 登录
 export const getLogin = (data: object) => {
+  console.log(data);
   return http.request("post", "/login", { data });
 };
 
