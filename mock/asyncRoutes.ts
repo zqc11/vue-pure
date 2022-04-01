@@ -69,6 +69,7 @@ export default [
     url: "/getAsyncRoutes",
     method: "get",
     response: ({ query }) => {
+      console.log(query);
       return {
         code: 0,
         data: [systemRouter, setDifAuthority("v-admin", permissionRouter)]
