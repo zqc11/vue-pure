@@ -80,7 +80,7 @@ specifiers:
   typescript: ^4.5.5
   unplugin-element-plus: ^0.2.0
   v-contextmenu: 3.0.0
-  vform3-plus: ^3.0.12
+  vform3-plus: ^3.0.15
   vite: ^2.7.13
   vite-plugin-live-reload: ^2.1.0
   vite-plugin-mock: ^2.9.6
@@ -135,7 +135,7 @@ dependencies:
   rgb-hex: 4.0.0
   splitpanes: registry.npmmirror.com/splitpanes/3.1.1
   v-contextmenu: 3.0.0_vue@3.2.30
-  vform3-plus: 3.0.12
+  vform3-plus: 3.0.15
   vjmap: registry.npmmirror.com/vjmap/1.0.27
   vue: 3.2.30
   vue-json-pretty: 2.0.6_vue@3.2.30
@@ -7643,10 +7643,10 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vform3-plus/3.0.12:
+  /vform3-plus/3.0.15:
     resolution:
       {
-        integrity: sha512-NK9Gug9sBvwLMiYR/u5aary4L2xnWyvVhLqBcj+Lpmrcn3vymCUgtuoUrU9oBftiNw6nM7kwJ3ghUWs2CDuniA==
+        integrity: sha512-yCatvsj0p3Ps1Z92PiJ/mDlwYbwQa2q0g9jj0slvfTxl+8nvOYxlgaDEAKQRReIHqHEpbSxnheG5sIRaT2qEOQ==
       }
     dependencies:
       "@element-plus/icons-vue": 0.2.6_vue@3.2.30

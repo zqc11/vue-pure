@@ -2,7 +2,7 @@
   <div>
     <el-row justify="end">
       <el-col>
-        <el-button>清空</el-button>
+        <el-button @click="cleanAll">清空</el-button>
         <el-button type="primary" @click="next">下一步</el-button>
       </el-col>
     </el-row>
@@ -13,10 +13,12 @@
       multiple
       ref="uploadRef"
       accept=".dwg, .dxf, .pdf"
-      action="#"
+      action="http://localhost:8080/multiUpload"
       :on-change="onChange"
       :on-remove="onRemove"
+      :on-error="onError"
       :auto-upload="false"
+      :file-list="pdfFileList"
       v-loading="loading"
       element-loading-text="正在上传,请稍侯..."
     >
@@ -43,8 +45,8 @@ import { ref } from "vue";
 import { showError } from "/@/utils/ui/ui";
 import { UploadFile } from "element-plus/lib/components/upload/src/upload.type";
 import { useFlowTaskStoreHook } from "/@/store/modules/flowTask";
-import { uploadFiles } from "/@/api/task";
-import { ResultType } from "/@/store/modules/types";
+// import { uploadFiles } from "/@/api/task";
+// import { ResultType } from "/@/store/modules/types";
 import { ElMessage } from "element-plus";
 
 const loading = ref(false);
@@ -56,20 +58,18 @@ const uploadRef = ref();
 const app = useAppStore();
 const router = useRouter();
 
-// 清空
-pdfFileList.value.splice(0, pdfFileList.value.length);
-dwgFileList.value.splice(0, dwgFileList.value.length);
-
 let svc = new vjmap.Service(app.serviceUrl, app.accessToken);
 
 const onChange = file => {
-  const isPdf = file.name.endsWith(".pdf");
-  if (isPdf) {
-    // 如果是pdf文件
-    pdfFileList.value.push(file);
-  } else {
-    // 如果是dwg文件
-    dwgFileList.value.push(file);
+  if (file.status === "ready") {
+    const isPdf = file.name.endsWith(".pdf");
+    if (isPdf) {
+      // 如果是pdf文件
+      pdfFileList.value.push(file);
+    } else {
+      // 如果是dwg文件
+      dwgFileList.value.push(file);
+    }
   }
 };
 
@@ -81,9 +81,22 @@ const onRemove = file => {
     dwgFileList.value.splice(dwgFileList.value.indexOf(file), 1);
   }
 };
+
+const onError = (error, file) => {
+  console.log(file);
+  ElMessage.error("文件：" + file.name + " 过大上传失败");
+};
+
+const cleanAll = () => {
+  pdfFileList.value = [];
+  dwgFileList.value = [];
+  useFlowTaskStoreHook().$state.uploadFiles = [];
+};
+
 const next = () => {
   // 准备上传
   loading.value = true;
+
   dwgFileList.value.forEach(file => {
     const uploadFile = {
       filename: file.name,
@@ -92,6 +105,7 @@ const next = () => {
     useFlowTaskStoreHook().$state.uploadFiles.push(uploadFile);
     uploadDwgFile(file);
   });
+
   pdfFileList.value.forEach(file => {
     const uploadFile = {
       filename: file.name,
@@ -99,18 +113,22 @@ const next = () => {
     };
     useFlowTaskStoreHook().$state.uploadFiles.push(uploadFile);
   });
-  uploadFiles(pdfFileList.value)
-    .then((data: ResultType) => {
-      loading.value = false;
-      if (data.success) {
-        router.push("/newTask/formDesign");
-        emit("next", 2);
-      }
-    })
-    .catch(error => {
-      loading.value = false;
-      ElMessage.error(error.message);
-    });
+  uploadRef.value!.submit();
+  loading.value = false;
+  router.push("/newTask/formDesign");
+  emit("next", 2);
+  // uploadFiles(pdfFileList.value)
+  //   .then((data: ResultType) => {
+  //     loading.value = false;
+  //     if (data.success) {
+  //       router.push("/newTask/formDesign");
+  //       emit("next", 2);
+  //     }
+  //   })
+  //   .catch(error => {
+  //     loading.value = false;
+  //     ElMessage.error(error.message);
+  //   });
 };
 const uploadDwgFile = async (file: any) => {
   if (!file) return;

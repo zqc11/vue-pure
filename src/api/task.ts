@@ -5,15 +5,13 @@ export const getTasks = id => {
 };
 
 export const uploadFiles = files => {
-  return http.post(
-    "/multiUpload",
-    { files: files },
-    {
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "multipart/form-data",
-        "X-Requested-With": "XMLHttpRequest"
-      }
+  console.log(files);
+  return http.request("post", "/multiUpload", {
+    data: {
+      files: files
+    },
+    headers: {
+      "Content-Type": "multipart/form-data;boundary=----------webkeijfklsd"
     }
-  );
+  });
 };
