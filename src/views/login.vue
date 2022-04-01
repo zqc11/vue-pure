@@ -55,12 +55,12 @@ const onLogin = (): void => {
       if (response.success) {
         // 本地存储
         storageLocal.setItem("info", {
-          user_info: data,
+          userInfo: data,
           accessToken: data.accessToken
         });
         // 会话存储: 关闭浏览器会清空
         storageSession.setItem("info", {
-          user_info: data,
+          userInfo: data,
           accessToken: data.accessToken
         });
         initRouter(data.account).then(() => {});
@@ -70,7 +70,7 @@ const onLogin = (): void => {
       }
     })
     .catch(error => {
-      console.log(error);
+      ElMessage.error(error.message);
     });
 };
 

@@ -6,11 +6,44 @@ import {
   ReLine,
   ReBar
 } from "/@/components/ReCharts/index";
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import avatars from "/@/assets/avatars.jpg";
+import { getStatistics } from "../api/user";
+import { ResultType } from "../store/modules/types";
+import { storageLocal } from "../utils/storage";
 
 const date: Date = new Date();
 let loading = ref<boolean>(true);
+let operationLog = ref([]);
+let statistics = ref([]);
+let data2 = ref({
+  keys: [],
+  values: []
+});
+onMounted(() => {
+  const id = storageLocal.getItem("info")["userInfo"].id;
+  getStatistics(id).then((data: ResultType) => {
+    console.log(localStorage.getItem("info"));
+    if (data.success) {
+      operationLog.value = data.data;
+
+      let map = new Map<string, number>();
+      for (var i in data.data) {
+        let status = data.data[i].status;
+        if (map.has(status)) {
+          map.set(status, map.get(status) + 1);
+        } else {
+          map.set(status, 1);
+        }
+      }
+      for (let [key, value] of map) {
+        statistics.value.push({ value: value, name: key });
+        data2.value.keys.push(key);
+        data2.value.values.push(value);
+      }
+    }
+  });
+});
 
 setTimeout(() => {
   loading.value = !loading.value;
@@ -87,7 +120,7 @@ let greetings = computed(() => {
           </template>
           <el-skeleton animated :rows="7" :loading="loading">
             <template #default>
-              <ReInfinite />
+              <ReInfinite :listData="operationLog" />
             </template>
           </el-skeleton>
         </el-card>
@@ -119,7 +152,7 @@ let greetings = computed(() => {
           </template>
           <el-skeleton animated :rows="7" :loading="loading">
             <template #default>
-              <RePie />
+              <RePie :data="statistics" />
             </template>
           </el-skeleton>
         </el-card>
@@ -153,7 +186,7 @@ let greetings = computed(() => {
           </template>
           <el-skeleton animated :rows="7" :loading="loading">
             <template #default>
-              <ReLine />
+              <ReLine :data="data2" />
             </template>
           </el-skeleton>
         </el-card>
@@ -187,7 +220,7 @@ let greetings = computed(() => {
           </template>
           <el-skeleton animated :rows="7" :loading="loading">
             <template #default>
-              <ReBar />
+              <ReBar :data="data2" />
             </template>
           </el-skeleton>
         </el-card>

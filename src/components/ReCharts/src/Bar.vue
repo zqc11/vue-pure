@@ -16,10 +16,23 @@ const props = defineProps({
   index: {
     type: Number,
     default: 0
+  },
+  data: {
+    default: {
+      keys: [],
+      values: []
+    }
   }
 });
 
+let keys = [];
+let values = [];
+
 function initechartInstance() {
+  for (var i in props.data) {
+    keys.push(props.data[i].name);
+    values.push(props.data[i].value);
+  }
   const echartDom = document.querySelector(".bar" + props.index);
   if (!echartDom) return;
   // @ts-ignore
@@ -49,7 +62,7 @@ function initechartInstance() {
           // width: "70",
           // overflow: "truncate"
         },
-        data: ["线型检查", "强度校核", "工艺校核", "完成"]
+        data: props.data.keys
       }
     ],
     yAxis: [
@@ -61,7 +74,7 @@ function initechartInstance() {
       {
         name: "图纸柱状信息",
         type: "bar",
-        data: [77, 15, 50, 100]
+        data: props.data.values
       }
     ]
   });

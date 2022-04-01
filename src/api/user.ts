@@ -13,7 +13,6 @@ export const getVerify = (): userType => {
 
 // 登录
 export const getLogin = (data: object) => {
-  console.log(data);
   return http.request("post", "/login", { data });
 };
 
@@ -22,6 +21,7 @@ export const refreshToken = (data: object) => {
   return http.request("post", "/refreshToken", { data });
 };
 
-// export const searchVague = (data: object) => {
-//   return http.request("post", "/searchVague", { data });
-// };
+// 加载统计数据
+export const getStatistics = id => {
+  return http.get("/operationLog/" + id);
+};

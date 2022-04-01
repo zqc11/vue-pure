@@ -16,6 +16,9 @@ const props = defineProps({
   index: {
     type: Number,
     default: 0
+  },
+  data: {
+    default: []
   }
 });
 
@@ -40,12 +43,7 @@ function initechartInstance() {
         type: "pie",
         radius: "80%",
         center: ["40%", "50%"],
-        data: [
-          { value: 100, name: "完成" },
-          { value: 50, name: "工艺校核" },
-          { value: 77, name: "线型检查" },
-          { value: 15, name: "强度校核" }
-        ],
+        data: props.data,
         emphasis: {
           itemStyle: {
             shadowBlur: 10,

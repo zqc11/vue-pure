@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--     <el-divider direction="horizontal"></el-divider> -->
     <Splitpanes class="default-theme">
       <Pane v-show="showForm()" :size="width" :min-size="minSizeOfForm">
         <!-- 显示表单信息 -->

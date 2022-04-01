@@ -53,9 +53,8 @@ type baseInfo = {
   type: string;
 };
 type uploadFile = {
-  type: string;
-  fileName: string;
-  url: string;
+  filename: string;
+  type: number;
 };
 type formData = {
   formJson: object;
@@ -68,5 +67,9 @@ export type ResultType = {
   success: boolean;
   code: number;
   msg: string;
-  data: object;
+  data: any;
+};
+
+export type OperationType = {
+  currentTask: Object;
 };

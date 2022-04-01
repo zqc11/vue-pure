@@ -14,6 +14,7 @@
           "y": 200,
           "value": "开始"
         },
+        "checkers": [],
         "logicFlowType": "bpmn:startEvent"
       },
       "key": "Event_1d42u4p"
@@ -32,6 +33,7 @@
           "y": 200,
           "value": "结束"
         },
+        "checkers": [],
         "logicFlowType": "bpmn:endEvent"
       },
       "key": "Event_08p8i6q"
@@ -50,6 +52,7 @@
           "y": 200,
           "value": "网关"
         },
+        "checkers": [],
         "logicFlowType": "bpmn:exclusiveGateway"
       },
       "key": "Gateway_1fngqgj"
@@ -60,14 +63,15 @@
       "dockers": [],
       "type": 4,
       "properties": {
-        "name": "用户",
+        "name": "设计",
         "x": 420,
         "y": 200,
         "text": {
           "x": 420,
           "y": 200,
-          "value": "用户"
+          "value": "设计"
         },
+        "checkers": [],
         "logicFlowType": "bpmn:userTask"
       },
       "key": "Activity_2mgtaia"
@@ -78,14 +82,15 @@
       "dockers": [],
       "type": 5,
       "properties": {
-        "name": "服务",
+        "name": "标准化",
         "x": 760,
         "y": 200,
         "text": {
           "x": 760,
           "y": 200,
-          "value": "服务"
+          "value": "标准化"
         },
+        "checkers": [],
         "logicFlowType": "bpmn:serviceTask"
       },
       "key": "Activity_1sp8qc8"
@@ -96,11 +101,11 @@
       "type": 1,
       "dockers": [],
       "properties": {
-        "name": "边",
+        "name": "通过",
         "text": {
           "x": 331,
           "y": 200,
-          "value": "边"
+          "value": "通过"
         },
         "startPoint": {
           "x": 298,
@@ -130,11 +135,11 @@
       "type": 1,
       "dockers": [],
       "properties": {
-        "name": "边2",
+        "name": "通过",
         "text": {
           "x": 507,
           "y": 200,
-          "value": "边2"
+          "value": "通过"
         },
         "startPoint": {
           "x": 470,
@@ -164,11 +169,11 @@
       "type": 1,
       "dockers": [],
       "properties": {
-        "name": "边3",
+        "name": "通过",
         "text": {
           "x": 664,
           "y": 200,
-          "value": "边3"
+          "value": "通过"
         },
         "startPoint": {
           "x": 605,
@@ -198,11 +203,11 @@
       "type": 1,
       "dockers": [],
       "properties": {
-        "name": "边4",
+        "name": "通过",
         "text": {
           "x": 871,
           "y": 200,
-          "value": "边4"
+          "value": "通过"
         },
         "startPoint": {
           "x": 810,

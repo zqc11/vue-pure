@@ -16,6 +16,12 @@ const props = defineProps({
   index: {
     type: Number,
     default: 0
+  },
+  data: {
+    default: {
+      keys: [],
+      values: []
+    }
   }
 });
 
@@ -40,14 +46,14 @@ function initechartInstance() {
       axisLabel: {
         interval: 0
       },
-      data: ["线型检查", "强度校核", "工艺校核", "完成"]
+      data: props.data.keys
     },
     yAxis: {
       type: "value"
     },
     series: [
       {
-        data: [77, 15, 50, 100],
+        data: props.data.values,
         type: "line",
         areaStyle: {}
       }

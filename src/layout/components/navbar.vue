@@ -13,7 +13,7 @@ import { useUserStoreHook } from "/@/store/modules/user";
 
 const pureApp = useAppStoreHook();
 const router = useRouter();
-let account = storageLocal.getItem("info")?.user_info.account;
+let account = storageLocal.getItem("info")?.userInfo.account;
 
 // 退出登录
 const logout = (): void => {

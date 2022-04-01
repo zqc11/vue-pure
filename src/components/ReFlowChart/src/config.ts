@@ -11,7 +11,7 @@ export const nodeList = [
   },
   {
     type: "user",
-    text: "用户",
+    text: "设计",
     class: "node-user"
   },
   {

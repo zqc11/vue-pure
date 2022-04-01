@@ -1,30 +1,32 @@
 <template>
-  <div @click="showInfo(props.item)">
+  <el-card @click="showInfo(props.task)" shadow="hover" class="card">
+    <template #header>
+      <span>
+        {{ props.task.title }}
+      </span>
+    </template>
     <img src="./assets/cad.jpg" alt="机械图纸" />
-    <span>
-      {{ item.title }}
-    </span>
-  </div>
+  </el-card>
 </template>
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import { useOperationStoreHook } from "/@/store/modules/operation";
 
 const router = useRouter();
 const props = defineProps({
-  item: {
+  task: {
     type: Object
   }
 });
 function showInfo(t) {
-  console.log(t);
-  router.push({
-    path: "/taskInfo",
-    query: {
-      item: JSON.stringify(t)
-    }
-  });
+  useOperationStoreHook().SET_CURRENT_TASK(t);
+  router.push("/taskinfo");
 }
 </script>
 
-<style></style>
+<style scoped>
+.card {
+  margin: 5px;
+}
+</style>

@@ -85,7 +85,6 @@ function catData() {
 }
 function onBindEvent() {
   unref(lf).on("node:dbclick, edge:dbclick", data => {
-    console.log(data);
     let type = data.data.type;
     if (type != "bpmn:sequenceFlow") {
       selectedNode.value = lf.value.getNodeModelById(data.data.id);
@@ -137,8 +136,8 @@ provide("selectedEdge", selectedEdge);
     <!-- 画布 -->
     <div id="LF-Turbo"></div>
     <!-- 节点/边缘抽屉信息 -->
-    <node-drawer />
-    <edge-drawer />
+    <node-drawer v-if="openNodeDrawer" />
+    <edge-drawer v-if="openEdgeDrawer" />
     <!-- 数据查看面板 -->
     <el-dialog
       customClass="flow-dialog"

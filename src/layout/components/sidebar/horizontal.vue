@@ -10,6 +10,7 @@ import { storageLocal } from "/@/utils/storage";
 import { deviceDetection } from "/@/utils/deviceDetection";
 import { usePermissionStoreHook } from "/@/store/modules/permission";
 import { useUserStoreHook } from "/@/store/modules/user";
+import sidebarItem from "./sidebarItem.vue";
 
 const title =
   getCurrentInstance().appContext.config.globalProperties.$config?.Title;
@@ -18,7 +19,7 @@ const menuRef = templateRef<ElRef | null>("menu", null);
 const route = useRoute();
 const router = useRouter();
 const routers = useRouter().options.routes;
-let account = storageLocal.getItem("info")?.username;
+let account = storageLocal.getItem("info")?.userInfo.account;
 
 // 退出登录
 const logout = (): void => {

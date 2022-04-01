@@ -8,8 +8,7 @@ const lists = ref([
   { type: "danger", label: "旅游" },
   { type: "warning", label: "追剧" }
 ]);
-const info = storageLocal.getItem("info").user_info;
-console.log(info);
+const info = storageLocal.getItem("info").userInfo;
 const userInfo = {
   name: info.name,
   tel: info.mobile,

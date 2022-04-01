@@ -63,7 +63,6 @@ class PureHttp {
         const token = getToken();
         if (token) {
           const data = JSON.parse(token);
-          console.log(data);
           const now = new Date().getTime();
           const expired = parseInt(data.expires) - now <= 0;
           if (expired) {

@@ -1,73 +1,15 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { reactive, ref } from "vue";
 import { templateRef } from "@vueuse/core";
 import SeamlessScroll from "/@/components/ReSeamlessScroll";
 
 const scroll = templateRef<ElRef | null>("scroll", null);
-
-let listData = ref([
-  {
-    date: "2021-09-01",
-    title: "1号图纸",
-    checker: "王小明",
-    status: "完成"
-  },
-  {
-    date: "2021-09-02",
-    title: "2号图纸",
-    checker: "张晓文",
-    status: "线型检查"
-  },
-  {
-    date: "2021-09-03",
-    title: "2号图纸",
-    checker: "王小明",
-    status: "强度校核"
-  },
-  {
-    date: "2021-09-04",
-    title: "2号图纸",
-    checker: "李明明",
-    status: "工艺校核"
-  },
-  {
-    date: "2021-09-05",
-    title: "3号图纸",
-    checker: "方世玉",
-    status: "绘制中"
-  },
-  {
-    date: "2021-09-06",
-    title: "2号图纸",
-    checker: "王小明",
-    status: "完成"
-  },
-  {
-    date: "2021-09-07",
-    title: "3号图纸",
-    checker: "张晓文",
-    status: "线型检查"
-  },
-  {
-    date: "2021-09-08",
-    title: "3号图纸",
-    checker: "李明明",
-    status: "不合格，退回"
-  },
-  {
-    date: "2021-09-09",
-    title: "3号图纸",
-    checker: "王小明",
-    status: "修订中"
-  },
-  {
-    date: "2021-09-10",
-    title: "3号图纸",
-    checker: "李明明",
-    status: "完成"
+const props = defineProps({
+  listData: {
+    default: []
   }
-]);
-
+});
+let listData = ref(props.listData);
 let classOption = reactive({
   direction: "top"
 });
@@ -89,7 +31,7 @@ let classOption = reactive({
     >
       <ul class="item">
         <li v-for="(item, index) in listData" :key="index">
-          <span v-text="item.date"></span>
+          <span v-text="item.modifyDate"></span>
           <span v-text="item.title"></span>
           <span v-text="item.checker"></span>
           <span v-text="item.status"></span>

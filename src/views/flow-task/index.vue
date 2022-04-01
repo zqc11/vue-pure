@@ -15,18 +15,18 @@
     </el-row>
     <el-divider class="hidden-sm-and-down"></el-divider>
     <!-- 审批流程 -->
-    <el-row :gutter="20">
+    <el-row>
       <el-col
         :xs="24"
         :sm="24"
         :md="12"
         :lg="6"
         :xl="6"
-        v-for="t in data"
-        :key="t.id"
+        v-for="task in tasks"
+        :key="task.id"
         class="task-card"
       >
-        <TaskCard :item="t" />
+        <TaskCard :task="task" />
       </el-col>
     </el-row>
   </div>
@@ -37,29 +37,17 @@ import { useRouter } from "vue-router";
 import { ref } from "vue";
 import { TaskCard } from "/@/components/ReFlowTask";
 import "element-plus/theme-chalk/display.css";
+import { getTasks } from "/@/api/task";
+import { ResultType } from "/@/store/modules/types";
+import { storageLocal } from "/@/utils/storage";
 const router = useRouter();
-let data = ref([
-  {
-    id: 1,
-    title: "1号图纸"
-  },
-  {
-    id: 3,
-    title: "3号图纸"
-  },
-  {
-    id: 2,
-    title: "2号图纸"
-  },
-  {
-    id: 4,
-    title: "4号图纸"
-  },
-  {
-    id: 5,
-    title: "5号图纸"
+let tasks = ref([]);
+const id = storageLocal.getItem("info").userInfo.id;
+getTasks(id).then((data: ResultType) => {
+  if (data.success) {
+    tasks.value = data.data;
   }
-]);
+});
 function newFlow() {
   router.push("/newTask");
 }
@@ -71,7 +59,6 @@ function newFlow() {
 }
 
 .task-card {
-  background-color: white;
   width: fit-content;
   height: fit-content;
 }
