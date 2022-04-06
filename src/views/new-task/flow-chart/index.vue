@@ -2,6 +2,7 @@
 import { ref, unref, onMounted, provide } from "vue";
 import { LogicFlow, BaseNodeModel, BaseEdgeModel } from "@logicflow/core";
 import { Snapshot, BpmnElement, Menu } from "@logicflow/extension";
+import { useRouter } from "vue-router";
 import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
 import {
@@ -11,11 +12,13 @@ import {
   NodeDrawer,
   EdgeDrawer
 } from "/@/components/ReFlowChart";
-import { toLogicflowData } from "/@/components/ReFlowChart/src/adpterForTurbo";
 import { BpmnNode } from "/@/components/ReFlowChart/src/config";
-import demoData from "./dataTurbo.json";
+import logicFlowData from "./logicFlowData.json";
+import { ElMessage } from "element-plus";
+import { useFlowTaskStoreHook } from "/@/store/modules/flowTask";
 
 // logicflow实例
+const router = useRouter();
 let lf = ref<LogicFlow>(null);
 let graphData = ref(null);
 let dataVisible = ref<boolean>(false);
@@ -74,9 +77,7 @@ function initLf() {
 }
 
 function onRender() {
-  // Turbo数据转换为LogicFlow内部识别的数据结构
-  const lFData = toLogicflowData(demoData);
-  lf.value.render(lFData);
+  lf.value.render(logicFlowData);
 }
 
 function catData() {
@@ -86,6 +87,7 @@ function catData() {
 function onBindEvent() {
   unref(lf).on("node:dbclick, edge:dbclick", data => {
     let type = data.data.type;
+    if (type === "bpmn:startEvent" || type === "bpmn:endEvent") return;
     if (type != "bpmn:sequenceFlow") {
       selectedNode.value = lf.value.getNodeModelById(data.data.id);
       openNodeDrawer.value = true;
@@ -112,7 +114,20 @@ onMounted(() => {
   onBindEvent();
 });
 function next() {
+  const data = lf.value.getGraphData();
+  for (let i in data.nodes) {
+    const node = data.nodes[i];
+    const type = node.type;
+    const notStartOrEnd =
+      type !== "bpmn:startEvent" && type !== "bpmn:endEvent";
+    if (notStartOrEnd && node.properties.checkers.length === 0) {
+      ElMessage.error("节点 " + node.text.value + " 未设置审批人");
+      return;
+    }
+  }
+  useFlowTaskStoreHook().setFlowChart(data);
   emit("next", 4);
+  router.push("/newTask/permission");
 }
 provide("openNodeDrawer", openNodeDrawer);
 provide("openEdgeDrawer", openEdgeDrawer);

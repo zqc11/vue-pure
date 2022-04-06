@@ -4,7 +4,7 @@ export const getTasks = id => {
   return http.get("/flowTask/" + id);
 };
 
-export const uploadFiles = files => {
+export const blueprints = files => {
   console.log(files);
   return http.request("post", "/multiUpload", {
     data: {
@@ -13,5 +13,11 @@ export const uploadFiles = files => {
     headers: {
       "Content-Type": "multipart/form-data;boundary=----------webkeijfklsd"
     }
+  });
+};
+
+export const postTask = data => {
+  return http.request("post", "/flowTask/saveTask", {
+    data
   });
 };

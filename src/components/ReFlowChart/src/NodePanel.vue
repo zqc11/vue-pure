@@ -19,8 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 let properties = ref({
-  a: "efrwe",
-  b: "wewe"
+  checkers: []
 });
 
 const nodeDragNode = item => {

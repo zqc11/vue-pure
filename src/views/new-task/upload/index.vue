@@ -45,8 +45,6 @@ import { ref } from "vue";
 import { showError } from "/@/utils/ui/ui";
 import { UploadFile } from "element-plus/lib/components/upload/src/upload.type";
 import { useFlowTaskStoreHook } from "/@/store/modules/flowTask";
-// import { uploadFiles } from "/@/api/task";
-// import { ResultType } from "/@/store/modules/types";
 import { ElMessage } from "element-plus";
 
 const loading = ref(false);
@@ -83,14 +81,13 @@ const onRemove = file => {
 };
 
 const onError = (error, file) => {
-  console.log(file);
   ElMessage.error("文件：" + file.name + " 过大上传失败");
 };
 
 const cleanAll = () => {
   pdfFileList.value = [];
   dwgFileList.value = [];
-  useFlowTaskStoreHook().$state.uploadFiles = [];
+  useFlowTaskStoreHook().$state.blueprints = [];
 };
 
 const next = () => {
@@ -98,51 +95,40 @@ const next = () => {
   loading.value = true;
 
   dwgFileList.value.forEach(file => {
-    const uploadFile = {
-      filename: file.name,
-      type: 1
-    };
-    useFlowTaskStoreHook().$state.uploadFiles.push(uploadFile);
     uploadDwgFile(file);
   });
 
   pdfFileList.value.forEach(file => {
     const uploadFile = {
       filename: file.name,
-      type: 2
+      location: "",
+      type: "pdf"
     };
-    useFlowTaskStoreHook().$state.uploadFiles.push(uploadFile);
+    useFlowTaskStoreHook().$state.blueprints.push(uploadFile);
   });
   uploadRef.value!.submit();
   loading.value = false;
   router.push("/newTask/formDesign");
   emit("next", 2);
-  // uploadFiles(pdfFileList.value)
-  //   .then((data: ResultType) => {
-  //     loading.value = false;
-  //     if (data.success) {
-  //       router.push("/newTask/formDesign");
-  //       emit("next", 2);
-  //     }
-  //   })
-  //   .catch(error => {
-  //     loading.value = false;
-  //     ElMessage.error(error.message);
-  //   });
 };
 const uploadDwgFile = async (file: any) => {
   if (!file) return;
   try {
     // 上传图纸
     let res = await svc.uploadMap(file.raw);
-    console.log(res);
     // 新建图形
     const data = await svc.openMap(res);
     if (data.error) {
       showError("打开图形失败!", data.error);
     } else {
       // 保存我上存的图形ID
-      app.addMyMapId(res.mapId);
+      app.addMyMapId(res.mapid);
+      const uploadFile = {
+        filename: res.uploadname,
+        location: res.mapid,
+        type: "dwg"
+      };
+      useFlowTaskStoreHook().$state.blueprints.push(uploadFile);
     }
   } catch (error) {
     // 上传失败

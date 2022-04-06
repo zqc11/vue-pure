@@ -81,14 +81,9 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate(valid => {
     if (valid) {
       useFlowTaskStoreHook().setBaseInfo(ruleForm);
-      console.log(
-        useFlowTaskStoreHook().baseInfo.title +
-          useFlowTaskStoreHook().baseInfo.desc
-      );
       router.push("/newTask/upload");
       emit("next", 1);
     } else {
-      console.log("error submit!");
       return false;
     }
   });

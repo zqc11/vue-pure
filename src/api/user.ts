@@ -25,3 +25,7 @@ export const refreshToken = (data: object) => {
 export const getStatistics = id => {
   return http.get("/operationLog/" + id);
 };
+
+export const getFriends = id => {
+  return http.get("/friends/" + id);
+};

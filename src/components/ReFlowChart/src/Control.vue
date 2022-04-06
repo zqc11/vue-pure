@@ -2,10 +2,7 @@
 import { ref, unref, onMounted } from "vue";
 import { templateRef } from "@vueuse/core";
 import { LogicFlow } from "@logicflow/core";
-import { useRouter } from "vue-router";
-import { useFlowTaskStoreHook } from "/@/store/modules/flowTask";
 
-const router = useRouter();
 interface Props {
   lf: LogicFlow;
   catTurboData?: boolean;
@@ -76,9 +73,6 @@ const onControl = (item, key) => {
 };
 
 const nextStep = () => {
-  useFlowTaskStoreHook().setFlowChart(props.lf.getGraphData());
-  console.log(useFlowTaskStoreHook().flowChart.flowchartJson);
-  router.push("/newTask/permission");
   emit("next");
 };
 

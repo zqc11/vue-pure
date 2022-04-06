@@ -1,25 +1,14 @@
 <template>
   <el-form :model="form">
     <el-row justify="start" :gutter="10" class="form-item-container">
-      <el-col :span="5">
-        <!-- 维护权限 -->
+      <el-col>
         <el-form-item label="维护权限">
-          <el-select v-model="form.maintain.type" placeholder="请选择">
-            <el-option label="人员" value="1" />
-            <el-option label="部门" value="2" />
-            <el-option label="群组" value="3" />
-            <el-option label="所有人" value="4" />
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :span="19">
-        <el-form-item>
           <el-tag
-            v-for="(checker, index) in form.maintain.list"
+            v-for="(checker, index) in form.maintain"
             :key="index"
             class="check-container"
             closable
-            @close="remove(form.maintain.list, index)"
+            @close="remove(form.maintain, index)"
           >
             {{ checker.name }}
           </el-tag>
@@ -46,7 +35,7 @@
               v-for="(checker, index) in colleague"
               :key="index"
               class="check-container"
-              @click="addToCheckers(form.maintain.list, index)"
+              @click="addToCheckers(form.maintain, index)"
             >
               {{ checker.name }}
             </el-tag>
@@ -63,25 +52,14 @@
       </el-col>
     </el-row>
     <el-row :gutter="10" justify="start" class="form-item-container">
-      <el-col :span="5">
-        <!-- 统计权限 -->
+      <el-col :span="24">
         <el-form-item label="统计权限">
-          <el-select v-model="form.statistics.type" placeholder="请选择">
-            <el-option label="人员" value="1" />
-            <el-option label="部门" value="2" />
-            <el-option label="群组" value="3" />
-            <el-option label="所有人" value="4" />
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :span="19">
-        <el-form-item>
           <el-tag
-            v-for="(checker, index) in form.statistics.list"
+            v-for="(checker, index) in form.statistics"
             :key="index"
             class="check-container"
             closable
-            @close="remove(form.statistics.list, index)"
+            @close="remove(form.statistics, index)"
           >
             {{ checker.name }}
           </el-tag>
@@ -108,7 +86,7 @@
               v-for="(checker, index) in colleague"
               :key="index"
               class="check-container"
-              @click="addToCheckers(form.statistics.list, index)"
+              @click="addToCheckers(form.statistics, index)"
             >
               {{ checker.name }}
             </el-tag>
@@ -139,6 +117,11 @@ import { reactive, ref } from "vue";
 import { CirclePlus, Search } from "@element-plus/icons-vue";
 import { useFlowTaskStoreHook } from "/@/store/modules/flowTask";
 import { useRouter } from "vue-router";
+import { storageLocal } from "/@/utils/storage";
+import { getFriends } from "/@/api/user";
+import { ResultType } from "/@/store/modules/types";
+import { ElMessage } from "element-plus";
+import { postTask } from "/@/api/task";
 const router = useRouter();
 const maintainDialogVisible = ref(false);
 const statisticsDialogVisible = ref(false);
@@ -147,25 +130,35 @@ colleague.value.push({ name: "王小刚" });
 colleague.value.push({ name: "方世玉" });
 colleague.value.push({ name: "张凯峰" });
 const form = reactive({
-  maintain: {
-    type: "",
-    list: []
-  },
-  statistics: {
-    type: "",
-    list: []
-  }
+  maintain: [],
+  statistics: []
 });
 const emit = defineEmits(["next"]);
 function next() {
-  useFlowTaskStoreHook().$reset();
-  router.push("/flowTask/index");
-  emit("next", 0);
+  useFlowTaskStoreHook().setPermission(form);
+  console.log(useFlowTaskStoreHook().$state);
+  postTask(useFlowTaskStoreHook().$state)
+    .then((response: ResultType) => {
+      if (response.success) {
+        useFlowTaskStoreHook().$reset();
+        router.push("/flowTask/index");
+        emit("next", 0);
+      }
+    })
+    .catch(error => {
+      ElMessage.error(error.message);
+    });
 }
 const remove = (array, index) => {
   array.splice(index, 1);
 };
 const openCheckerDialog = type => {
+  const id = storageLocal.getItem("info")["userInfo"].id;
+  getFriends(id).then((response: ResultType) => {
+    if (response.success) {
+      colleague.value = response.data;
+    }
+  });
   if (type == "maintain") {
     maintainDialogVisible.value = true;
   } else {

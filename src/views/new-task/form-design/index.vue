@@ -16,8 +16,9 @@ const vfdRef = ref(null);
 const router = useRouter();
 const emit = defineEmits(["next"]);
 const next = () => {
-  useFlowTaskStoreHook().setformData(unref(vfdRef).getFormJson());
-  console.log(useFlowTaskStoreHook().formData.formJson);
+  useFlowTaskStoreHook().setformData(
+    JSON.stringify(unref(vfdRef).getFormJson())
+  );
   router.push("/newTask/flowChart");
   emit("next", 3);
 };

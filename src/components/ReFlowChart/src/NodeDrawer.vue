@@ -68,6 +68,9 @@
 <script setup lang="ts">
 import { inject, ref, Ref } from "vue";
 import { CirclePlus, Search } from "@element-plus/icons-vue";
+import { getFriends } from "/@/api/user";
+import { ResultType } from "/@/store/modules/types";
+import { storageLocal } from "/@/utils/storage";
 let openDrawer = inject<Ref>("openNodeDrawer");
 const node = inject<Ref>("selectedNode");
 let checkers = ref([...node.value.properties.checkers]);
@@ -83,9 +86,12 @@ const remove = index => {
 };
 const openCheckerDialog = () => {
   dialogVisible.value = true;
-  colleague.value.push({ name: "王小刚" });
-  colleague.value.push({ name: "方世玉" });
-  colleague.value.push({ name: "张凯峰" });
+  const id = storageLocal.getItem("info")["userInfo"].id;
+  getFriends(id).then((response: ResultType) => {
+    if (response.success) {
+      colleague.value = response.data;
+    }
+  });
 };
 const addToCheckers = index => {
   checkers.value.push(colleague.value[index]);

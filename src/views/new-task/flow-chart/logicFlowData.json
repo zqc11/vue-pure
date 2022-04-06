@@ -1,0 +1,267 @@
+{
+  "nodes": [
+    {
+      "id": "1d42u4p",
+      "type": "bpmn:startEvent",
+      "x": 220,
+      "y": 200,
+      "properties": {
+        "status": "未开始",
+        "desc": "",
+        "checkers": []
+      },
+      "text": {
+        "x": 220,
+        "y": 200,
+        "value": "开始"
+      }
+    },
+    {
+      "id": "2mgtaia",
+      "type": "bpmn:userTask",
+      "x": 380,
+      "y": 200,
+      "properties": {
+        "status": "未开始",
+        "desc": "",
+        "checkers": []
+      },
+      "text": {
+        "x": 380,
+        "y": 200,
+        "value": "设计"
+      }
+    },
+    {
+      "id": "fjdls",
+      "type": "bpmn:userTask",
+      "x": 580,
+      "y": 200,
+      "properties": {
+        "status": "未开始",
+        "desc": "",
+        "checkers": []
+      },
+      "text": {
+        "x": 580,
+        "y": 200,
+        "value": "审批"
+      }
+    },
+    {
+      "id": "1sp8qc8",
+      "type": "bpmn:userTask",
+      "x": 780,
+      "y": 200,
+      "properties": {
+        "status": "未开始",
+        "desc": "",
+        "checkers": []
+      },
+      "text": {
+        "x": 780,
+        "y": 200,
+        "value": "标准化"
+      }
+    },
+    {
+      "id": "authorize",
+      "type": "bpmn:userTask",
+      "x": 980,
+      "y": 200,
+      "properties": {
+        "status": "未开始",
+        "desc": "",
+        "checkers": []
+      },
+      "text": {
+        "x": 980,
+        "y": 200,
+        "value": "批准"
+      }
+    },
+    {
+      "id": "08p8i6q",
+      "type": "bpmn:endEvent",
+      "x": 1140,
+      "y": 200,
+      "properties": {
+        "status": "未开始",
+        "desc": "",
+        "checkers": []
+      },
+      "text": {
+        "x": 1140,
+        "y": 200,
+        "value": "结束"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "33inf2k",
+      "type": "bpmn:sequenceFlow",
+      "sourceNodeId": "1d42u4p",
+      "targetNodeId": "2mgtaia",
+      "startPoint": {
+        "x": 238,
+        "y": 200
+      },
+      "endPoint": {
+        "x": 330,
+        "y": 200
+      },
+      "properties": {
+        "desc": "",
+        "condition": "and"
+      },
+      "text": {
+        "x": 281,
+        "y": 200,
+        "value": "通过"
+      },
+      "pointsList": [
+        {
+          "x": 238,
+          "y": 200
+        },
+        {
+          "x": 330,
+          "y": 200
+        }
+      ]
+    },
+    {
+      "id": "0pfouf0",
+      "type": "bpmn:sequenceFlow",
+      "sourceNodeId": "2mgtaia",
+      "targetNodeId": "fjdls",
+      "startPoint": {
+        "x": 430,
+        "y": 200
+      },
+      "endPoint": {
+        "x": 530,
+        "y": 200
+      },
+      "properties": {
+        "desc": "",
+        "condition": "and"
+      },
+      "text": {
+        "x": 480,
+        "y": 200,
+        "value": "通过"
+      },
+      "pointsList": [
+        {
+          "x": 430,
+          "y": 200
+        },
+        {
+          "x": 530,
+          "y": 200
+        }
+      ]
+    },
+    {
+      "id": "3918lhh",
+      "type": "bpmn:sequenceFlow",
+      "sourceNodeId": "fjdls",
+      "targetNodeId": "1sp8qc8",
+      "startPoint": {
+        "x": 630,
+        "y": 200
+      },
+      "endPoint": {
+        "x": 730,
+        "y": 200
+      },
+      "properties": {
+        "desc": "",
+        "condition": "and"
+      },
+      "text": {
+        "x": 675,
+        "y": 200,
+        "value": "通过"
+      },
+      "pointsList": [
+        {
+          "x": 630,
+          "y": 200
+        },
+        {
+          "x": 730,
+          "y": 200
+        }
+      ]
+    },
+    {
+      "id": "Flow_292ikph",
+      "type": "bpmn:sequenceFlow",
+      "sourceNodeId": "1sp8qc8",
+      "targetNodeId": "authorize",
+      "startPoint": {
+        "x": 830,
+        "y": 200
+      },
+      "endPoint": {
+        "x": 930,
+        "y": 200
+      },
+      "properties": {
+        "desc": "",
+        "condition": "and"
+      },
+      "text": {
+        "x": 880,
+        "y": 200,
+        "value": "通过"
+      },
+      "pointsList": [
+        {
+          "x": 830,
+          "y": 200
+        },
+        {
+          "x": 930,
+          "y": 200
+        }
+      ]
+    },
+    {
+      "id": "Flow_1f2do76",
+      "type": "bpmn:sequenceFlow",
+      "sourceNodeId": "authorize",
+      "targetNodeId": "08p8i6q",
+      "startPoint": {
+        "x": 1030,
+        "y": 200
+      },
+      "endPoint": {
+        "x": 1122,
+        "y": 200
+      },
+      "properties": {
+        "desc": "",
+        "condition": "and"
+      },
+      "text": {
+        "x": 1073,
+        "y": 200,
+        "value": "通过"
+      },
+      "pointsList": [
+        {
+          "x": 1030,
+          "y": 200
+        },
+        {
+          "x": 1122,
+          "y": 200
+        }
+      ]
+    }
+  ]
+}

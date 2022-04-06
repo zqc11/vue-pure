@@ -42,9 +42,10 @@ export type userType = {
 
 export type flowTaskType = {
   baseInfo: baseInfo;
-  uploadFiles?: uploadFile[];
+  blueprints?: uploadFile[];
   formData?: formData;
   flowChart: flowChart;
+  permission?: permissionType;
 };
 
 type baseInfo = {
@@ -54,13 +55,19 @@ type baseInfo = {
 };
 type uploadFile = {
   filename: string;
-  type: number;
+  location: string;
+  type: string;
 };
 type formData = {
-  formJson: object;
+  formDataJson: string;
 };
 type flowChart = {
-  flowchartJson: object;
+  nodes: [];
+  edges: [];
+};
+type permissionType = {
+  maintain: [];
+  statistics: [];
 };
 
 export type ResultType = {

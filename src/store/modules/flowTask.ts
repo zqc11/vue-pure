@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { store } from "/@/store";
 import { flowTaskType } from "./types";
+import { postTask } from "/@/api/task";
 
 export const useFlowTaskStore = defineStore({
   id: "flow-task",
@@ -10,26 +11,39 @@ export const useFlowTaskStore = defineStore({
       desc: "",
       type: ""
     },
-    uploadFiles: [],
+    blueprints: [],
     formData: {
-      formJson: null
+      formDataJson: ""
     },
     flowChart: {
-      flowchartJson: null
+      nodes: [],
+      edges: []
+    },
+    permission: {
+      maintain: [],
+      statistics: []
     }
   }),
   actions: {
     setBaseInfo(info) {
       this.baseInfo = info;
     },
-    setuploadFiles(file) {
-      this.uploadFiles.push(file);
+    setblueprints(file) {
+      this.blueprints.push(file);
     },
     setformData(formData) {
-      this.formData.formJson = formData;
+      this.formData.formDataJson = formData;
     },
     setFlowChart(flowChart) {
-      this.flowChart.flowchartJson = flowChart;
+      this.flowChart = flowChart;
+    },
+    setPermission(permission) {
+      this.permission.maintain = permission.maintain;
+      this.permission.statistics = permission.statistics;
+    },
+    postTask() {
+      console.log(this);
+      return postTask(this.state);
     }
   }
 });
