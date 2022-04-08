@@ -6,8 +6,12 @@
 import vjmap from "vjmap";
 import "vjmap/dist/vjmap.min.css";
 import { onMounted } from "vue";
+import { useOperationStoreHook } from "/@/store/modules/operation";
 let map = null;
 const initmap = async function initMap() {
+  const mapId = useOperationStoreHook().GET_CURRENT_BLUEPRINT().location;
+  console.log(useOperationStoreHook().GET_CURRENT_BLUEPRINT());
+  console.log(mapId);
   const env = {
     serviceUrl: "https://vjmap.com/server/api/v1",
     accessToken:
@@ -18,7 +22,7 @@ const initmap = async function initMap() {
   let svc = new vjmap.Service(env.serviceUrl, env.accessToken);
   // 打开地图
   let res = await svc.openMap({
-    mapid: "teethee", // 地图ID
+    mapid: mapId, // 地图ID
     mapopenway: vjmap.MapOpenWay.GeomRender, // 以几何数据渲染方式打开
     style: vjmap.openMapDarkStyle() // div为深色背景颜色时，这里也传深色背景样式
   });

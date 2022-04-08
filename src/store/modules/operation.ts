@@ -5,7 +5,8 @@ import { store } from "/@/store";
 export const useOperationStore = defineStore({
   id: "operation",
   state: (): OperationType => ({
-    currentTask: {}
+    currentTask: {},
+    currentBlueprint: {}
   }),
   actions: {
     SET_CURRENT_TASK(task) {
@@ -13,6 +14,12 @@ export const useOperationStore = defineStore({
     },
     GET_CURRENT_TASK() {
       return this.currentTask;
+    },
+    SET_CURRENT_BLUEPRINT(blueprint) {
+      this.currentBlueprint = blueprint;
+    },
+    GET_CURRENT_BLUEPRINT() {
+      return this.currentBlueprint;
     }
   }
 });

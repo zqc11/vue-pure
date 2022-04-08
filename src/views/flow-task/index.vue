@@ -2,6 +2,11 @@
   <div>
     <!-- 功能栏 -->
     <el-row :gutter="1" type="flex" justify="end">
+      <el-button-group>
+        <el-button>未开始</el-button>
+        <el-button autofocus>进行中</el-button>
+        <el-button>已完成</el-button>
+      </el-button-group>
       <el-col
         :md="{ span: 3, offset: 0 }"
         :lg="{ span: 2, offset: 0 }"

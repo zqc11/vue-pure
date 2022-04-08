@@ -21,3 +21,7 @@ export const postTask = data => {
     data
   });
 };
+
+export const getPdfFile = filename => {
+  return http.request("get", "/getPdfFile/" + filename);
+};

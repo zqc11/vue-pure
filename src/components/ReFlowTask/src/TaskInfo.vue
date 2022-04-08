@@ -22,7 +22,7 @@
         <el-scrollbar height="80vh">
           <!-- 显示机械图纸 -->
           <Blueprint v-if="type === 'dwg'"></Blueprint>
-          <PdfView v-else></PdfView>
+          <PdfView v-else-if="type === 'pdf'"></PdfView>
         </el-scrollbar>
       </Pane>
     </Splitpanes>
@@ -37,13 +37,24 @@ import "splitpanes/dist/splitpanes.css";
 import { ElMessage } from "element-plus";
 import { useOperationStoreHook } from "/@/store/modules/operation";
 const task = useOperationStoreHook().GET_CURRENT_TASK();
-let type = ref("dwg");
 let show = inject<Ref>("show");
+let blueprint = inject<Ref>("blueprint");
 let width = computed(() => {
   if (show.value == 1 || show.value == 2) {
     return 100;
   }
   return 50;
+});
+let type = computed(() => {
+  if (blueprint.value.filename) {
+    const isDwg = blueprint.value.filename.endsWith(".dwg");
+    if (isDwg) {
+      return "dwg";
+    } else {
+      return "pdf";
+    }
+  }
+  return "";
 });
 function showForm() {
   return show.value != 2;
