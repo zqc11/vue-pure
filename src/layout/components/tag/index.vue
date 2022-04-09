@@ -163,27 +163,6 @@ const moveToView = (index: number): void => {
   }
 };
 
-const handleScroll = (offset: number): void => {
-  const scrollbarDomWidth = scrollbarDom.value
-    ? scrollbarDom.value?.offsetWidth
-    : 0;
-  const tabDomWidth = tabDom.value ? tabDom.value.offsetWidth : 0;
-  if (offset > 0) {
-    translateX.value = Math.min(0, translateX.value + offset);
-  } else {
-    if (scrollbarDomWidth < tabDomWidth) {
-      if (translateX.value >= -(tabDomWidth - scrollbarDomWidth)) {
-        translateX.value = Math.max(
-          translateX.value + offset,
-          scrollbarDomWidth - tabDomWidth
-        );
-      }
-    } else {
-      translateX.value = 0;
-    }
-  }
-};
-
 const tagsViews = reactive<Array<tagsViewsType>>([
   {
     icon: refresh,
@@ -626,9 +605,6 @@ const getContextMenuStyle = computed((): CSSProperties => {
 
 <template>
   <div ref="containerDom" class="tags-view" v-if="!showTags">
-    <div class="arrow-left">
-      <IconifyIconOffline icon="arrow-left-s-line" @click="handleScroll(200)" />
-    </div>
     <div ref="scrollbarDom" class="scroll-container">
       <div class="tab" ref="tabDom" :style="getTabStyle">
         <div
@@ -666,12 +642,6 @@ const getContextMenuStyle = computed((): CSSProperties => {
         </div>
       </div>
     </div>
-    <span class="arrow-right">
-      <IconifyIconOffline
-        icon="arrow-right-s-line"
-        @click="handleScroll(-200)"
-      />
-    </span>
     <!-- 右键菜单按钮 -->
     <transition name="el-zoom-in-top">
       <ul

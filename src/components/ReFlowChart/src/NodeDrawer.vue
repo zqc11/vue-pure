@@ -94,7 +94,7 @@ const openCheckerDialog = () => {
   });
 };
 const addToCheckers = index => {
-  checkers.value.push(colleague.value[index]);
+  checkers.value.push(colleague.value[index].id);
   colleague.value.splice(index, 1);
 };
 </script>

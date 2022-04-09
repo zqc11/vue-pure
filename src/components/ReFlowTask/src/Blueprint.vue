@@ -10,8 +10,6 @@ import { useOperationStoreHook } from "/@/store/modules/operation";
 let map = null;
 const initmap = async function initMap() {
   const mapId = useOperationStoreHook().GET_CURRENT_BLUEPRINT().location;
-  console.log(useOperationStoreHook().GET_CURRENT_BLUEPRINT());
-  console.log(mapId);
   const env = {
     serviceUrl: "https://vjmap.com/server/api/v1",
     accessToken:

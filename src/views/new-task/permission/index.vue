@@ -126,17 +126,17 @@ const router = useRouter();
 const maintainDialogVisible = ref(false);
 const statisticsDialogVisible = ref(false);
 const colleague = ref([]);
-colleague.value.push({ name: "王小刚" });
-colleague.value.push({ name: "方世玉" });
-colleague.value.push({ name: "张凯峰" });
 const form = reactive({
   maintain: [],
   statistics: []
 });
+// const form2 = reactive({
+//   maintain: [],
+//   statistics: []
+// });
 const emit = defineEmits(["next"]);
 function next() {
   useFlowTaskStoreHook().setPermission(form);
-  console.log(useFlowTaskStoreHook().$state);
   postTask(useFlowTaskStoreHook().$state)
     .then((response: ResultType) => {
       if (response.success) {
@@ -166,7 +166,7 @@ const openCheckerDialog = type => {
   }
 };
 const addToCheckers = (array, index) => {
-  array.push(colleague.value[index]);
+  array.push(colleague.value[index].id);
 };
 </script>
 

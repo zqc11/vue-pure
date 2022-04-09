@@ -21,18 +21,20 @@
     <el-divider class="hidden-sm-and-down"></el-divider>
     <!-- 审批流程 -->
     <el-row>
-      <el-col
-        :xs="24"
-        :sm="24"
-        :md="12"
-        :lg="6"
-        :xl="6"
-        v-for="task in tasks"
-        :key="task.id"
-        class="task-card"
-      >
-        <TaskCard :task="task" />
-      </el-col>
+      <div v-for="task in tasks" :key="task.id">
+        <el-col
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="6"
+          :xl="6"
+          v-for="node in task.flowChart.nodes"
+          :key="node.id"
+          class="task-card"
+        >
+          <TaskCard :task="task" :node="node" />
+        </el-col>
+      </div>
     </el-row>
   </div>
 </template>
@@ -51,6 +53,7 @@ const id = storageLocal.getItem("info").userInfo.id;
 getTasks(id).then((data: ResultType) => {
   if (data.success) {
     tasks.value = data.data;
+    console.log(tasks.value);
   }
 });
 function newFlow() {
