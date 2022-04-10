@@ -7,6 +7,7 @@ import { MotionPlugin } from "@vueuse/motion";
 import { useTable } from "../src/plugins/vxe-table";
 import { useElementPlus } from "../src/plugins/element-plus";
 import { injectResponsiveStorage } from "/@/utils/storage/responsive";
+import components from "/@/components/ReMap/src/components";
 // import ElementPlus from "element-plus"; //引入element-plus库
 
 import "animate.css";
@@ -51,6 +52,7 @@ getServerConfig(app).then(async config => {
     .use(MotionPlugin)
     .use(useElementPlus)
     .use(VForm3)
+    .use(components)
     .use(useTable);
   // 注册路由
   await router.isReady();

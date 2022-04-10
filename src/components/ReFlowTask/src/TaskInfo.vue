@@ -21,7 +21,7 @@
       >
         <el-scrollbar height="80vh">
           <!-- 显示机械图纸 -->
-          <Blueprint v-if="type === 'dwg'"></Blueprint>
+          <MapContainer v-if="type === 'dwg'"></MapContainer>
           <PdfView v-else-if="type === 'pdf'"></PdfView>
         </el-scrollbar>
       </Pane>
@@ -31,7 +31,8 @@
 
 <script setup lang="ts">
 import { computed, inject, Ref, ref, reactive } from "vue";
-import { Blueprint, PdfView } from "/@/components/ReFlowTask";
+import { PdfView } from "/@/components/ReFlowTask";
+import { MapContainer } from "/@/components/ReMap";
 import { Splitpanes, Pane } from "splitpanes";
 import "splitpanes/dist/splitpanes.css";
 import { ElMessage } from "element-plus";
