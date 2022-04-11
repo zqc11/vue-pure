@@ -3,7 +3,6 @@ import svgLoader from "vite-svg-loader";
 import legacy from "@vitejs/plugin-legacy";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import WindiCSS from "vite-plugin-windicss";
-import { viteMockServe } from "vite-plugin-mock";
 import liveReload from "vite-plugin-live-reload";
 import styleImport from "vite-plugin-style-import";
 import ElementPlus from "unplugin-element-plus/vite";
@@ -13,7 +12,6 @@ import themePreprocessorPlugin from "@zougt/vite-plugin-theme-preprocessor";
 // import viteCompression from "vite-plugin-compression";
 
 export function getPluginsList(command, VITE_LEGACY) {
-  const prodMock = true;
   const lifecycle = process.env.npm_lifecycle_event;
   return [
     vue(),
@@ -96,17 +94,6 @@ export function getPluginsList(command, VITE_LEGACY) {
       ]
     }),
     ElementPlus({}),
-    // mock支持
-    viteMockServe({
-      mockPath: "mock",
-      localEnabled: command === "serve",
-      prodEnabled: command !== "serve" && prodMock,
-      injectCode: `
-          import { setupProdMockServer } from './mockProdServer';
-          setupProdMockServer();
-        `,
-      logger: true
-    }),
     // 是否为打包后的文件提供传统浏览器兼容性支持
     VITE_LEGACY
       ? legacy({

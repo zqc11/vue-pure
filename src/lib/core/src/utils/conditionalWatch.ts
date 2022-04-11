@@ -8,7 +8,7 @@ import {
   WatchStopHandle
 } from "vue";
 
-export default <T, U = T>(
+export default <T, _U = T>(
   ref: ORef<T> | UnwrapRef<T> | T,
   cb: WatchCallback<T>,
   options?: WatchOptions

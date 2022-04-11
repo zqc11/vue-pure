@@ -3,4 +3,4 @@
  */
 import type { App } from "vue";
 
-export function setupGlobDirectives(app: App) {}
+export function setupGlobDirectives(_app: App) {}

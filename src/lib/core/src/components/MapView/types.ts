@@ -1,6 +1,5 @@
-import { Ref, UnwrapRef } from "vue";
+import { UnwrapRef } from "vue";
 import {
-  LngLat,
   MapOptions,
   FlyToOptions,
   IOpenMapParam,

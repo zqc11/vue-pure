@@ -30,7 +30,7 @@ export const attachToGeometry = async (
   if (paint.id) {
     const geo = await paint.Geometry.promise;
 
-    map.on("click", paint.id, e => {
+    map.on("click", paint.id, _e => {
       const coordinates = geo.center;
       popup.setLngLat(coordinates).addTo(map);
     });

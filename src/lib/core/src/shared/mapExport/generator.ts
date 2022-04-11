@@ -136,7 +136,7 @@ export default class MapGenerator {
     if (style && style.sources) {
       const sources = style.sources;
       Object.keys(sources).forEach(name => {
-        let newSrc = this.map.getSource(name);
+        const newSrc = this.map.getSource(name);
         const src = sources[name];
         Object.keys(src).forEach(key => {
           // @ts-ignore
@@ -177,7 +177,8 @@ export default class MapGenerator {
   }
 
   async toBase64(maxWidth: number) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _reject) => {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
       const this_ = this;
 
       // Calculate pixel ratio
@@ -196,14 +197,14 @@ export default class MapGenerator {
       container.style.height = this.toPixels(this.height);
       hidden.appendChild(container);
 
-      let renderMap = this._createRenderMap(container);
+      const renderMap = this._createRenderMap(container);
 
       renderMap.once("idle", () => {
         const canvas = renderMap.getCanvas();
-        let img = loadImage.scale(canvas, {
+        const img = loadImage.scale(canvas, {
           maxWidth
         });
-        let res = img.toDataURL("image/png");
+        const res = img.toDataURL("image/png");
         renderMap.remove();
         hidden.parentNode?.removeChild(hidden);
         Object.defineProperty(window, "devicePixelRatio", {
@@ -220,6 +221,7 @@ export default class MapGenerator {
    * Generate and download Map image
    */
   generate() {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const this_ = this;
 
     // Calculate pixel ratio
@@ -238,7 +240,7 @@ export default class MapGenerator {
     container.style.height = this.toPixels(this.height);
     hidden.appendChild(container);
 
-    let renderMap = this._createRenderMap(container);
+    const renderMap = this._createRenderMap(container);
 
     renderMap.once("idle", () => {
       const canvas = renderMap.getCanvas();

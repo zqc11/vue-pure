@@ -1,4 +1,4 @@
-import { Alignment, Anchor, LngLatLike, Marker, MarkerOptions } from "vjmap";
+import { LngLatLike, MarkerOptions } from "vjmap";
 
 export interface MarkerProps extends MarkerOptions {
   lngLat?: LngLatLike;

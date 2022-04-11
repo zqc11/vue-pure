@@ -86,8 +86,6 @@ export const mountMarker = async (
 };
 
 export const updateOffset = async (
-  vmarker: Deferred<Marker>,
-  color: string
-) => {
-  const marker = await vmarker.promise;
-};
+  _vmarker: Deferred<Marker>,
+  _color: string
+) => {};

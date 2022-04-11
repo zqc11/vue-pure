@@ -17,11 +17,11 @@ export const takeScreenshot = (
   width?: number,
   retCanvas?: boolean
 ) => {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve, _reject) {
     map.once("render", function () {
       if (width) {
         // 缩放
-        let img = loadImage.scale(map.getCanvas(), {
+        const img = loadImage.scale(map.getCanvas(), {
           width,
           canvas: true,
           aspectRatio: 1,
