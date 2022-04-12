@@ -30,7 +30,25 @@ import VjNavigationControl from "/@/lib/core/src/components/Controls/Navigation/
 import { MapExportControl } from "/@/lib/core/src/shared/mapExport";
 import { useMapAction } from "../lib/mapAction";
 import { useOperationStoreHook } from "/@/store/modules/operation";
+import { getBlueprintSnapData } from "/@/api/task";
+import { ResultType } from "/@/store/modules/types";
 const app = useAppStore();
+const id = useOperationStoreHook().GET_CURRENT_BLUEPRINT().id;
+getBlueprintSnapData(id).then((response: ResultType) => {
+  if (response.success) {
+    const features = response.data;
+    if (features) {
+      try {
+        console.log(features);
+        app.myAnnotataions = JSON.parse(features);
+      } catch (error) {
+        console.log(error.message);
+      }
+    } else {
+      app.myAnnotataions = {};
+    }
+  }
+});
 const route = useRoute();
 let vmap: Map; // 地图对象
 const isMapLoaded = ref(false);
@@ -48,7 +66,7 @@ const accessToken = app.accessToken;
 const openMapParam = reactive({
   mapid: app.curMapId, // 地图ID,(请确保此ID已存在，可上传新图形新建ID)
   mapopenway: mapopenway, // 以几何数据渲染方式打开
-  version: "",
+  version: "v1",
   style: {
     backcolor: lightTheme.value ? 0xffffff : 0
   }

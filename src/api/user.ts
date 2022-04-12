@@ -29,3 +29,7 @@ export const getStatistics = id => {
 export const getFriends = id => {
   return http.get("/friends/" + id);
 };
+
+export const getUserById = id => {
+  return http.get("/user/" + id);
+};

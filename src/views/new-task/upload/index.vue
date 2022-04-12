@@ -59,10 +59,8 @@ const router = useRouter();
 let svc = new vjmap.Service(app.serviceUrl, app.accessToken);
 
 const onChange = file => {
-  console.log(file);
   if (file.status === "ready") {
     const isPdf = file.name.endsWith(".pdf");
-    console.log("isPdf", isPdf);
     if (isPdf) {
       // 如果是pdf文件
       pdfFileList.value.push(file);

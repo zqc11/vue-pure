@@ -5,7 +5,6 @@ export const getTasks = id => {
 };
 
 export const blueprints = files => {
-  console.log(files);
   return http.request("post", "/multiUpload", {
     data: {
       files: files
@@ -24,4 +23,20 @@ export const postTask = data => {
 
 export const getPdfFile = filename => {
   return http.request("get", "/getPdfFile/" + filename);
+};
+
+export const saveBlueprintDrawData = data => {
+  return http.request("post", "/saveDrawData", { data });
+};
+
+export const getBlueprintDrawData = id => {
+  return http.request("get", "getDrawData/" + id);
+};
+
+export const saveBlueprintSnapData = data => {
+  return http.request("post", "/saveSnapData", { data });
+};
+
+export const getBlueprintSnapData = id => {
+  return http.request("get", "getSnapData/" + id);
 };

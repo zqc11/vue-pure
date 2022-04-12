@@ -5,6 +5,10 @@ import { getLogin, refreshToken } from "/@/api/user";
 import { storageLocal, storageSession } from "/@/utils/storage";
 import { getToken, setToken, removeToken } from "/@/utils/auth";
 import { useMultiTagsStoreHook } from "/@/store/modules/multiTags";
+import { useFlowTaskStoreHook } from "./flowTask";
+import { useOperationStoreHook } from "./operation";
+import { usePermissionStoreHook } from "./permission";
+import { useAppStore } from "./vjmap/app";
 
 const data = getToken();
 let token = "";
@@ -52,6 +56,10 @@ export const useUserStore = defineStore({
       removeToken();
       storageLocal.clear();
       storageSession.clear();
+      useFlowTaskStoreHook().$reset();
+      useOperationStoreHook().$reset();
+      usePermissionStoreHook().$reset();
+      useAppStore().$reset();
       useMultiTagsStoreHook().handleTags("equal", [
         {
           path: "/welcome",

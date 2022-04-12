@@ -1,10 +1,14 @@
 import { Map } from "vjmap";
+import { getBlueprintSnapData, saveBlueprintSnapData } from "/@/api/task";
+import { useOperationStoreHook } from "/@/store/modules/operation";
+import { ResultType } from "/@/store/modules/types";
 import { useAppStore } from "/@/store/modules/vjmap/app";
 
 const snapCache: Record<string, object> = {};
 export const getMapSnapPoints = async (map: Map, snapObj: any) => {
   const app = useAppStore();
-  if (app.snapQueryLimit == 0) {
+  const id = useOperationStoreHook().GET_CURRENT_BLUEPRINT().id;
+  if (app.snapQueryLimit === 0) {
     // 不启用捕捉
     snapObj.features = [];
     return;
@@ -22,20 +26,25 @@ export const getMapSnapPoints = async (map: Map, snapObj: any) => {
     return;
   } else {
     // 去本地缓存获取
-    const features = localStorage.getItem("snap_" + key);
-    if (features) {
-      try {
-        const values = JSON.parse(features);
-        if (Array.isArray(values)) {
-          //@ts-ignore
-          snapObj.features = [...values];
-          snapCache[key] = snapObj;
-          return;
+    let features;
+    getBlueprintSnapData(id).then((response: ResultType) => {
+      if (response.success) {
+        features = response.data;
+        if (features) {
+          try {
+            const values = JSON.parse(features);
+            if (Array.isArray(values)) {
+              //@ts-ignore
+              snapObj.features = [...values];
+              snapCache[key] = snapObj;
+              return;
+            }
+          } catch (error) {
+            console.log(error.message);
+          }
         }
-      } catch (error) {
-        console.log(error.message);
       }
-    }
+    });
   }
   let res = await svc.conditionQueryFeature({
     fields: "s3",
@@ -73,7 +82,7 @@ export const getMapSnapPoints = async (map: Map, snapObj: any) => {
   }
   snapCache[key] = snapObj;
   try {
-    localStorage.setItem("snap_" + key, JSON.stringify(snapObj.features));
+    saveBlueprintSnapData({ id, snapData: JSON.stringify(snapObj.features) });
   } catch (error) {
     console.log(error.message);
   }

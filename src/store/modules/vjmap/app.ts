@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { APP_ID_KEY } from "./keys";
 import vjmap, { GeoPoint } from "vjmap";
 
 export const defaultServiceUrl = "https://vjmap.com/server/api/v1";
@@ -29,46 +28,22 @@ export interface AnnotataionInfo extends ViewPortInfo {
   json: string;
 }
 
-// const myLocalStorage: Storage = {
-//   //  localStorage 和 sessionStorage有5M左右的大小限制，如果保存过多会导致失败,这里重写下，导常捕捉下
-//   setItem(key, state) {
-//     try {
-//       return localStorage.setItem(key, state);
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   },
-//   getItem(key) {
-//     return localStorage.getItem(key);
-//   },
-//   length: localStorage.length,
-//   clear: function (): void {
-//     localStorage.clear();
-//   },
-//   key: function (index: number): string | null {
-//     return localStorage.key(index);
-//   },
-//   removeItem: function (key: string): void {
-//     return localStorage.removeItem(key);
-//   }
-// };
-
 export const useAppStore = defineStore({
-  id: APP_ID_KEY,
+  id: "vjmap-app",
   state: () => {
     return {
       lightTheme: false,
       serviceUrl: defaultServiceUrl,
       accessToken: defaultAccessToken,
-      curMapId: "sys_zp",
+      curMapId: "",
       curVersion: "",
       mapInfos: {},
       myMapIds: [], // 我上传的图形
       myViewPorts: {}, // 我保存的视口信息
-      myAnnotataions: {}, // 我保存的批注信息
+      myAnnotataions: new Object(), // 我保存的批注信息
       annoIdDivOverlay: {}, // 批注id与divOverlay对应表
       dataDisplayIdName: {}, // 数据展示保存时id和名称对应表
-      snapQueryLimit: 10000, // 捕捉查询时最多返回的数目
+      snapQueryLimit: 0, // 捕捉查询时最多返回的数目
       showNavigationControl: true, // 显示导航条控件
       showMousePositionControl: true, // 显示鼠标位置控件
       showMapExportControl: true // 显示地图导出控件
@@ -109,9 +84,12 @@ export const useAppStore = defineStore({
         1
       );
     },
+    getAnnotatation() {
+      return this.myAnnotataions;
+    },
     saveAnnotataion(annoInfo: AnnotataionInfo) {
       const key = `${annoInfo.mapId}_${annoInfo.version}`;
-      const annotataions = this.myAnnotataions as any;
+      const annotataions = this.myAnnotataions;
       annotataions[key] = annotataions[key] || [];
       annotataions.id = annotataions.id || vjmap.RandomID();
       const findIdx = annotataions[key].findIndex(
@@ -126,7 +104,7 @@ export const useAppStore = defineStore({
     },
     removeAnnotataion(mapId: string, version: string, id: string) {
       const key = `${mapId}_${version}`;
-      const annotataions = this.myAnnotataions as any;
+      const annotataions = this.myAnnotataions as object;
       annotataions[key] = annotataions[key] || [];
       annotataions[key].splice(
         annotataions[key].findIndex((item: AnnotataionInfo) => item.id === id),
@@ -161,30 +139,4 @@ export const useAppStore = defineStore({
       }
     }
   }
-
-  /* 示例主要是把数据存localstorge, 实际工程项目中请保存至后台数据库中 */
-  // persist: {
-  //   enabled: true,
-  //   /* 注意， 因为 localStorage 和 sessionStorage有5M左右的大小限制，如果保存过多会导致失败，此示例只是为了演示用法，实际项目请将数据保存至后台*/
-  //   strategies: [
-  //     {
-  //       storage: sessionStorage,
-  //       paths: [
-  //         "lightTheme",
-  //         "myMapIds",
-  //         "serviceUrl",
-  //         "accessToken",
-  //         "snapQueryLimit",
-  //         "showNavigationControl",
-  //         "showMousePositionControl",
-  //         "showMapExportControl",
-  //         "dataDisplayIdName"
-  //       ]
-  //     },
-  //     {
-  //       storage: myLocalStorage,
-  //       paths: ["myViewPorts", "myAnnotataions"]
-  //     }
-  //   ]
-  // }
 });

@@ -4,11 +4,11 @@
       <el-col>
         <el-form-item label="维护权限">
           <el-tag
-            v-for="(checker, index) in form.maintain"
+            v-for="(checker, index) in form2.maintain"
             :key="index"
             class="check-container"
             closable
-            @close="remove(form.maintain, index)"
+            @close="remove(form.maintain, index, 'maintain')"
           >
             {{ checker.name }}
           </el-tag>
@@ -35,7 +35,7 @@
               v-for="(checker, index) in colleague"
               :key="index"
               class="check-container"
-              @click="addToCheckers(form.maintain, index)"
+              @click="addToCheckers(form.maintain, index, 'maintain')"
             >
               {{ checker.name }}
             </el-tag>
@@ -55,11 +55,11 @@
       <el-col :span="24">
         <el-form-item label="统计权限">
           <el-tag
-            v-for="(checker, index) in form.statistics"
+            v-for="(checker, index) in form2.statistics"
             :key="index"
             class="check-container"
             closable
-            @close="remove(form.statistics, index)"
+            @close="remove(form.statistics, index, 'statistics')"
           >
             {{ checker.name }}
           </el-tag>
@@ -86,7 +86,7 @@
               v-for="(checker, index) in colleague"
               :key="index"
               class="check-container"
-              @click="addToCheckers(form.statistics, index)"
+              @click="addToCheckers(form.statistics, index, 'statistics')"
             >
               {{ checker.name }}
             </el-tag>
@@ -118,7 +118,7 @@ import { CirclePlus, Search } from "@element-plus/icons-vue";
 import { useFlowTaskStoreHook } from "/@/store/modules/flowTask";
 import { useRouter } from "vue-router";
 import { storageLocal } from "/@/utils/storage";
-import { getFriends } from "/@/api/user";
+import { getFriends, getUserById } from "/@/api/user";
 import { ResultType } from "/@/store/modules/types";
 import { ElMessage } from "element-plus";
 import { postTask } from "/@/api/task";
@@ -130,10 +130,17 @@ const form = reactive({
   maintain: [],
   statistics: []
 });
-// const form2 = reactive({
-//   maintain: [],
-//   statistics: []
-// });
+const form2 = reactive({
+  maintain: [],
+  statistics: []
+});
+const addToform2 = (id, array) => {
+  getUserById(id).then((response: ResultType) => {
+    if (response.success) {
+      array.push(response.data);
+    }
+  });
+};
 const emit = defineEmits(["next"]);
 function next() {
   useFlowTaskStoreHook().setPermission(form);
@@ -149,8 +156,15 @@ function next() {
       ElMessage.error(error.message);
     });
 }
-const remove = (array, index) => {
+const remove = (array, index, type) => {
   array.splice(index, 1);
+  let array2;
+  if (type === "maintain") {
+    array2 = form2.maintain;
+  } else {
+    array2 = form2.statistics;
+  }
+  array2.splice(index, 1);
 };
 const openCheckerDialog = type => {
   const id = storageLocal.getItem("info")["userInfo"].id;
@@ -165,8 +179,20 @@ const openCheckerDialog = type => {
     statisticsDialogVisible.value = true;
   }
 };
-const addToCheckers = (array, index) => {
-  array.push(colleague.value[index].id);
+const addToCheckers = (array: Array<number>, index, type) => {
+  const id = colleague.value[index].id;
+  const findIndex = array.findIndex(item => item === id);
+  if (findIndex >= 0) {
+    return;
+  }
+  array.push(id);
+  let array2;
+  if (type === "maintain") {
+    array2 = form2.maintain;
+  } else {
+    array2 = form2.statistics;
+  }
+  addToform2(id, array2);
 };
 </script>
 

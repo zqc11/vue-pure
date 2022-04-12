@@ -16,6 +16,7 @@ export const useOperationStore = defineStore({
       return this.currentTask;
     },
     SET_CURRENT_BLUEPRINT(blueprint) {
+      this.currentBlueprint = {};
       this.currentBlueprint = blueprint;
     },
     GET_CURRENT_BLUEPRINT() {

@@ -42,7 +42,6 @@ export const useFlowTaskStore = defineStore({
       this.permission.statistics = permission.statistics;
     },
     postTask() {
-      console.log(this);
       return postTask(this.state);
     }
   }

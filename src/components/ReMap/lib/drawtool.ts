@@ -2,6 +2,13 @@ import { Map, Draw, Control } from "vjmap";
 import { useAppStore } from "/@/store/modules/vjmap/app";
 import { getMapSnapPoints } from "./snap";
 import { ElMessage } from "element-plus";
+import {
+  getBlueprintDrawData,
+  saveBlueprintDrawData,
+  saveBlueprintSnapData
+} from "/@/api/task";
+import { ResultType } from "/@/store/modules/types";
+import { useOperationStoreHook } from "/@/store/modules/operation";
 export function useDrawTool(map: Map) {
   const app = useAppStore();
 
@@ -20,14 +27,45 @@ export function useDrawTool(map: Map) {
         },
         onActivate: async (ctx: any) => {
           const entsJson = ctx.api.getAll();
-          const curParam = ctx.map.getService().currentMapParam() || {};
-          // 用地图的mapid和版本号做为key值，把数据保存起来，这里演示只是做数据保存到了localStorage,实际中请保存至后台数据库中
-          const key = `map_drawdata_${curParam.mapid}_${curParam.version}`;
-          window.localStorage.setItem(key, JSON.stringify(entsJson));
-          ElMessage({
-            type: "success",
-            message: "保存成功"
-          });
+          const id = useOperationStoreHook().GET_CURRENT_BLUEPRINT().id;
+          const annotatations = {};
+          for (const key in app.myAnnotataions) {
+            annotatations[key] = app.myAnnotataions[key];
+          }
+          saveBlueprintSnapData({
+            id,
+            snapData: JSON.stringify(annotatations)
+          })
+            .then((response: ResultType) => {
+              if (response.success) {
+                ElMessage({
+                  type: "success",
+                  message: "保存成功"
+                });
+              }
+            })
+            .catch(error => {
+              ElMessage({
+                type: "error",
+                message: error.message
+              });
+            });
+
+          saveBlueprintDrawData({ id, drawData: JSON.stringify(entsJson) })
+            .then((response: ResultType) => {
+              if (response.success) {
+                ElMessage({
+                  type: "success",
+                  message: "保存成功"
+                });
+              }
+            })
+            .catch(error => {
+              ElMessage({
+                type: "error",
+                message: error.message
+              });
+            });
         }
       }
     ];
@@ -46,7 +84,7 @@ export function useDrawTool(map: Map) {
       });
       map.addControl(tool, "top-left");
       drawTool = tool;
-      loadData(map, drawTool);
+      loadData(drawTool);
     }
     getSnapFeatures();
   };
@@ -64,17 +102,20 @@ export function useDrawTool(map: Map) {
   };
 }
 // 加载数据
-const loadData = (map: Map, drawTool: any) => {
-  // 用地图的mapid和版本号做为key值, 这里演示只是从localStorage去加载,实际中请从后台去请求数据加载
-  const curParam = map.getService().currentMapParam() || {};
-  const key = `map_drawdata_${curParam.mapid}_${curParam.version}`;
-  let data = window.localStorage.getItem(key);
-  if (data && data != "") {
-    try {
-      data = JSON.parse(data);
-      drawTool.set(data);
-    } catch (error) {
-      console.log(error);
+const loadData = (drawTool: any) => {
+  const id = useOperationStoreHook().GET_CURRENT_BLUEPRINT().id;
+  let data;
+  getBlueprintDrawData(id).then((response: ResultType) => {
+    if (response.success) {
+      data = response.data;
+      if (data !== null && data != "") {
+        try {
+          data = JSON.parse(data);
+          drawTool.set(data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
     }
-  }
+  });
 };

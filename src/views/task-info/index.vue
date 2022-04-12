@@ -22,7 +22,7 @@
         >
       </el-col>
       <el-col :xs="6" :sm="4" :md="3" :lg="2" :xl="2">
-        <el-button class="top-menu-button" @click="showBlueprint" autofocus
+        <el-button class="top-menu-button" @click="showBlueprint"
           >仅显示图纸</el-button
         >
       </el-col>
@@ -49,7 +49,8 @@ import { useOperationStoreHook } from "/@/store/modules/operation";
 const task = useOperationStoreHook().GET_CURRENT_TASK();
 const blueprints = task.blueprints;
 let currentBlueprint = ref(blueprints[0]);
-useOperationStoreHook().SET_CURRENT_BLUEPRINT(currentBlueprint);
+console.log(currentBlueprint);
+useOperationStoreHook().SET_CURRENT_BLUEPRINT(currentBlueprint.value);
 let show = ref(2);
 // 显示表单信息
 function showForm() {
@@ -66,8 +67,9 @@ function showAll() {
 
 // 选择图纸
 const changeBlueprint = command => {
+  console.log(command);
   currentBlueprint.value = command;
-  useOperationStoreHook().SET_CURRENT_BLUEPRINT(currentBlueprint);
+  useOperationStoreHook().SET_CURRENT_BLUEPRINT(currentBlueprint.value);
 };
 
 // 向TaskInfo传递props

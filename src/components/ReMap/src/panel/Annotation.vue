@@ -2,7 +2,7 @@
   <div class="listPanel">
     <div class="header">
       <el-button
-        type="success"
+        type="primary"
         size="small"
         :icon="DocumentAdd"
         @click="addAnnotataion"
@@ -22,7 +22,9 @@
         >
           <template #header>
             <div class="card-header">
-              <div :title="item.name">{{ item.name }}</div>
+              <div :title="item.name" @click="() => gotoView(item)">
+                {{ item.name }}
+              </div>
               <el-button-group class="ml-4">
                 <el-tooltip effect="dark" content="编辑标注" placement="top">
                   <el-button
@@ -55,13 +57,13 @@
               </el-button-group>
             </div>
           </template>
-          <el-image
+          <!-- <el-image
             :class="[item.darkTheme ? 'drakBackground' : '', 'img']"
             lazy
             :src="item.imgSrc"
             fit="fill"
             @click="() => gotoView(item)"
-          ></el-image>
+          ></el-image> -->
         </el-card>
       </el-space>
     </el-scrollbar>
@@ -76,7 +78,6 @@ import { useAppStore, AnnotataionInfo } from "/@/store/modules/vjmap/app";
 import { emitter, showConfirm } from "/@/utils/ui/ui";
 import { createDivSvg } from "/@/utils/ui/map";
 const app = useAppStore();
-
 const map = (inject("map") as Function)() as Map;
 
 const getMapAnnotataions = computed(() => {

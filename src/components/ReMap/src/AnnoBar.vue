@@ -1,47 +1,26 @@
 /* eslint-disable no-redeclare */ /* eslint-disable no-redeclare */
 <template>
   <div class="righttop">
-    <el-button type="success" @click="confirmOk()">确定保存</el-button>
+    <el-button type="primary" @click="confirmOk()">保存批注</el-button>
     <el-button type="info" @click="gobackFree()">取消</el-button>
   </div>
   <div class="btmcenter">
     <el-button-group>
-      <el-button type="success" size="small" @click="draw('arrow')"
-        >绘制箭头</el-button
-      >
-      <el-button type="success" size="small" @click="draw('freedraw')"
-        >随手绘制</el-button
-      >
-      <el-button type="success" size="small" @click="draw('line')"
-        >直线</el-button
-      >
-      <el-button type="success" size="small" @click="draw('dottedline')"
-        >虚线</el-button
-      >
-      <el-button type="success" size="small" @click="draw('circle')"
-        >圆</el-button
-      >
-      <el-button type="success" size="small" @click="draw('ellipse')"
-        >椭圆</el-button
-      >
-      <el-button type="success" size="small" @click="draw('rectangle')"
-        >矩形</el-button
-      >
-      <el-button type="success" size="small" @click="draw('rightangle')"
-        >直角三角形</el-button
-      >
-      <el-button type="success" size="small" @click="draw('equilateral')"
+      <el-button size="small" @click="draw('arrow')">绘制箭头</el-button>
+      <el-button size="small" @click="draw('freedraw')">随手绘制</el-button>
+      <el-button size="small" @click="draw('line')">直线</el-button>
+      <el-button size="small" @click="draw('dottedline')">虚线</el-button>
+      <el-button size="small" @click="draw('circle')">圆</el-button>
+      <el-button size="small" @click="draw('ellipse')">椭圆</el-button>
+      <el-button size="small" @click="draw('rectangle')">矩形</el-button>
+      <el-button size="small" @click="draw('rightangle')">直角三角形</el-button>
+      <el-button size="small" @click="draw('equilateral')"
         >等边三角形</el-button
       >
-      <el-button type="success" size="small" @click="draw('text')"
-        >文本</el-button
-      >
-      <el-button type="success" size="small" @click="selectDel()"
-        >删除选择</el-button
-      >
+      <el-button size="small" @click="draw('text')">文本</el-button>
+      <el-button size="small" @click="selectDel()">删除选择</el-button>
       <el-dropdown
         split-button
-        type="success"
         size="small"
         @command="cmd => (strokeWidth = +cmd)"
       >
@@ -66,7 +45,7 @@ import vjmap from "vjmap";
 import { emitter, getInput } from "/@/utils/ui/ui";
 import { useAppStore } from "/@/store/modules/vjmap/app";
 import { waitSourceLoaded, createDivSvg } from "/@/utils/ui/map";
-import { takeScreenshot } from "/@/lib/core/src/shared/func";
+// import { takeScreenshot } from "/@/lib/core/src/shared/func";
 const app = useAppStore();
 const map = inject("map")();
 let svc = map.getService();
@@ -429,6 +408,7 @@ const endFreeDraw = () => {
 let id = "";
 let curEditItem; // 当前编辑项
 const confirmOk = async () => {
+  console.log("confirmOk");
   try {
     let name = await getInput("批注", "请输入批注内容", curEditItem?.name);
     id = createDivCanvas(
@@ -438,14 +418,14 @@ const confirmOk = async () => {
       curEditItem?.id
     );
     await waitSourceLoaded(map, id + "_source");
-    let img = await takeScreenshot(map, 300);
+    // let img = await takeScreenshot(map, 300);
     let center = map.getCenter();
     let anno = {
       mapId: app.curMapId,
       version: app.curVersion,
       name: name,
       darkTheme: svc.currentMapParam()?.darkMode === true ? true : false,
-      imgSrc: img,
+      // imgSrc: img,
       zoom: map.getZoom(),
       centerX: center.lng,
       centerY: center.lat,
@@ -511,10 +491,18 @@ onUnmounted(() => emitter.off("loadAnnotataion", loadAnnotataion));
   margin: 5px;
 }
 
+.left-top {
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-flow: row nowrap;
+  left: 5px;
+}
+
 .btmcenter {
   width: 100%;
   position: absolute;
-  bottom: 5px;
+  top: 0px;
   display: flex;
   flex-direction: row;
   align-items: center;

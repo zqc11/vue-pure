@@ -23,7 +23,6 @@ let data2 = ref({
 onMounted(() => {
   const id = storageLocal.getItem("info")["userInfo"].id;
   getStatistics(id).then((data: ResultType) => {
-    console.log(localStorage.getItem("info"));
     if (data.success) {
       operationLog.value = data.data;
 

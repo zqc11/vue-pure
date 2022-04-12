@@ -16,7 +16,7 @@
       </el-form-item>
       <el-form-item label="审批人">
         <el-tag
-          v-for="(checker, index) in checkers"
+          v-for="(checker, index) in showCheckers"
           :key="index"
           class="check-container"
           closable
@@ -68,12 +68,23 @@
 <script setup lang="ts">
 import { inject, ref, Ref } from "vue";
 import { CirclePlus, Search } from "@element-plus/icons-vue";
-import { getFriends } from "/@/api/user";
+import { getFriends, getUserById } from "/@/api/user";
 import { ResultType } from "/@/store/modules/types";
 import { storageLocal } from "/@/utils/storage";
 let openDrawer = inject<Ref>("openNodeDrawer");
 const node = inject<Ref>("selectedNode");
 let checkers = ref([...node.value.properties.checkers]);
+let showCheckers = ref([]);
+const addToShowCheckers = id => {
+  getUserById(id).then((response: ResultType) => {
+    if (response.success) {
+      showCheckers.value.push(response.data);
+    }
+  });
+};
+checkers.value.forEach(id => {
+  addToShowCheckers(id);
+});
 const colleague = ref([]);
 const dialogVisible = ref(false);
 const handleClose = () => {
@@ -94,7 +105,13 @@ const openCheckerDialog = () => {
   });
 };
 const addToCheckers = index => {
-  checkers.value.push(colleague.value[index].id);
+  const id = colleague.value[index].id;
+  const findIndex = checkers.value.findIndex(item => item === id);
+  if (findIndex >= 0) {
+    return;
+  }
+  addToShowCheckers(id);
+  checkers.value.push(id);
   colleague.value.splice(index, 1);
 };
 </script>
