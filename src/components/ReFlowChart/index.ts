@@ -4,6 +4,7 @@ import nodePanel from "./src/NodePanel.vue";
 import dataDialog from "./src/DataDialog.vue";
 import nodeDrawer from "./src/NodeDrawer.vue";
 import edgeDrawer from "./src/EdgeDrawer.vue";
+import flowTemplateDrawer from "./src/FlowTemplateDrawer.vue";
 
 export const Control = Object.assign(control, {
   install(app: App) {
@@ -32,5 +33,11 @@ export const NodeDrawer = Object.assign(nodeDrawer, {
 export const EdgeDrawer = Object.assign(edgeDrawer, {
   install(app: App) {
     app.component(edgeDrawer.name, edgeDrawer);
+  }
+});
+
+export const FlowTemplateDrawer = Object.assign(flowTemplateDrawer, {
+  install(app: App) {
+    app.component(flowTemplateDrawer.name, flowTemplateDrawer);
   }
 });

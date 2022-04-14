@@ -35,18 +35,13 @@ let titleLists = ref([
   },
   {
     icon: "icon-previous-hs",
-    text: "上一步",
+    text: "撤销",
     disabled: true
   },
   {
     icon: "icon-next-step-hs",
-    text: "下一步",
+    text: "重做",
     disabled: true
-  },
-  {
-    icon: "icon-download-hs",
-    text: "下载图片",
-    disabled: false
   },
   {
     icon: "icon-watch-hs",
@@ -56,20 +51,18 @@ let titleLists = ref([
 ]);
 
 const onControl = (item, key) => {
-  ["zoom", "zoom", "resetZoom", "undo", "redo", "getSnapshot"].forEach(
-    (v, i) => {
-      let domControl = props.lf;
-      if (key === 1) {
-        domControl.zoom(true);
-      }
-      if (key === 6) {
-        emit("catData");
-      }
-      if (key === i) {
-        domControl[v]();
-      }
+  ["zoom", "zoom", "resetZoom", "undo", "redo"].forEach((v, i) => {
+    let domControl = props.lf;
+    if (key === 1) {
+      domControl.zoom(true);
     }
-  );
+    if (key === 5) {
+      emit("catData");
+    }
+    if (key === i) {
+      domControl[v]();
+    }
+  });
 };
 
 const nextStep = () => {

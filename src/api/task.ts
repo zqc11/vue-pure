@@ -40,3 +40,11 @@ export const saveBlueprintSnapData = data => {
 export const getBlueprintSnapData = id => {
   return http.request("get", "getSnapData/" + id);
 };
+
+export const saveFormData = data => {
+  return http.request("post", "/flowTask/saveFormData", { data });
+};
+
+export const getFlowTemplate = () => {
+  return http.get("/getAllFlowTemplate");
+};

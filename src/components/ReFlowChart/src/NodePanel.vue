@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, unref } from "vue";
+import { provide, Ref, ref, unref } from "vue";
 import { LogicFlow } from "@logicflow/core";
+import { FlowTemplateDrawer } from "/@/components/ReFlowChart";
 
 type nodeListType = {
   text: string;
@@ -13,6 +14,9 @@ interface Props {
   nodeList: Array<nodeListType>;
 }
 
+/* 变量定义 */
+const dialogTableVisible = ref(false);
+
 const props = withDefaults(defineProps<Props>(), {
   lf: null,
   nodeList: null
@@ -22,15 +26,31 @@ let properties = ref({
   checkers: []
 });
 
+/* 方法定义 */
 const nodeDragNode = item => {
   props.lf.dnd.startDrag({
     type: item.type,
     properties: unref(properties)
   });
 };
+
+const openTemplateDrawer = () => {
+  dialogTableVisible.value = true;
+};
+
+/* 方法调用 */
+provide<Ref>("dialogTableVisible", dialogTableVisible);
 </script>
 
 <template>
+  <el-button
+    class="flow-template"
+    @click="openTemplateDrawer"
+    type="success"
+    plain
+    >流程模板</el-button
+  >
+  <flow-template-drawer />
   <!-- 左侧bpmn元素选择器 -->
   <div class="node-panel">
     <div
@@ -143,5 +163,15 @@ const nodeDragNode = item => {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAAHeEJUAAAAABGdBTUEAALGPC/xhBQAAAvVJREFUOBGNVEFrE0EU/mY3bQoiFlOkaUJrQUQoWMGePLX24EH0IIoHKQiCV0G8iE1covgLiqA/QTzVm1JPogc9tIJYFaQtlhQxqYjSpunu+L7JvmUTU3AgmTfvffPNN++9WSA1DO182f6xwILzD5btfAoQmwL5KJEwiQyVbSVZ0IgRyV6PTpIJ81E5ZvqfHQR0HUOBHW4L5Et2kQ6Zf7iAOhTFAA8s0pEP7AXO1uAA52SbqGk6h/6J45LaLhO64ByfcUzM39V7ZiAdS2yCePPEIQYvTUHqM/n7dgQNfBKWPjpF4ISk8q3J4nB11qw6X8l+FsF3EhlkEMfrjIer3wJTLwS2aCNcj4DbGxXTw00JmAuO+Ni6bBxVUCvS5d9aa04+so4pHW5jLTywuXAL7jJ+D06sl82Sgl2JuVBQn498zkc2bGKxULHjCnSMadBKYDYYHAtsby1EQ5lNGrQd4Y3v4Zo0XdGEmDno46yCM9Tk+RiJmUYHS/aXHPNTcjxcbTFna000PFJHIVZ5lFRqRpJWk9/+QtlOUYJj9HG5pVFEU7zqIYDVsw2s+AJaD8wTd2umgSCCyUxgGsS1Y6TBwXQQTFuZaHcd8gAGioE90hlsY+wMcs30RduYtxanjMGal8H5dMW67dmT1JFtYUEe8LiQLRsPZ6IIc7A4J5tqco3T0pnv/4u0kyzrYUq7gASuEyI8VXKvB9Odytv6jS/PNaZBln0nioJG/AVQRZvApOdhjj3Jt8QC8Im09SafwdBdvIpztpxWxpeKCC+EsFdS8DCyuCn2munFpL7ctHKp+Xc5cMybeIyMAN33SPL3ZR9QV1XVwLyzHm6Iv0/yeUuUb7PPlZC4D4HZkeu6dpF4v9j9MreGtMbxMMRLIcjJic9yHi7WQ3yVKzZVWUr5UrViJvn1FfUlwe/KYVfYyWRLSGNu16hR01U9IacajXPei0wx/5BqgInvJN+MMNtNme7ReU9SBbgntovn0kKHpFg7UogZvaZiOue/q1SBo9ktHzQAAAAASUVORK5CYII=)
     center center no-repeat;
   cursor: grab;
+}
+
+.flow-template {
+  z-index: 101;
+  position: absolute;
+  top: 55px;
+  left: 50px;
+  width: 70px;
+  padding: 20px 10px;
+  box-shadow: --el-box-shadow;
 }
 </style>

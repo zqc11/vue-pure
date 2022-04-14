@@ -4,14 +4,16 @@
       <Pane v-show="showForm()" :size="width" :min-size="minSizeOfForm">
         <!-- 显示表单信息 -->
         <el-scrollbar height="80vh">
-          <v-form-render
-            :form-json="formJson"
-            :form-data="formData"
-            :option-data="optionData"
-            ref="vFormRef"
-          >
-          </v-form-render>
-          <el-button type="primary" @click="submitForm">Submit</el-button>
+          <div class="form-container">
+            <v-form-render
+              :form-json="formJson"
+              :form-data="formData"
+              :option-data="optionData"
+              ref="vFormRef"
+            >
+            </v-form-render>
+            <el-button type="primary" @click="submitForm">保存</el-button>
+          </div>
         </el-scrollbar>
       </Pane>
       <Pane
@@ -37,9 +39,17 @@ import { Splitpanes, Pane } from "splitpanes";
 import "splitpanes/dist/splitpanes.css";
 import { ElMessage } from "element-plus";
 import { useOperationStoreHook } from "/@/store/modules/operation";
+import { saveFormData } from "/@/api/task";
+import { ResultType } from "/@/store/modules/types";
+
+/* 变量定义 */
 const task = useOperationStoreHook().GET_CURRENT_TASK();
 let show = inject<Ref>("show");
 let blueprint = inject<Ref>("blueprint");
+const formJson = reactive(JSON.parse(task.formJson));
+const formData = reactive(JSON.parse(task.formData ? task.formData : "{}"));
+const optionData = reactive({});
+const vFormRef = ref(null);
 let width = computed(() => {
   if (show.value == 1 || show.value == 2) {
     return 100;
@@ -57,6 +67,8 @@ let type = computed(() => {
   }
   return "";
 });
+
+/* 方法定义 */
 function showForm() {
   return show.value != 2;
 }
@@ -82,18 +94,18 @@ let minSizeOfBlueprint = computed(() => {
   return 20;
 });
 
-// =====================
-const formJson = reactive(JSON.parse(task.form));
-const formData = reactive({});
-const optionData = reactive({});
-const vFormRef = ref(null);
-
 const submitForm = () => {
   vFormRef.value
     .getFormData()
     .then(formData => {
       // Form Validation OK
-      alert(JSON.stringify(formData));
+      saveFormData({ id: task.id, formData: JSON.stringify(formData) }).then(
+        (response: ResultType) => {
+          if (response.success) {
+            ElMessage.success("保存成功");
+          }
+        }
+      );
     })
     .catch(error => {
       // Form Validation failed
@@ -117,5 +129,12 @@ const submitForm = () => {
   width: 15px;
   border-left: 2px solid #bbb;
   margin-left: -1px;
+}
+
+.form-container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
 }
 </style>

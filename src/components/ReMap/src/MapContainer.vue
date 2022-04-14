@@ -34,21 +34,20 @@ import { getBlueprintSnapData } from "/@/api/task";
 import { ResultType } from "/@/store/modules/types";
 const app = useAppStore();
 const id = useOperationStoreHook().GET_CURRENT_BLUEPRINT().id;
-getBlueprintSnapData(id).then((response: ResultType) => {
-  if (response.success) {
-    const features = response.data;
-    if (features) {
-      try {
-        console.log(features);
+getBlueprintSnapData(id)
+  .then((response: ResultType) => {
+    if (response.success) {
+      const features = response.data;
+      if (features) {
         app.myAnnotataions = JSON.parse(features);
-      } catch (error) {
-        console.log(error.message);
+      } else {
+        app.myAnnotataions = {};
       }
-    } else {
-      app.myAnnotataions = {};
     }
-  }
-});
+  })
+  .catch(error => {
+    console.log(error.message);
+  });
 const route = useRoute();
 let vmap: Map; // 地图对象
 const isMapLoaded = ref(false);

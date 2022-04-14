@@ -3,8 +3,12 @@ import { ref, unref, onMounted, provide } from "vue";
 import { LogicFlow, BaseNodeModel, BaseEdgeModel } from "@logicflow/core";
 import { Snapshot, BpmnElement, Menu } from "@logicflow/extension";
 import { useRouter } from "vue-router";
+import { BpmnNode } from "/@/components/ReFlowChart/src/config";
+import logicFlowData from "./logicFlowData.json";
 import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
+import { ElMessage } from "element-plus";
+import { useFlowTaskStoreHook } from "/@/store/modules/flowTask";
 import {
   Control,
   NodePanel,
@@ -12,13 +16,10 @@ import {
   NodeDrawer,
   EdgeDrawer
 } from "/@/components/ReFlowChart";
-import { BpmnNode } from "/@/components/ReFlowChart/src/config";
-import logicFlowData from "./logicFlowData.json";
-import { ElMessage } from "element-plus";
-import { useFlowTaskStoreHook } from "/@/store/modules/flowTask";
 
-// logicflow实例
+/* 变量定义 */
 const router = useRouter();
+// logicflow实例
 let lf = ref<LogicFlow>(null);
 let graphData = ref(null);
 let dataVisible = ref<boolean>(false);
@@ -26,15 +27,18 @@ let openNodeDrawer = ref(false);
 let openEdgeDrawer = ref(false);
 let selectedNode = ref<BaseNodeModel>(null);
 let selectedEdge = ref<BaseEdgeModel>(null);
+// logicflow实例配置
 let config = ref({
   // 打开网格
   grid: true,
   textEdit: false,
   // 禁止鼠标滚轮上下移动画布
   stopScrollGraph: true,
+  // 背景颜色
   background: {
     color: "#f7f9ff"
   },
+  // 绑定快捷键
   keyboard: {
     enabled: true,
     // 自定义快捷键
@@ -55,9 +59,12 @@ let config = ref({
     ]
   }
 });
+// 下一步触发事件
 const emit = defineEmits(["next"]);
 let nodeList = BpmnNode;
 
+/* 方法定义 */
+// 初始化logicflow实例
 function initLf() {
   // 画布配置
   LogicFlow.use(Snapshot);
@@ -80,10 +87,12 @@ function onRender() {
   lf.value.render(logicFlowData);
 }
 
+// 展示流程json数据弹窗
 function catData() {
   graphData.value = unref(lf).getGraphData();
   dataVisible.value = true;
 }
+
 function onBindEvent() {
   unref(lf).on("node:dbclick, edge:dbclick", data => {
     let type = data.data.type;
@@ -96,23 +105,9 @@ function onBindEvent() {
       openEdgeDrawer.value = true;
     }
   });
-  window.addEventListener("mousewheel", zoom, false);
 }
 
-// 缩放事件
-function zoom(event) {
-  if (event.deltaY > 0) {
-    unref(lf).zoom();
-  } else {
-    unref(lf).zoom(true);
-  }
-  // 防止事件冒泡
-  event.stopPropagation();
-}
-onMounted(() => {
-  initLf();
-  onBindEvent();
-});
+// 下一步
 function next() {
   const data = lf.value.getGraphData();
   for (let i in data.nodes) {
@@ -129,6 +124,13 @@ function next() {
   emit("next", 4);
   router.push("/newTask/permission");
 }
+
+/* 方法调用 */
+onMounted(() => {
+  initLf();
+  onBindEvent();
+  console.log();
+});
 provide("openNodeDrawer", openNodeDrawer);
 provide("openEdgeDrawer", openEdgeDrawer);
 provide("selectedNode", selectedNode);

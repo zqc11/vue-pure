@@ -1,9 +1,7 @@
 <template>
   <div>
     <v-form-designer ref="vfdRef">
-      <el-button :v-slot="button" type="primary" size="small" @click="next"
-        >下一步</el-button
-      >
+      <el-button type="primary" size="small" @click="next">下一步</el-button>
     </v-form-designer>
   </div>
 </template>

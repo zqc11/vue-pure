@@ -1,6 +1,5 @@
 // 静态路由
 import homeRouter from "./home";
-import errorRouter from "./error";
 import editorRouter from "./editor";
 import remainingRouter from "./remaining";
 import flowTaskRouter from "./flowtask";
@@ -13,7 +12,7 @@ import {
 } from "../utils";
 
 // 原始静态路由（未做任何处理）
-const routes = [homeRouter, errorRouter, editorRouter, flowTaskRouter];
+const routes = [homeRouter, editorRouter, flowTaskRouter];
 
 // 导出处理后的静态路由（三级及以上的路由全部拍成二级）
 export const constantRoutes: Array<RouteRecordRaw> = formatTwoStageRoutes(

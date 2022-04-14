@@ -1,9 +1,5 @@
 /* eslint-disable no-redeclare */ /* eslint-disable no-redeclare */
 <template>
-  <div class="righttop">
-    <el-button type="primary" @click="confirmOk()">保存批注</el-button>
-    <el-button type="info" @click="gobackFree()">取消</el-button>
-  </div>
   <div class="btmcenter">
     <el-button-group>
       <el-button size="small" @click="draw('arrow')">绘制箭头</el-button>
@@ -35,6 +31,12 @@
       </el-dropdown>
       <el-color-picker v-model="strokeColor" size="small" />
     </el-button-group>
+    <el-button-group>
+      <el-button type="primary" @click="confirmOk()" size="small"
+        >保存批注</el-button
+      >
+      <el-button type="info" @click="gobackFree()" size="small">取消</el-button>
+    </el-button-group>
   </div>
 </template>
 
@@ -45,11 +47,10 @@ import vjmap from "vjmap";
 import { emitter, getInput } from "/@/utils/ui/ui";
 import { useAppStore } from "/@/store/modules/vjmap/app";
 import { waitSourceLoaded, createDivSvg } from "/@/utils/ui/map";
-// import { takeScreenshot } from "/@/lib/core/src/shared/func";
+/* 变量定义 */
 const app = useAppStore();
 const map = inject("map")();
 let svc = map.getService();
-
 const strokeColor = ref("#e34f51");
 const strokeWidth = ref(5);
 let drawCanvas;
@@ -57,6 +58,10 @@ let fabricCanvas;
 let canvasCoord1, canvasCoord2;
 let canvasWidth, canvasHeight;
 let drawType;
+let id = "";
+let curEditItem; // 当前编辑项
+
+/* 方法定义 */
 const beginFreeDraw = () => {
   if (drawCanvas) {
     return;
@@ -405,10 +410,7 @@ const endFreeDraw = () => {
     drawCanvas = null;
   }
 };
-let id = "";
-let curEditItem; // 当前编辑项
 const confirmOk = async () => {
-  console.log("confirmOk");
   try {
     let name = await getInput("批注", "请输入批注内容", curEditItem?.name);
     id = createDivCanvas(
@@ -469,8 +471,6 @@ const gobackFree = async () => {
   });
 };
 
-beginFreeDraw();
-
 const loadAnnotataion = item => {
   // 加载编辑
   curEditItem = item; // 用编辑的id
@@ -480,6 +480,9 @@ const loadAnnotataion = item => {
     });
   }
 };
+
+/* 方法调用 */
+beginFreeDraw();
 emitter.on("loadAnnotataion", loadAnnotataion);
 onUnmounted(() => emitter.off("loadAnnotataion", loadAnnotataion));
 </script>
