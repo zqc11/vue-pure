@@ -128,9 +128,9 @@ let greetings = computed(() => {
       <el-col
         :xs="24"
         :sm="24"
-        :md="12"
-        :lg="8"
-        :xl="8"
+        :md="24"
+        :lg="12"
+        :xl="12"
         style="margin-bottom: 20px"
         v-motion
         :initial="{
@@ -160,9 +160,9 @@ let greetings = computed(() => {
       <el-col
         :xs="24"
         :sm="24"
-        :md="12"
-        :lg="8"
-        :xl="8"
+        :md="24"
+        :lg="12"
+        :xl="12"
         style="margin-bottom: 20px"
         v-motion
         :initial="{
@@ -192,11 +192,6 @@ let greetings = computed(() => {
       </el-col>
 
       <el-col
-        :xs="24"
-        :sm="24"
-        :md="24"
-        :lg="8"
-        :xl="8"
         style="margin-bottom: 20px"
         v-motion
         :initial="{

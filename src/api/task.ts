@@ -48,3 +48,7 @@ export const saveFormData = data => {
 export const getFlowTemplate = () => {
   return http.get("/getAllFlowTemplate");
 };
+
+export const nodeUpdate = data => {
+  return http.request("post", "/node/nodeUpdate", { data });
+};

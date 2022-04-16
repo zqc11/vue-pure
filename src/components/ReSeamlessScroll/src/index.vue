@@ -451,13 +451,14 @@ function scrollStopMove() {
 // 鼠标滚轮事件
 function wheel(e) {
   e.preventDefault();
+  const wheelStep = 10;
   if (
     unref(options).direction === "left" ||
     unref(options).direction === "right"
   )
     return;
   useDebounceFn(() => {
-    e.deltaY > 0 ? (yPos.value -= step.value) : (yPos.value += step.value);
+    e.deltaY > 0 ? (yPos.value -= wheelStep) : (yPos.value += wheelStep);
   }, 50)();
 }
 

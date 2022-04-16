@@ -1,9 +1,9 @@
 <template>
-  <el-card @click="showInfo(props.task)" shadow="hover" class="card">
+  <el-card @click="showInfo" shadow="hover" class="card">
     <template #header>
       <el-row>
         <el-col>
-          <span>项目名称：</span>
+          <span>流程名称：</span>
           <span> {{ props.task.title }} </span>
         </el-col>
         <el-col>
@@ -45,11 +45,14 @@ const type = computed(() => {
     return "danger";
   } else if (status.value === "已完成") {
     return "success";
+  } else if (status.value === "进行中") {
+    return "warning";
   }
   return "";
 });
-function showInfo(t) {
-  useOperationStoreHook().SET_CURRENT_TASK(t);
+function showInfo() {
+  useOperationStoreHook().SET_CURRENT_TASK(props.task);
+  useOperationStoreHook().SET_CURRENT_NODE(props.node);
   router.push("/taskinfo");
 }
 </script>

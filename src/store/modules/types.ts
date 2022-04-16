@@ -80,4 +80,5 @@ export type ResultType = {
 export type OperationType = {
   currentTask: Object;
   currentBlueprint: Object;
+  currentNode: Object;
 };

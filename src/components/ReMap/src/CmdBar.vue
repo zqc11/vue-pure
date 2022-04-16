@@ -34,7 +34,7 @@
       ></SvgIcon
       >视图管理</el-button
     >
-    <el-button @click="drawTool.showHideDrawTool()"
+    <el-button @click="drawTool.showHideDrawTool()" :disabled="disabled"
       ><SvgIcon
         name="drawing"
         :width="16"
@@ -61,9 +61,12 @@ import { inject } from "vue";
 import { Map } from "vjmap";
 import { emitter } from "/@/utils/ui/ui";
 import { useDrawTool } from "../lib/drawtool";
+/* 变量定义 */
 const map = (inject("map") as Function)() as Map;
 const drawTool = useDrawTool(map);
+let disabled = inject("disabled");
 
+/* 方法定义 */
 const activeTabs = (tabname: string, param?: object) => {
   emitter.emit("activeSideBarTabs", {
     name: tabname,

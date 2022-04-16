@@ -113,7 +113,8 @@
       },
       "properties": {
         "desc": "",
-        "condition": "and"
+        "condition": "and",
+        "outType": "通过"
       },
       "text": {
         "x": 281,
@@ -146,7 +147,8 @@
       },
       "properties": {
         "desc": "",
-        "condition": "and"
+        "condition": "and",
+        "outType": "通过"
       },
       "text": {
         "x": 480,
@@ -179,7 +181,8 @@
       },
       "properties": {
         "desc": "",
-        "condition": "and"
+        "condition": "and",
+        "outType": "通过"
       },
       "text": {
         "x": 675,
@@ -212,7 +215,8 @@
       },
       "properties": {
         "desc": "",
-        "condition": "and"
+        "condition": "and",
+        "outType": "通过"
       },
       "text": {
         "x": 880,
@@ -245,7 +249,8 @@
       },
       "properties": {
         "desc": "",
-        "condition": "and"
+        "condition": "and",
+        "outType": "通过"
       },
       "text": {
         "x": 1073,

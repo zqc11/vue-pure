@@ -5,6 +5,7 @@
         type="primary"
         size="small"
         :icon="DocumentAdd"
+        :disabled="disabled"
         @click="addAnnotataion"
         >新增批注</el-button
       >
@@ -79,6 +80,7 @@ import { emitter, showConfirm } from "/@/utils/ui/ui";
 import { createDivSvg } from "/@/utils/ui/map";
 const app = useAppStore();
 const map = (inject("map") as Function)() as Map;
+let disabled = inject("disabled");
 
 const getMapAnnotataions = computed(() => {
   let key = `${app.curMapId}_${app.curVersion}`;

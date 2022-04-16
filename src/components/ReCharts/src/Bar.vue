@@ -108,7 +108,7 @@ tryOnUnmounted(() => {
   <div
     :class="'bar' + props.index"
     style="width: 100%; height: 35vh"
-    v-if="props.data.length > 0"
+    v-if="props.data.keys.length > 0"
   ></div>
   <div v-else>暂无数据或无权限</div>
 </template>

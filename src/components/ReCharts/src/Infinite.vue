@@ -19,7 +19,7 @@ let classOption = reactive({
   <div class="infinite" v-if="listData.length > 0">
     <ul class="top">
       <li>更新日期</li>
-      <li>项目名称</li>
+      <li>流程名称</li>
       <li>审批人</li>
       <li>当前进度</li>
     </ul>
