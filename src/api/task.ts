@@ -52,3 +52,7 @@ export const getFlowTemplate = () => {
 export const nodeUpdate = data => {
   return http.request("post", "/node/nodeUpdate", { data });
 };
+
+export const saveFlowTemplate = data => {
+  return http.request("post", "/saveFlowTemplate", { data });
+};

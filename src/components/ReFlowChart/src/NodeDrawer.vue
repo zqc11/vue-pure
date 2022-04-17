@@ -11,8 +11,8 @@
       </el-form-item>
 
       <el-form-item label="节点描述">
-        <el-input v-model="node.properties.desc">{{
-          node.properties.desc
+        <el-input v-model="node.properties.description">{{
+          node.properties.description
         }}</el-input>
       </el-form-item>
 

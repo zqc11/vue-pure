@@ -50,7 +50,7 @@ let titleLists = ref([
   }
 ]);
 
-const onControl = (item, key) => {
+const onControl = (_item, key) => {
   ["zoom", "zoom", "resetZoom", "undo", "redo"].forEach((v, i) => {
     let domControl = props.lf;
     if (key === 1) {
@@ -63,10 +63,6 @@ const onControl = (item, key) => {
       domControl[v]();
     }
   });
-};
-
-const nextStep = () => {
-  emit("next");
 };
 
 onMounted(() => {
@@ -95,9 +91,7 @@ onMounted(() => {
         </el-button>
       </li>
       <li>
-        <el-button type="primary" size="small" @click="nextStep">
-          下一步
-        </el-button>
+        <slot name="right"></slot>
       </li>
     </ul>
   </div>

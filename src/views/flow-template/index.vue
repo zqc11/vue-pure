@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { ref, unref, onMounted, provide } from "vue";
+import { ref, unref, onMounted, provide, reactive } from "vue";
 import { LogicFlow, BaseNodeModel, BaseEdgeModel } from "@logicflow/core";
 import { Snapshot, BpmnElement, Menu } from "@logicflow/extension";
-import { useRouter } from "vue-router";
 import { BpmnNode } from "/@/components/ReFlowChart/src/config";
-import logicFlowData from "./logicFlowData.json";
 import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
-import { ElMessage } from "element-plus";
 import { useFlowTaskStoreHook } from "/@/store/modules/flowTask";
 import {
   Control,
@@ -16,9 +13,19 @@ import {
   NodeDrawer,
   EdgeDrawer
 } from "/@/components/ReFlowChart";
+import { saveFlowTemplate } from "/@/api/task";
+import { ResultType } from "/@/store/modules/types";
+import { storageLocal } from "/@/utils/storage";
+import { ElMessage } from "element-plus";
 
 /* 变量定义 */
-const router = useRouter();
+const logicFlowData = {};
+const dialogTableVisible = ref(false);
+const formRef = ref();
+const templateForm = reactive({
+  title: "",
+  description: ""
+});
 // logicflow实例
 let lf = ref<LogicFlow>(null);
 let graphData = ref(null);
@@ -59,8 +66,6 @@ let config = ref({
     ]
   }
 });
-// 下一步触发事件
-const emit = defineEmits(["next"]);
 let nodeList = BpmnNode;
 
 /* 方法定义 */
@@ -96,7 +101,6 @@ function catData() {
 function onBindEvent() {
   unref(lf).on("node:dbclick, edge:dbclick", data => {
     let type = data.data.type;
-    if (type === "bpmn:startEvent" || type === "bpmn:endEvent") return;
     if (type != "bpmn:sequenceFlow") {
       selectedNode.value = lf.value.getNodeModelById(data.data.id);
       openNodeDrawer.value = true;
@@ -110,30 +114,49 @@ function onBindEvent() {
 // 下一步
 function next() {
   const data = lf.value.getGraphData();
-  for (let i in data.nodes) {
-    const node = data.nodes[i];
-    const type = node.type;
-    const notStartOrEnd =
-      type !== "bpmn:startEvent" && type !== "bpmn:endEvent";
-    if (notStartOrEnd && node.properties.checkers.length === 0) {
-      ElMessage.error("节点 " + node.text.value + " 未设置审批人");
-      return;
-    }
-  }
   useFlowTaskStoreHook().setFlowChart(data);
-  emit("next", 4);
-  router.push("/newTask/permission");
 }
 
 const loadFlowChartJson = json => {
   lf.value.render(json);
 };
 
+const saveTemplate = () => {
+  dialogTableVisible.value = true;
+};
+
+const confirm = async formRefEl => {
+  if (!formRefEl) return;
+  await formRefEl.validate(valid => {
+    if (valid) {
+      const data = {
+        title: templateForm.title,
+        description: templateForm.description,
+        creatorId: storageLocal.getItem("info").userInfo.id,
+        json: JSON.stringify(unref(lf).getGraphData()),
+        maintain: []
+      };
+      saveFlowTemplate(data).then((response: ResultType) => {
+        if (response.success) {
+          dialogTableVisible.value = false;
+          formRefEl.resetFields();
+          ElMessage.success("提交成功");
+        }
+      });
+    }
+  });
+};
+
+const cancel = formRefEl => {
+  dialogTableVisible.value = false;
+  if (!formRefEl) return;
+  formRefEl.resetFields();
+};
+
 /* 方法调用 */
 onMounted(() => {
   initLf();
   onBindEvent();
-  console.log();
 });
 provide("openNodeDrawer", openNodeDrawer);
 provide("openEdgeDrawer", openEdgeDrawer);
@@ -153,11 +176,38 @@ provide("selectedEdge", selectedEdge);
       @next="next"
     >
       <template #right>
-        <el-button type="primary" size="small" @click="next">
-          下一步
-        </el-button>
+        <el-button type="primary" size="small" @click="saveTemplate"
+          >保存模板</el-button
+        >
       </template>
     </Control>
+    <el-dialog
+      v-model="dialogTableVisible"
+      title="流程模板信息"
+      width="40%"
+      center
+    >
+      <el-form
+        ref="formRef"
+        label-position="top"
+        label-width="100px"
+        :model="templateForm"
+        style="max-width: 460px"
+      >
+        <el-form-item label="流程模板名称" required>
+          <el-input v-model="templateForm.title" />
+        </el-form-item>
+        <el-form-item label="流程模板描述">
+          <el-input v-model="templateForm.description" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="cancel">取消</el-button>
+          <el-button type="primary" @click="confirm(formRef)">提交</el-button>
+        </span>
+      </template>
+    </el-dialog>
     <!-- 节点面板 -->
     <NodePanel
       :lf="lf"
@@ -202,7 +252,7 @@ provide("selectedEdge", selectedEdge);
 .demo-control {
   position: absolute;
   top: 10px;
-  right: 20px;
+  right: 40px;
   z-index: 2;
 }
 

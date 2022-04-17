@@ -7,7 +7,7 @@
       "y": 200,
       "properties": {
         "status": "未开始",
-        "desc": "",
+        "description": "",
         "checkers": []
       },
       "text": {
@@ -23,7 +23,7 @@
       "y": 200,
       "properties": {
         "status": "未开始",
-        "desc": "",
+        "description": "",
         "checkers": []
       },
       "text": {
@@ -39,7 +39,7 @@
       "y": 200,
       "properties": {
         "status": "未开始",
-        "desc": "",
+        "description": "",
         "checkers": []
       },
       "text": {
@@ -55,7 +55,7 @@
       "y": 200,
       "properties": {
         "status": "未开始",
-        "desc": "",
+        "description": "",
         "checkers": []
       },
       "text": {
@@ -71,7 +71,7 @@
       "y": 200,
       "properties": {
         "status": "未开始",
-        "desc": "",
+        "description": "",
         "checkers": []
       },
       "text": {
@@ -87,7 +87,7 @@
       "y": 200,
       "properties": {
         "status": "未开始",
-        "desc": "",
+        "description": "",
         "checkers": []
       },
       "text": {
@@ -112,7 +112,7 @@
         "y": 200
       },
       "properties": {
-        "desc": "",
+        "description": "",
         "condition": "and",
         "outType": "通过"
       },
@@ -146,7 +146,7 @@
         "y": 200
       },
       "properties": {
-        "desc": "",
+        "description": "",
         "condition": "and",
         "outType": "通过"
       },
@@ -180,7 +180,7 @@
         "y": 200
       },
       "properties": {
-        "desc": "",
+        "description": "",
         "condition": "and",
         "outType": "通过"
       },
@@ -214,7 +214,7 @@
         "y": 200
       },
       "properties": {
-        "desc": "",
+        "description": "",
         "condition": "and",
         "outType": "通过"
       },
@@ -248,7 +248,7 @@
         "y": 200
       },
       "properties": {
-        "desc": "",
+        "description": "",
         "condition": "and",
         "outType": "通过"
       },

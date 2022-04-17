@@ -14,7 +14,9 @@
         <template #header>
           <div class="item-container">
             <span>{{ template.title }}</span>
-            <el-button type="primary">加载</el-button>
+            <el-button type="primary" @click="loadFlowChartJson(template.json)"
+              >加载</el-button
+            >
           </div>
         </template>
         <div>描述：{{ template.description }}</div>
@@ -25,6 +27,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElMessage } from "element-plus";
 import { inject, ref, Ref, watch } from "vue";
 import { getFlowTemplate } from "/@/api/task";
 import { ResultType } from "/@/store/modules/types";
@@ -32,9 +35,16 @@ import { ResultType } from "/@/store/modules/types";
 /* 变量定义 */
 const dialogTableVisible = inject<Ref>("dialogTableVisible");
 const templates = ref([]);
+const emitter = defineEmits(["loadFlowChartJson"]);
 
 /* 方法定义 */
 const handleClose = () => {
+  dialogTableVisible.value = false;
+};
+
+const loadFlowChartJson = json => {
+  emitter("loadFlowChartJson", JSON.parse(json));
+  ElMessage.success("加载成功");
   dialogTableVisible.value = false;
 };
 

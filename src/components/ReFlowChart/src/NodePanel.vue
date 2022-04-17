@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { provide, Ref, ref, unref } from "vue";
+import { provide, Ref, ref } from "vue";
 import { LogicFlow } from "@logicflow/core";
 import { FlowTemplateDrawer } from "/@/components/ReFlowChart";
 
@@ -22,20 +22,22 @@ const props = withDefaults(defineProps<Props>(), {
   nodeList: null
 });
 
-let properties = ref({
-  checkers: []
-});
+const emitter = defineEmits(["loadFlowChartJson"]);
 
 /* 方法定义 */
 const nodeDragNode = item => {
   props.lf.dnd.startDrag({
     type: item.type,
-    properties: unref(properties)
+    properties: item.properties
   });
 };
 
 const openTemplateDrawer = () => {
   dialogTableVisible.value = true;
+};
+
+const loadFlowChartJson = json => {
+  emitter("loadFlowChartJson", json);
 };
 
 /* 方法调用 */
@@ -50,7 +52,7 @@ provide<Ref>("dialogTableVisible", dialogTableVisible);
     plain
     >流程模板</el-button
   >
-  <flow-template-drawer />
+  <flow-template-drawer @loadFlowChartJson="loadFlowChartJson" />
   <!-- 左侧bpmn元素选择器 -->
   <div class="node-panel">
     <div
