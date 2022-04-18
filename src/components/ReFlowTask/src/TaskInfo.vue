@@ -57,6 +57,7 @@ let width = computed(() => {
   return 50;
 });
 let type = computed(() => {
+  if (!blueprint.value) return;
   if (blueprint.value.filename) {
     const isDwg = blueprint.value.filename.endsWith(".dwg");
     if (isDwg) {

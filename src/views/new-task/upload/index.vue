@@ -60,22 +60,19 @@ let svc = new vjmap.Service(app.serviceUrl, app.accessToken);
 
 const onChange = file => {
   if (file.status === "ready") {
-    const isPdf = file.name.endsWith(".pdf");
-    if (isPdf) {
+    const isDwg = file.name.endsWith(".dwg");
+    pdfFileList.value.push(file);
+    if (isDwg) {
       // 如果是pdf文件
-      pdfFileList.value.push(file);
-    } else {
-      // 如果是dwg文件
       dwgFileList.value.push(file);
     }
   }
 };
 
 const onRemove = file => {
-  const isPdf = file.name.endsWith(".pdf");
-  if (isPdf) {
-    pdfFileList.value.splice(pdfFileList.value.indexOf(file), 1);
-  } else {
+  const isDwg = file.name.endsWith(".dwg");
+  pdfFileList.value.splice(pdfFileList.value.indexOf(file), 1);
+  if (isDwg) {
     dwgFileList.value.splice(dwgFileList.value.indexOf(file), 1);
   }
 };
@@ -99,12 +96,15 @@ const next = () => {
   });
 
   pdfFileList.value.forEach(file => {
+    const isPdf = file.name.endsWith(".pdf");
     const uploadFile = {
       filename: file.name,
       location: "",
       type: "pdf"
     };
-    useFlowTaskStoreHook().$state.blueprints.push(uploadFile);
+    if (isPdf) {
+      useFlowTaskStoreHook().$state.blueprints.push(uploadFile);
+    }
   });
   uploadRef.value!.submit();
   loading.value = false;

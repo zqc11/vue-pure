@@ -41,7 +41,7 @@ export const router: Router = createRouter({
 });
 
 // 路由白名单
-const whiteList = ["/login"];
+const whiteList = ["/login", "/register"];
 
 // 路由跳转之前执行的动作
 router.beforeEach((to: toRouteType, _from, next) => {

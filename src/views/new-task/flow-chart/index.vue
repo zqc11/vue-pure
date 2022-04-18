@@ -4,7 +4,6 @@ import { LogicFlow, BaseNodeModel, BaseEdgeModel } from "@logicflow/core";
 import { Snapshot, BpmnElement, Menu } from "@logicflow/extension";
 import { useRouter } from "vue-router";
 import { BpmnNode } from "/@/components/ReFlowChart/src/config";
-import logicFlowData from "./logicFlowData.json";
 import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
 import { ElMessage } from "element-plus";
@@ -84,7 +83,7 @@ function initLf() {
 }
 
 function onRender() {
-  lf.value.render(logicFlowData);
+  lf.value.render({});
 }
 
 // 展示流程json数据弹窗

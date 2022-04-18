@@ -17,6 +17,14 @@
         </template>
       </el-dropdown>
       <el-col :xs="6" :sm="4" :md="3" :lg="2" :xl="2">
+        <el-button
+          class="top-menu-button"
+          @click="downloadFile"
+          :type="onlyForm"
+          >文件下载</el-button
+        >
+      </el-col>
+      <el-col :xs="6" :sm="4" :md="3" :lg="2" :xl="2">
         <el-button class="top-menu-button" @click="showForm" :type="onlyForm"
           >仅显示表单</el-button
         >
@@ -111,7 +119,20 @@ const both = ref("");
 const userId = storageLocal.getItem("info").userInfo.id;
 const dialogVisible = ref(false);
 let disabled = computed(() => {
-  return "进行中|被驳回".indexOf(node.value.properties.status) === -1;
+  console.log(node.value);
+  const hasPassed =
+    node.value.properties.hasPassed !== null
+      ? node.value.properties.hasPassed.indexOf(userId + "") !== -1
+      : false;
+  const hasRejected =
+    node.value.properties.hasRejected !== null
+      ? node.value.properties.hasRejected.indexOf(userId + "") !== -1
+      : false;
+  return (
+    "进行中|被驳回".indexOf(node.value.properties.status) === -1 ||
+    hasPassed ||
+    hasRejected
+  );
 });
 
 /* 方法定义 */
@@ -181,6 +202,7 @@ const confirm = () => {
     .then((response: ResultType) => {
       if (response.success) {
         node.value.properties.status = "未开始";
+        dialogVisible.value = false;
         ElMessage.success("提交成功");
       }
     })
@@ -191,6 +213,18 @@ const confirm = () => {
 
 const rejectToNode = node => {
   active.value = node.properties.orderNum;
+};
+
+const downloadFile = () => {
+  const fileName = currentBlueprint.value.filename;
+  const elink = document.createElement("a");
+  elink.download = fileName;
+  elink.style.display = "none";
+  elink.href = "http://localhost:8080/getPdfFile/" + fileName;
+  document.body.appendChild(elink);
+  elink.click();
+  URL.revokeObjectURL(elink.href); // 释放URL 对象
+  document.body.removeChild(elink);
 };
 
 /* 方法调用 */

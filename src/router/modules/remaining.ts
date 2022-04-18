@@ -12,6 +12,16 @@ const remainingRouter = [
     }
   },
   {
+    path: "/register",
+    name: "register",
+    component: () => import("/@/views/register.vue"),
+    meta: {
+      title: "注册",
+      showLink: false,
+      rank: 102
+    }
+  },
+  {
     path: "/redirect",
     name: "redirect",
     component: Layout,

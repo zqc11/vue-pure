@@ -91,6 +91,11 @@ function onPwdBlur() {
   if (password.value.length === 0)
     removeClass(document.querySelector(".pwd"), "focus");
 }
+
+function register() {
+  console.log("register");
+  router.push("/register");
+}
 </script>
 
 <template>
@@ -177,24 +182,44 @@ function onPwdBlur() {
               />
             </div>
           </div>
-          <button
-            class="btn"
-            v-motion
-            :initial="{
-              opacity: 0,
-              y: 10
-            }"
-            :enter="{
-              opacity: 1,
-              y: 0,
-              transition: {
-                delay: 400
-              }
-            }"
-            @click="onLogin"
-          >
-            登录
-          </button>
+          <div class="btn-container">
+            <button
+              class="btn"
+              v-motion
+              :initial="{
+                opacity: 0,
+                y: 10
+              }"
+              :enter="{
+                opacity: 1,
+                y: 0,
+                transition: {
+                  delay: 400
+                }
+              }"
+              @click="onLogin"
+            >
+              登录
+            </button>
+            <button
+              class="btn register"
+              v-motion
+              :initial="{
+                opacity: 0,
+                y: 10
+              }"
+              :enter="{
+                opacity: 1,
+                y: 0,
+                transition: {
+                  delay: 400
+                }
+              }"
+              @click="register"
+            >
+              注册
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -203,4 +228,18 @@ function onPwdBlur() {
 
 <style scoped>
 @import url("/@/style/login.css");
+
+.register {
+  background-image: linear-gradient(
+    to right,
+    rgb(20, 201, 195),
+    rgb(80, 222, 218),
+    rgb(120, 222, 218)
+  );
+  margin-left: 10px;
+}
+
+.btn-container {
+  display: flex;
+}
 </style>

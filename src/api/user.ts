@@ -16,6 +16,11 @@ export const getLogin = (data: object) => {
   return http.request("post", "/login", { data });
 };
 
+// 注册
+export const register = data => {
+  return http.request("post", "/register", { data });
+};
+
 // 刷新token
 export const refreshToken = (data: object) => {
   return http.request("post", "/refreshToken", { data });
@@ -32,4 +37,8 @@ export const getFriends = id => {
 
 export const getUserById = id => {
   return http.get("/user/" + id);
+};
+
+export const validate = account => {
+  return http.get("/validateAccount/" + account);
 };
